@@ -5,132 +5,278 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tràn Bộ Nhớ - Game Fair</title>
     <style>
-    /* --- CSS STYLING: SKY THEME --- */
-    :root {
-        --bg-gradient-1: #87CEEB; /* Sky Blue */
-        --bg-gradient-2: #E0F7FA; /* Light Cloud */
-        --card-bg: rgba(255, 255, 255, 0.9); /* Trắng mờ */
-        --text-color: #2c3e50; /* Xám đen dễ đọc */
-        --primary-color: #00a8ff; /* Xanh đậm cho nút/tiêu đề */
-        --accent-yellow: #fbc531; /* Vàng mặt trời */
-        --accent-pink: #ff7675; /* Hồng phấn nhẹ */
-        --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
+        /* --- CSS STYLING: SKY THEME (Giao diện Bầu Trời) --- */
+        :root {
+            --bg-gradient-1: #87CEEB; /* Sky Blue - Xanh da trời */
+            --bg-gradient-2: #E0F7FA; /* Light Cloud - Mây trắng nhẹ */
+            --card-bg: rgba(255, 255, 255, 0.95); /* Nền thẻ trắng */
+            --text-color: #2c3e50; /* Màu chữ xám đậm dễ đọc */
+            --primary-color: #00a8ff; /* Xanh đậm chủ đạo */
+            --accent-yellow: #fbc531; /* Vàng mặt trời */
+            --accent-pink: #ff7675; /* Hồng phấn nhấn nhá */
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    body {
-        color: var(--text-color);
-        font-family: var(--font-main);
-        line-height: 1.6;
-        overflow-x: hidden;
-        min-height: 100vh;
-        position: relative;
-        background-color: #87CEEB; /* Fallback color */
-    }
+        body {
+            color: var(--text-color);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+            background-color: #87CEEB;
+        }
 
-    /* --- ANIMATED BACKGROUND (BẦU TRỜI) --- */
-    .bg-animation {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-        background: linear-gradient(180deg, var(--bg-gradient-1) 0%, var(--bg-gradient-2) 100%);
-    }
+        /* --- ANIMATED BACKGROUND (HÌNH NỀN ĐỘNG) --- */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(180deg, var(--bg-gradient-1) 0%, var(--bg-gradient-2) 100%);
+        }
 
-    /* Tạo hình đám mây */
-    .cloud {
-        position: absolute;
-        background: #fff;
-        border-radius: 50px;
-        opacity: 0.8;
-        animation: floatClouds linear infinite;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    }
+        /* Tạo hình đám mây */
+        .cloud {
+            position: absolute;
+            background: #fff;
+            border-radius: 50px;
+            opacity: 0.9;
+            animation: floatClouds linear infinite;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
 
-    /* Tạo hình dáng mây bồng bềnh bằng pseudo-elements */
-    .cloud::after, .cloud::before {
-        content: '';
-        position: absolute;
-        background: inherit;
-        border-radius: 50%;
-    }
-    
-    /* Mây nhỏ: Tùy chỉnh kích thước và tốc độ từng đám */
-    .cloud:nth-child(1) { width: 100px; height: 40px; top: 10%; left: -120px; animation-duration: 25s; }
-    .cloud:nth-child(1)::after { width: 30px; height: 30px; top: -15px; left: 15px; }
-    .cloud:nth-child(1)::before { width: 40px; height: 40px; top: -20px; left: 40px; }
+        .cloud::after, .cloud::before {
+            content: '';
+            position: absolute;
+            background: inherit;
+            border-radius: 50%;
+        }
+        
+        /* Mây 1 */
+        .cloud:nth-child(1) { width: 100px; height: 40px; top: 15%; left: -120px; animation-duration: 25s; }
+        .cloud:nth-child(1)::after { width: 30px; height: 30px; top: -15px; left: 15px; }
+        .cloud:nth-child(1)::before { width: 40px; height: 40px; top: -20px; left: 40px; }
 
-    .cloud:nth-child(2) { width: 160px; height: 60px; top: 30%; left: -200px; animation-duration: 45s; animation-delay: 2s; opacity: 0.6; }
-    .cloud:nth-child(2)::after { width: 50px; height: 50px; top: -25px; left: 25px; }
-    .cloud:nth-child(2)::before { width: 70px; height: 70px; top: -35px; left: 60px; }
+        /* Mây 2 (Lớn) */
+        .cloud:nth-child(2) { width: 160px; height: 60px; top: 35%; left: -200px; animation-duration: 40s; animation-delay: 2s; opacity: 0.7; }
+        .cloud:nth-child(2)::after { width: 50px; height: 50px; top: -25px; left: 25px; }
+        .cloud:nth-child(2)::before { width: 70px; height: 70px; top: -35px; left: 60px; }
 
-    .cloud:nth-child(3) { width: 120px; height: 50px; top: 60%; left: -150px; animation-duration: 35s; animation-delay: 5s; }
-    .cloud:nth-child(3)::after { width: 40px; height: 40px; top: -18px; left: 20px; }
-    .cloud:nth-child(3)::before { width: 50px; height: 50px; top: -25px; left: 50px; }
-    
-    /* Chuyển động mây bay ngang */
-    @keyframes floatClouds {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(120vw); }
-    }
+        /* Mây 3 */
+        .cloud:nth-child(3) { width: 120px; height: 50px; top: 65%; left: -150px; animation-duration: 30s; animation-delay: 5s; }
+        .cloud:nth-child(3)::after { width: 40px; height: 40px; top: -18px; left: 20px; }
+        .cloud:nth-child(3)::before { width: 50px; height: 50px; top: -25px; left: 50px; }
+        
+        @keyframes floatClouds {
+            0% { transform: translateX(-200px); }
+            100% { transform: translateX(110vw); }
+        }
 
-    /* --- HEADER & LAYOUT --- */
-    header {
-        text-align: center;
-        padding: 40px 20px;
-        background: rgba(255, 255, 255, 0.7);
-        backdrop-filter: blur(10px);
-        border-bottom: 4px solid var(--accent-yellow);
-        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    }
+        /* --- HEADER & LAYOUT --- */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            border-bottom: 5px solid var(--accent-yellow);
+            box-shadow: 0 5px 15px rgba(0, 168, 255, 0.1);
+            margin-bottom: 20px;
+        }
 
-    h1 {
-        font-size: 3rem;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        color: var(--primary-color);
-        text-shadow: 2px 2px 0px #fff, 4px 4px 0px rgba(0,0,0,0.1);
-        font-weight: 900;
-    }
+        h1 {
+            font-size: 3.5rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--primary-color);
+            text-shadow: 3px 3px 0px #fff, 5px 5px 0px rgba(0,0,0,0.1);
+            font-weight: 900;
+            margin-bottom: 5px;
+        }
 
-    .subtitle { font-size: 1.2rem; color: #555; margin-top: 10px; font-weight: 600; }
+        .subtitle { 
+            font-size: 1.3rem; 
+            color: #555; 
+            font-weight: 600;
+            background: #fff;
+            display: inline-block;
+            padding: 5px 20px;
+            border-radius: 20px;
+        }
 
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-    }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-    h2 {
-        border-left: 8px solid var(--accent-yellow);
-        padding-left: 20px;
-        margin: 50px 0 30px;
-        text-transform: uppercase;
-        color: var(--primary-color);
-        font-weight: 800;
-        letter-spacing: 1px;
-    }
+        h2 {
+            border-left: 8px solid var(--accent-yellow);
+            padding-left: 20px;
+            margin: 40px 0 30px;
+            text-transform: uppercase;
+            color: var(--primary-color);
+            font-weight: 800;
+            font-size: 1.8rem;
+        }
 
-    /* --- GAME CARDS --- */
-    .game
+        /* --- GAME GRID --- */
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 35px;
+        }
+
+        .game-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 10px 25px rgba(0, 168, 255, 0.15);
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .game-card:hover {
+            transform: translateY(-12px);
+            border-color: var(--accent-yellow);
+            box-shadow: 0 20px 40px rgba(0, 168, 255, 0.25);
+        }
+
+        .price-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--accent-pink);
+            color: #fff;
+            padding: 6px 15px;
+            font-weight: bold;
+            border-radius: 50px;
+            box-shadow: 0 4px 10px rgba(255, 118, 117, 0.4);
+            z-index: 10;
+            font-size: 0.9rem;
+        }
+        .price-tag.free { background: var(--primary-color); box-shadow: 0 4px 10px rgba(0, 168, 255, 0.4); }
+
+        .game-thumb {
+            width: 100%;
+            height: 200px;
+            background-color: #eee;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .game-info { padding: 25px; }
+        .game-title { font-size: 1.5rem; color: var(--primary-color); margin-bottom: 10px; font-weight: 800; }
+        .game-desc { font-size: 0.95rem; color: #666; margin-bottom: 20px; height: 45px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+
+        .btn-play {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: var(--accent-yellow);
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: 800;
+            text-align: center;
+            border-radius: 50px;
+            text-transform: uppercase;
+            transition: 0.2s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 0px #e1b12c; /* Hiệu ứng nổi 3D */
+            font-size: 1rem;
+        }
+
+        .btn-play:active {
+            transform: translateY(4px);
+            box-shadow: none;
+        }
+
+        .btn-play:hover {
+            background: #fcd567;
+        }
+
+        /* Bank Info */
+        .bank-info-display {
+            background: #f0f9ff;
+            padding: 12px;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-color);
+            color: #555;
+            font-size: 0.9rem;
+            margin-top: 15px;
+            display: none;
+            line-height: 1.4;
+        }
+        .show-bank { display: block; }
+
+        /* --- UPLOAD FORM --- */
+        .upload-section {
+            background: #fff;
+            padding: 40px;
+            border-radius: 20px;
+            border: none;
+            margin-top: 50px;
+            box-shadow: 0 15px 40px rgba(0, 168, 255, 0.15);
+        }
+
+        .form-row { display: flex; gap: 20px; margin-bottom: 15px; }
+        .form-col { flex: 1; }
+        .form-group { margin-bottom: 20px; }
+        
+        label { display: block; margin-bottom: 8px; color: var(--primary-color); font-weight: 700; }
+        
+        input, textarea {
+            width: 100%;
+            padding: 15px;
+            background: #f1f9fe;
+            border: 2px solid #dff9fb;
+            color: #333;
+            border-radius: 12px;
+            font-family: inherit;
+            transition: 0.3s;
+        }
+        input:focus, textarea:focus { 
+            outline: none; 
+            border-color: var(--primary-color); 
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(0, 168, 255, 0.1);
+        }
+
+        footer {
+            text-align: center;
+            padding: 50px;
+            margin-top: 80px;
+            font-size: 1rem;
+            color: #fff;
+            background: var(--primary-color);
+            font-weight: bold;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .form-row { flex-direction: column; gap: 0; }
+            h1 { font-size: 2.2rem; }
+            .container { padding: 15px; }
+        }
+    </style>
 </head>
 <body>
 
     <div class="bg-animation">
-        <div class="memory-particle"></div>
-        <div class="memory-particle"></div>
-        <div class="memory-particle"></div>
-        <div class="memory-particle"></div>
-        <div class="memory-particle"></div>
-        <div class="memory-particle"></div>
+        <div class="cloud"></div>
+        <div class="cloud"></div>
+        <div class="cloud"></div>
     </div>
 
     <header>
         <h1>TRÀN BỘ NHỚ</h1>
-        <p class="subtitle">Game Fair - Chơi là phải "Lag"</p>
+        <p class="subtitle">✨ Hội chợ Game Indie - Vui chơi thả ga ✨</p>
     </header>
 
     <div class="container">
@@ -138,98 +284,97 @@
         <div class="game-grid" id="gameGrid">
             </div>
 
-        <h2>🚀 Đăng tải Game & Bán Game</h2>
+        <h2>🚀 Đăng Game của bạn (Giả lập)</h2>
         <div class="upload-section">
             <form id="uploadForm">
                 <div class="form-row">
                     <div class="form-col">
                         <label>Tên Game:</label>
-                        <input type="text" id="gName" required placeholder="Nhập tên game...">
+                        <input type="text" id="gName" required placeholder="Nhập tên game siêu ngầu...">
                     </div>
                     <div class="form-col">
                         <label>Giá Game (VNĐ):</label>
-                        <input type="number" id="gPrice" placeholder="Để 0 nếu Miễn phí">
+                        <input type="number" id="gPrice" placeholder="Để 0 nếu là game Miễn phí">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label>Mô tả Game:</label>
-                    <textarea id="gDesc" rows="3" required placeholder="Giới thiệu game của bạn..."></textarea>
+                    <textarea id="gDesc" rows="3" required placeholder="Game này chơi như thế nào? Cốt truyện là gì?"></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label>Thông tin thanh toán (Ngân hàng/Momo):</label>
-                    <textarea id="gBank" rows="2" placeholder="Ví dụ: MB Bank - 123456789 - NGUYEN VAN A (Chỉ hiện nếu game có phí)"></textarea>
+                    <label>Thông tin thanh toán (Nếu game có phí):</label>
+                    <textarea id="gBank" rows="2" placeholder="Ví dụ: MB Bank - 0123456789 - NGUYEN VAN A"></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label>Ảnh bìa (URL hoặc Chọn ảnh):</label>
+                    <label>Ảnh bìa (Chọn file ảnh):</label>
                     <input type="file" id="gImage" accept="image/*" required>
                 </div>
 
-                <button type="submit" class="btn-play" style="max-width: 200px;">Đăng bán ngay</button>
+                <button type="submit" class="btn-play" style="max-width: 250px; margin: 0 auto;">✨ Đăng bán ngay ✨</button>
             </form>
         </div>
     </div>
 
     <footer>
         <p>&copy; 2024 Nhóm Tràn Bộ Nhớ - Sinh viên IT HCMUS.</p>
-        <p>Website được xây dựng phục vụ mục đích học tập.</p>
+        <p style="font-weight: normal; font-size: 0.8rem; margin-top: 5px;">Website phục vụ mục đích học tập.</p>
     </footer>
 
     <script>
         // --- JAVASCRIPT LOGIC ---
 
-        // 1. Dữ liệu 6 Game của nhóm (Đã cập nhật)
-        // Ảnh placeholder lấy từ Unsplash theo chủ đề game
+        // 1. Dữ liệu 6 Game của nhóm
         const initialGames = [
             { 
                 id: 1, 
                 name: "Magician vs Goblin", 
-                desc: "Cuộc chiến phép thuật giữa pháp sư tối thượng và lũ yêu tinh.", 
+                desc: "Cuộc chiến phép thuật rực lửa giữa pháp sư tối thượng và lũ yêu tinh.", 
                 price: 0, 
                 bankInfo: "",
-                img: "https://images.unsplash.com/photo-1519074069444-1ba4fff66d16?auto=format&fit=crop&w=600&q=80" // Fantasy Theme
+                img: "https://images.unsplash.com/photo-1519074069444-1ba4fff66d16?auto=format&fit=crop&w=600&q=80" 
             },
             { 
                 id: 2, 
                 name: "Sinh viên sinh tồn", 
-                desc: "Thử thách 30 ngày cuối tháng với 50k trong túi. Bạn có sống sót?", 
+                desc: "Thử thách 30 ngày cuối tháng với 50k trong túi. Liệu bạn có sống sót qua mùa mì gói?", 
                 price: 0, 
                 bankInfo: "",
-                img: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80" // Money/Survival Theme
+                img: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80" 
             },
             { 
                 id: 3, 
                 name: "Anya's Neo Dodger", 
-                desc: "Giúp Anya né tránh bài tập về nhà trong thế giới Neon.", 
+                desc: "Giúp Anya né tránh bài tập về nhà trong thế giới đầy màu sắc.", 
                 price: 0, 
                 bankInfo: "",
-                img: "https://images.unsplash.com/photo-1535295972055-1c762f4483e5?auto=format&fit=crop&w=600&q=80" // Cute/Pink Theme
+                img: "https://images.unsplash.com/photo-1535295972055-1c762f4483e5?auto=format&fit=crop&w=600&q=80" 
             },
             { 
                 id: 4, 
                 name: "ERROR RUN", 
-                desc: "Chạy ngay đi trước khi màn hình xanh chết chóc ập tới.", 
+                desc: "Chạy ngay đi trước khi màn hình xanh chết chóc (BSOD) ập tới!", 
                 price: 0, 
                 bankInfo: "",
-                img: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=80" // Matrix/Code Theme
+                img: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=80" 
             },
             { 
                 id: 5, 
                 name: "Naruto Adventure", 
-                desc: "Nhập vai Kakashi thực hiện nhiệm vụ cấp S (Bản Demo).", 
+                desc: "Nhập vai Kakashi thực hiện nhiệm vụ cấp S tại làng Lá (Bản Demo).", 
                 price: 0, 
                 bankInfo: "",
-                img: "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=600&q=80" // Anime/Ninja Theme
+                img: "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=600&q=80" 
             },
             { 
                 id: 6, 
                 name: "Dạo Phố Chill", 
-                desc: "Lái xe dạo quanh thành phố về đêm, thư giãn cùng nhạc Lofi.", 
+                desc: "Lái xe dạo quanh thành phố, thư giãn cùng nhạc Lofi cực chill.", 
                 price: 0, 
                 bankInfo: "",
-                img: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=600&q=80" // City/Chill Theme
+                img: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=600&q=80" 
             }
         ];
 
@@ -261,12 +406,12 @@
                         <p class="game-desc">${game.desc}</p>
                         
                         <div class="bank-info-display ${bankDisplayClass}">
-                            <strong>💳 Thanh toán:</strong><br>
+                            <strong>💳 Chuyển khoản tới:</strong><br>
                             ${game.bankInfo}
                         </div>
 
-                        <button onclick="alert('Đang khởi động game: ${game.name}...')" class="btn-play" style="margin-top: 15px;">
-                            ${isFree ? 'PLAY NOW' : 'MUA & PLAY'}
+                        <button onclick="alert('Đang khởi động game: ${game.name}... Chúc bạn chơi vui vẻ!')" class="btn-play" style="margin-top: 15px;">
+                            ${isFree ? 'CHƠI NGAY' : 'MUA & CHƠI'}
                         </button>
                     </div>
                 `;
@@ -278,7 +423,7 @@
         let currentGames = [...initialGames];
         renderGames(currentGames);
 
-        // 3. Chức năng Upload Game (Cập nhật thêm Giá & Bank)
+        // 3. Chức năng Upload Game (Giả lập)
         uploadForm.addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -304,10 +449,10 @@
                         img: e.target.result 
                     };
 
-                    currentGames.unshift(newGame);
+                    currentGames.unshift(newGame); // Thêm lên đầu
                     renderGames(currentGames);
                     uploadForm.reset();
-                    alert("Đã đăng bán thành công: " + name);
+                    alert("🎉 Đã đăng bán thành công game: " + name);
                     document.getElementById('gallery-title').scrollIntoView({behavior: "smooth"});
                 }
                 

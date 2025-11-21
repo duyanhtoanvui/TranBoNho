@@ -293,13 +293,32 @@
 
     <script>
         // --- DỮ LIỆU ---
+        // --- DỮ LIỆU (Đã thay link ảnh online bằng ảnh trong folder) ---
         const initialGames = [
-            { id: 1, name: "Magician vs Goblin", desc: "Đại chiến phép thuật và quái vật.", price: 0, bankInfo: "", img: "https://images.unsplash.com/photo-1519074069444-1ba4fff66d16?auto=format&fit=crop&w=600&q=80" },
-            { id: 2, name: "Sinh viên sinh tồn", desc: "Sống sót qua mùa thi và mì gói.", price: 0, bankInfo: "", img: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80" },
-            { id: 3, name: "Anya's Neo Dodger", desc: "Né tránh bài tập trong thế giới Neon.", price: 0, bankInfo: "", img: "https://images.unsplash.com/photo-1535295972055-1c762f4483e5?auto=format&fit=crop&w=600&q=80" },
-            { id: 4, name: "ERROR RUN", desc: "Chạy trốn màn hình xanh chết chóc.", price: 0, bankInfo: "", img: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=80" },
-            { id: 5, name: "Naruto Adventure", desc: "Nhiệm vụ Ninja cấp S.", price: 0, bankInfo: "", img: "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=600&q=80" },
-            { id: 6, name: "Dạo Phố Chill", desc: "Lái xe thư giãn cùng nhạc Lofi.", price: 0, bankInfo: "", img: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=600&q=80" }
+            { 
+                id: 1, name: "Magician vs Goblin", desc: "Đại chiến phép thuật và quái vật.", price: 0, bankInfo: "", 
+                img: "GameImage/game1.png" // <-- Đường dẫn tới file ảnh
+            },
+            { 
+                id: 2, name: "Sinh viên sinh tồn", desc: "Sống sót qua mùa thi và mì gói.", price: 0, bankInfo: "", 
+                img: "GameImage/game2.png" 
+            },
+            { 
+                id: 3, name: "Anya's Neo Dodger", desc: "Né tránh bài tập trong thế giới Neon.", price: 0, bankInfo: "", 
+                img: "GameImage/game3.png" 
+            },
+            { 
+                id: 4, name: "ERROR RUN", desc: "Chạy trốn màn hình xanh chết chóc.", price: 0, bankInfo: "", 
+                img: "GameImage/game4.png" 
+            },
+            { 
+                id: 5, name: "Naruto Adventure", desc: "Nhiệm vụ Ninja cấp S.", price: 0, bankInfo: "", 
+                img: "GameImage/game5.png" 
+            },
+            { 
+                id: 6, name: "Dạo Phố Chill", desc: "Lái xe thư giãn cùng nhạc Lofi.", price: 0, bankInfo: "", 
+                img: "GameImage/game6.png" 
+            }
         ];
 
         let currentGames = [...initialGames];

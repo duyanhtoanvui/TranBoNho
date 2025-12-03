@@ -182,11 +182,17 @@
         .game-thumb {
             width: 100%;
             height: 180px;
-            background-size: cover;           /* Ảnh phủ kín như ERROR RUN */
-            background-position: center;      /* Đặt ảnh ở trung tâm */
-            background-repeat: no-repeat;
-            border-radius: 0;                 /* KHÔNG bo góc ảnh */
-            background-color: transparent;    /* Nền trong suốt, không màu phụ */
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .game-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
         .game-info { padding: 20px; }
         .game-title { font-size: 1.3rem; color: var(--primary-color); margin-bottom: 5px; font-weight: 700; }
@@ -353,7 +359,7 @@
                 card.className = 'game-card';
                 card.innerHTML = `
                     <div class="price-tag ${priceClass}">${priceDisplay}</div>
-                    <div class="game-thumb" style="background-image: url('${game.img}');"></div>
+                    <div class="game-thumb"><img src="${game.img}" alt="${game.name}" /></div>
                     <div class="game-info">
                         <h3 class="game-title">${game.name}</h3>
                         <p class="game-desc">${game.desc}</p>

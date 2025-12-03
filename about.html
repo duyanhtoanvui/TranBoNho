@@ -4,25 +4,136 @@
     <meta charset="UTF-8">
     <title>Giới thiệu TBN Studio</title>
     <style>
-        body { background: #e0f7fa; font-family: 'Segoe UI', Arial; color: #2c3e50; text-align: center; }
-        .container { max-width: 600px; margin: 40px auto; background: white; border-radius: 12px; box-shadow: 0 8px 32px #9adbfa33; padding: 30px;}
-        h1 { margin-bottom: 20px; color: #00a8ff;}
-        .video { margin: 0 auto; }
-        p { font-size: 1.1em; }
+        body {
+            background: linear-gradient(120deg, #92dff3 0%, #e0f7fa 100%);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            color: #2c3e50;
+            text-align: center;
+        }
+        .container {
+            max-width: 640px;
+            margin: 48px auto;
+            background: rgba(255,255,255,0.97);
+            border-radius: 16px;
+            box-shadow: 0 8px 36px #00a8ff22;
+            padding: 40px 30px 30px 30px;
+        }
+        h1 {
+            margin-bottom: 10px;
+            color: #00a8ff;
+            letter-spacing: 1px;
+            font-size: 2.25rem;
+        }
+        .subtitle {
+            color: #fbc531;
+            font-size: 1.15rem;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+        .video {
+            margin: 26px auto 26px auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 28px #92dff366;
+        }
+        .desc-box {
+            background: #f0f9ff;
+            border-radius: 10px;
+            padding: 18px 18px 12px 18px;
+            margin-bottom: 22px;
+            font-size: 1.08em;
+            text-align: left;
+            box-shadow: 0 2px 12px rgba(0,175,255,0.06);
+        }
+        .team-info {
+            background: #fff5dd;
+            border-radius: 10px;
+            padding: 18px 18px 10px 18px;
+            text-align: left;
+            box-shadow: 0 4px 16px #fbc53133;
+            margin-bottom: 14px;
+        }
+        .team-info h2 {
+            color: #e67e22;
+            font-size: 1.18rem;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+        }
+        .team-info ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 0;
+        }
+        .team-info li {
+            margin-bottom: 3px;
+            font-size: 1em;
+            color: #555;
+        }
+        .team-contact {
+            margin-top: 12px;
+            font-size: 0.98em;
+            color: #444;
+        }
+        a {
+            color: #0984e3;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        a:hover {
+            color:#fbc531;
+        }
+        @media (max-width: 700px) {
+            .container { padding: 20px 5vw; }
+            .video iframe, .video video { height: 220px;}
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Giới thiệu nhóm TBN Studio</h1>
+        <div class="subtitle">🎮 Tràn Bộ Nhớ - Nơi ý tưởng bay cao! 🎮</div>
+        
         <div class="video">
-            <!-- Nhúng Youtube hoặc video của nhóm bạn -->
-            <iframe width="100%" height="320" 
-                src="https://www.youtube.com/embed/D9lJbQpHuRI"
-                title="Video giới thiệu TBN Studio" 
-                frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" 
+            <!-- Chọn 1 trong 2: Youtube hoặc MP4, xoá cái không cần -->
+            <iframe width="100%" height="320" src="https://www.youtube.com/embed/D9lJbQpHuRI"
+                title="Video giới thiệu TBN Studio" frameborder="0"
+                allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen></iframe>
+            <!-- <video width="100%" height="320" controls>
+                <source src="tbn_intro.mp4" type="video/mp4">
+                Trình duyệt của bạn không hỗ trợ video.
+            </video> -->
         </div>
-        <p>Nhóm Tràn Bộ Nhớ là tập hợp các thành viên trẻ đam mê game, sáng tạo và chia sẻ công nghệ!</p>
+        
+        <div class="desc-box">
+            <b>Tràn Bộ Nhớ (TBN Studio)</b> là nhóm sinh viên yêu thích lập trình game và công nghệ.  
+            Chúng tôi sáng tạo, xây dựng các sản phẩm Indie để kết nối cộng đồng IT trẻ, đem đến trải nghiệm và sân chơi bổ ích cho các bạn đam mê mã hóa.  
+            <br><br>
+            <b>Hoạt động nổi bật:</b>
+            <ul>
+                <li>- Tổ chức hội chợ Game Indie dành cho sinh viên</li>
+                <li>- Phát triển các game sáng tạo theo chủ đề</li>
+                <li>- Chia sẻ, học hỏi các kỹ thuật lập trình mới nhất (Unity, Web, AI…)</li>
+                <li>- Kết nối các cộng đồng IT, hỗ trợ ý tưởng, demo sản phẩm</li>
+            </ul>
+        </div>
+        
+        <div class="team-info">
+            <h2>Thông tin nhóm:</h2>
+            <ul>
+                <li><b>Thành viên hiện tại:</b> Nguyễn Văn A, Trần Thị B, Lê Văn C, ...</li>
+                <li><b>Năm thành lập:</b> 2025</li>
+                <li><b>Địa điểm:</b> Đại học Khoa học tự nhiên HCMUS, Thành phố Hồ Chí Minh</li>
+                <li><b>Dự án tiêu biểu:</b> ERROR RUN, Sinh Viên Sinh Tồn, Anya’s Neo Dodger, ...</li>
+            </ul>
+            <div class="team-contact">
+                <b>Liên hệ:</b>  
+                Email: <a href="mailto:tbnstudio@gmail.com">tbnstudio@gmail.com</a>  
+                | Facebook: <a href="https://facebook.com/tbnstudio" target="_blank">fb.com/tbnstudio</a>
+            </div>
+        </div>
+        
+        <p style="color:#888;font-size:0.97em;">&copy; 2025 Nhóm Tràn Bộ Nhớ | Powered by TBN Studio</p>
     </div>
 </body>
 </html>

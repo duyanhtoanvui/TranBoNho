@@ -182,11 +182,11 @@
         .game-thumb {
             width: 100%;
             height: 180px;
-            background-size: contain;      /* Giúp ảnh vừa khung, không méo */
-            background-position: center;
+            background-size: cover;           /* Ảnh phủ kín như ERROR RUN */
+            background-position: center;      /* Đặt ảnh ở trung tâm */
             background-repeat: no-repeat;
-            background-color: #eee;        /* Nền xám nhẹ khi ảnh không phủ hết */
-            border-radius: 0 0 20px 20px;  /* Bo góc dưới cho mềm mại */
+            border-radius: 0;                 /* KHÔNG bo góc ảnh */
+            background-color: transparent;    /* Nền trong suốt, không màu phụ */
         }
         .game-info { padding: 20px; }
         .game-title { font-size: 1.3rem; color: var(--primary-color); margin-bottom: 5px; font-weight: 700; }

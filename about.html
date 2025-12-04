@@ -3,282 +3,262 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Giới thiệu TBN Studio - Modern UI</title>
+    <title>TBN Studio - Bento Grid UI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        /* --- Cấu hình chung --- */
+        /* --- RESET & VARIABLES --- */
         :root {
-            --primary-color: #00a8ff;
-            --secondary-color: #fbc531;
-            --accent-color: #e67e22;
-            --text-dark: #2c3e50;
-            --text-light: #555;
-            --bg-gradient: linear-gradient(135deg, #92dff3 0%, #e0f7fa 100%);
+            --primary: #0984e3;
+            --accent: #fdcb6e;
+            --dark: #2d3436;
+            --light: #dfe6e9;
+            --glass-bg: rgba(255, 255, 255, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.9);
+            --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
         }
+
+        * { box-sizing: border-box; }
 
         body {
-            background: var(--bg-gradient);
-            font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
-            color: var(--text-dark);
-            text-align: center;
             margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            color: var(--dark);
+            /* Animated Background */
+            background: linear-gradient(-45deg, #74ebd5, #ACB6E5, #81ecec, #fab1a0);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- LAYOUT GRID (BENTO STYLE) --- */
+        .wrapper {
+            width: 100%;
+            max-width: 1200px;
             padding: 20px;
-            line-height: 1.6;
         }
 
-        /* --- Container Chính --- */
-        .container {
-            max-width: 700px;
-            margin: 40px auto;
-            background: rgba(255, 255, 255, 0.98);
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: auto auto;
+            gap: 20px;
+        }
+
+        /* --- CARD STYLING (GLASSMORPHISM) --- */
+        .card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
             border-radius: 24px;
-            /* Bóng đổ mềm mại, hiện đại hơn */
-            box-shadow: 0 20px 60px rgba(0, 168, 255, 0.15), 0 5px 15px rgba(0,0,0,0.05);
-            padding: 50px 40px;
-            overflow: hidden; /* Để chứa các hiệu ứng nền nếu có */
-            position: relative;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* Trang trí nền nhẹ */
-        .container::before {
-            content: '';
-            position: absolute;
-            top: -50px; right: -50px;
-            width: 150px; height: 150px;
-            background: radial-gradient(circle, var(--secondary-color) 10%, transparent 70%);
-            opacity: 0.1;
-            z-index: 0;
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.25);
+        }
+
+        /* --- SPECIFIC AREAS --- */
+        
+        /* 1. Header Area (Góc trái trên) */
+        .area-header {
+            grid-column: span 2;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.85); /* Đậm hơn chút để nổi bật chữ */
+        }
+
+        .tagline {
+            display: inline-block;
+            background: #ffeaa7;
+            color: #d35400;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            width: fit-content;
         }
 
         h1 {
-            margin-bottom: 15px;
-            color: var(--primary-color);
-            letter-spacing: 0.5px;
-            font-size: 2.5rem;
-            font-weight: 700;
-            position: relative;
-        }
-
-        .subtitle {
-            color: var(--secondary-color);
-            font-size: 1.25rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            margin-bottom: 35px;
-            display: inline-block;
-            padding: 5px 15px;
-            background: rgba(251, 197, 49, 0.1);
-            border-radius: 20px;
-        }
-
-        /* --- Phần Video (Đã sửa lỗi link) --- */
-        .video-container {
-            margin: 30px auto 40px auto;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(146, 223, 243, 0.4);
-            position: relative;
-            padding-bottom: 56.25%; /* Tỷ lệ 16:9 */
-            height: 0;
-            background: #000; /* Nền đen khi load */
+            margin: 0;
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #0984e3, #00cec9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.1;
         }
         
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .desc-text {
+            margin-top: 15px;
+            font-size: 1.1rem;
+            color: #636e72;
+        }
+
+        /* 2. Video Area (Góc phải trên - Quan trọng nhất) */
+        .area-video {
+            grid-column: span 2;
+            padding: 0; /* Full card */
+            background: #000;
+            position: relative;
+            min-height: 300px;
+        }
+
+        .area-video iframe {
             width: 100%;
             height: 100%;
-            border: none;
+            position: absolute;
+            top:0; left:0;
         }
 
-        /* --- Các khối nội dung (Content Boxes) --- */
-        .content-section {
-            text-align: left;
-            padding: 30px;
-            border-radius: 16px;
-            margin-bottom: 25px;
-            /* Không dùng bóng đổ nặng, dùng nền gradient siêu nhẹ để phân chia */
+        /* 3. Activities (Góc trái dưới) */
+        .area-activities {
+            grid-column: span 1;
         }
 
-        .desc-box {
-            /* Gradient xanh dương rất nhạt */
-            background: linear-gradient(to bottom right, #f0f9ff, #f8fdff);
-            border: 1px solid #e1f5fe;
-        }
-        
-        .desc-intro {
-            font-size: 1.1rem;
-            margin-bottom: 25px;
-            color: var(--text-dark);
+        /* 4. Team (Góc giữa dưới - Rộng hơn) */
+        .area-team {
+            grid-column: span 2;
         }
 
-        .team-info {
-            /* Gradient cam/vàng rất nhạt */
-            background: linear-gradient(to bottom right, #fffdf5, #fffbf0);
-            border: 1px solid #fff5dd;
+        /* 5. Contact (Góc phải dưới - Nhỏ gọn) */
+        .area-contact {
+            grid-column: span 1;
+            background: linear-gradient(135deg, #0984e3 0%, #74b9ff 100%);
+            color: white;
         }
 
+        /* --- TYPOGRAPHY & LISTS --- */
         h2 {
-            color: var(--accent-color);
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-            font-weight: 700;
+            font-size: 1.2rem;
+            margin-top: 0;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
-        }
-        
-        /* Thêm icon nhỏ trước tiêu đề H2 */
-        h2::before {
-            content: '';
-            display: inline-block;
-            width: 8px; height: 8px;
-            background: var(--accent-color);
-            border-radius: 50%;
-            margin-right: 10px;
+            gap: 10px;
         }
 
-        /* --- Danh sách hiện đại --- */
         ul {
             list-style: none;
-            padding-left: 0;
-            margin-top: 0;
+            padding: 0;
+            margin: 0;
         }
 
-        .modern-list li {
+        li {
             margin-bottom: 12px;
-            font-size: 1.05em;
-            color: var(--text-light);
+            padding-left: 15px;
             position: relative;
-            padding-left: 28px;
+            font-size: 0.95rem;
         }
 
-        /* Tạo icon tùy chỉnh cho danh sách hoạt động */
-        .desc-box .modern-list li::before {
-            content: '🎮'; /* Icon tay cầm game */
-            position: absolute;
-            left: 0;
-            top: 2px;
-            font-size: 16px;
-            color: var(--primary-color);
-        }
-        
-        /* Icon khác cho danh sách thông tin team */
-        .team-info .modern-list li::before {
-             content: '🔹';
-             position: absolute;
-             left: 0;
-             top: 4px;
-             font-size: 12px;
-             color: var(--accent-color);
-        }
-        
-        .team-info li strong {
-            color: var(--text-dark);
-            font-weight: 600;
-        }
-
-        /* --- Liên hệ & Footer --- */
-        .team-contact {
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 2px dashed rgba(230, 126, 34, 0.2);
-            font-size: 1em;
-            color: var(--text-dark);
-            font-weight: 500;
-        }
-
-        a {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        /* Hiệu ứng hover link hiện đại */
-        a::after {
+        li::before {
             content: '';
             position: absolute;
-            width: 100%;
-            height: 2px;
-            bottom: -2px;
-            left: 0;
-            background-color: var(--secondary-color);
-            visibility: hidden;
-            transform: scaleX(0);
-            transition: all 0.3s ease-in-out;
+            left: 0; top: 8px;
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--primary);
         }
 
-        a:hover {
-            color: var(--accent-color);
+        .area-contact h2 { color: white; }
+        .area-contact a { 
+            color: #ffeaa7; 
+            text-decoration: none; 
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
         }
-        
-        a:hover::after {
-            visibility: visible;
-            transform: scaleX(1);
+        .area-contact a:hover { text-decoration: underline; }
+
+        /* Footer nhỏ bên dưới */
+        .footer {
+            grid-column: span 4;
+            text-align: center;
+            font-size: 0.8rem;
+            color: rgba(0,0,0,0.4);
+            margin-top: 10px;
         }
 
-        .footer-text {
-            color: #95a5a6;
-            font-size: 0.9rem;
-            margin-top: 40px;
-        }
-
-        /* --- Responsive --- */
-        @media (max-width: 768px) {
-            .container {
-                margin: 20px 15px;
-                padding: 30px 20px;
+        /* --- RESPONSIVE --- */
+        @media (max-width: 900px) {
+            .bento-grid {
+                grid-template-columns: 1fr; /* Chuyển về 1 cột trên mobile */
+                gap: 15px;
+            }
+            .area-header, .area-video, .area-activities, .area-team, .area-contact, .footer {
+                grid-column: span 1;
+            }
+            .area-video {
+                min-height: 250px; /* Chiều cao cố định cho video trên mobile */
             }
             h1 { font-size: 2rem; }
-            .subtitle { font-size: 1.1rem; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Giới thiệu nhóm Tràn Bộ Nhớ</h1>
-        <div class="subtitle">🚀 Nơi ý tưởng bay cao! 🚀</div>
-        <!-- aPgpJMc6mfUI -->
-        <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/jfKfPfyJRdk"
-                title="Video giới thiệu TBN Studio"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen>
-            </iframe>
-        </div>
-        
-        <div class="content-section desc-box">
-            <div class="desc-intro">
-                <b>Tràn Bộ Nhớ (TBN Studio)</b> là nhóm sinh viên nhiệt huyết yêu thích lập trình game và công nghệ. Chúng tôi sáng tạo, xây dựng các sản phẩm Indie để kết nối cộng đồng IT trẻ, đem đến trải nghiệm và sân chơi bổ ích cho các bạn đam mê Game và lập trình.
-            </div>
+    <div class="wrapper">
+        <div class="bento-grid">
             
-            <h2>Hoạt động nổi bật</h2>
-            <ul class="modern-list">
-                <li>Tổ chức hội chợ Game Indie dành cho sinh viên</li>
-                <li>Phát triển các game sáng tạo theo chủ đề</li>
-                <li>Chia sẻ, học hỏi các kỹ thuật lập trình mới nhất (Unity, Web, AI…)</li>
-                <li>Kết nối các cộng đồng IT, hỗ trợ ý tưởng, demo sản phẩm</li>
-            </ul>
-        </div>
-        
-        <div class="content-section team-info">
-            <h2>Thông tin nhóm</h2>
-            <ul class="modern-list">
-                <li><strong>Thành viên hiện tại:</strong> Đoàn Hoàng Việt, Nguyễn Tấn Duy Anh, Võ Nguyễn Công Trí, Nguyễn Lê Chí Tường, Đỗ Duy Trường, Võ Minh Triết, Đoàn Văn Tiến, Võ Ngọc Bảo Trân</li>
-                <li><strong>Năm thành lập:</strong> 2025</li>
-                <li><strong>Địa điểm:</strong> Đại học Khoa học tự nhiên HCMUS, Thành phố Hồ Chí Minh</li>
-                <li><strong>Dự án tiêu biểu:</strong> ERROR RUN, Sinh Viên Sinh Tồn, Anya’s Neo Dodger, ...</li>
-            </ul>
-            <div class="team-contact">
-                <strong>Liên hệ:</strong>  
-                Email: <a href="mailto:tbnstudio@gmail.com">tbnstudio@gmail.com</a>  
-                <span style="margin: 0 10px; color: #ccc;">|</span>
-                Facebook: <a href="https://facebook.com/tbnstudio" target="_blank">fb.com/tbnstudio</a>
+            <div class="card area-header">
+                <div class="tagline">🚀 Nơi ý tưởng bay cao!</div>
+                <h1>Tràn Bộ Nhớ<br>Studio</h1>
+                <p class="desc-text">
+                    Chúng tôi xây dựng các sản phẩm Indie để kết nối cộng đồng IT trẻ, đem đến sân chơi bổ ích cho đam mê Game và lập trình.
+                </p>
+            </div>
+
+            <div class="card area-video">
+                <iframe src="https://www.youtube.com/embed/aPgpJMc6mfUI" 
+                        title="TBN Intro" frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen></iframe>
+            </div>
+
+            <div class="card area-activities">
+                <h2>🎮 Hoạt động</h2>
+                <ul>
+                    <li>Hội chợ Game Indie</li>
+                    <li>Dev Game theo chủ đề</li>
+                    <li>Workshop Unity, AI</li>
+                    <li>Kết nối cộng đồng</li>
+                </ul>
+            </div>
+
+            <div class="card area-team">
+                <h2>👥 Biệt đội 2025</h2>
+                <p style="margin-top:0; margin-bottom:10px; font-size: 0.9em; opacity: 0.7;">HCMUS - TP.HCM</p>
+                <ul>
+                    <li><strong>Members:</strong> Việt, Duy Anh, Công Trí, Chí Tường, Duy Trường, Minh Triết, Văn Tiến, Bảo Trân</li>
+                    <li><strong>Projects:</strong> ERROR RUN, Sinh Viên Sinh Tồn, Anya’s Neo Dodger</li>
+                </ul>
+            </div>
+
+            <div class="card area-contact">
+                <h2>📬 Kết nối</h2>
+                <a href="mailto:tbnstudio@gmail.com">tbnstudio@gmail.com</a>
+                <a href="https://facebook.com/tbnstudio">fb.com/tbnstudio</a>
+            </div>
+
+            <div class="footer">
+                &copy; 2025 Tràn Bộ Nhớ Studio. All rights reserved.
             </div>
         </div>
-        
-        <p class="footer-text">&copy; 2025 Nhóm Tràn Bộ Nhớ | Powered by TBN Studio</p>
     </div>
 </body>
 </html>

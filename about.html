@@ -204,7 +204,7 @@
             transition: color 0.3s ease, background-color 0.3s ease, border-radius 0.3s ease; 
             padding: 2px 5px; 
             border-radius: 4px; 
-            display: inline-block; /* Quan trọng để padding và background hover hoạt động tốt */
+            /* Mặc định là inline-block */
             margin-right: 5px;
             margin-bottom: 5px;
         }
@@ -212,9 +212,57 @@
         /* Hiệu ứng khi Rê chuột (Hover) */
         .area-team a:hover {
             color: #FFFFFF; 
-            background-color: #50E3C2; /* Xanh ngọc bích xịn sò */
+            background-color: #50E3C2; 
             text-decoration: none; 
         }
+
+        /* --- CSS CHO CĂN CHỈNH LỀ MỚI --- */
+        .area-team ul { padding-left: 0; }
+
+        /* Li chứa members để xử lý layout */
+        .area-team li.member-row { 
+            display: block; 
+            padding-left: 15px; /* Giữ padding để dấu chấm cũ không ảnh hưởng li này */
+            position: relative;
+        }
+
+        /* Loại bỏ dấu chấm tròn cho li members */
+        .area-team li.member-row::before {
+            content: none;
+        }
+
+        /* Đẩy chữ Members: sang trái */
+        .area-team li.member-row strong {
+            float: left; 
+            margin-right: 5px;
+            line-height: 1.5; 
+            padding-top: 2px; /* Căn chỉnh với link đầu tiên */
+        }
+
+        /* Căn chỉnh link đầu tiên để nằm ngay sau Members: */
+        .area-team li.member-row a:first-of-type {
+            margin-left: 0;
+            display: inline-block; /* Để nó nằm cùng dòng với strong */
+            float: none;
+            margin-bottom: 5px;
+        }
+
+        /* Các link/tên còn lại (sau link đầu tiên) sẽ xuống dòng và được indent */
+        .area-team li.member-row a:nth-of-type(n+2) {
+            display: block; /* Xuống dòng */
+            width: fit-content;
+            margin-left: 115px; /* Điều chỉnh giá trị này để căn lề (115px là ước lượng) */
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+        
+        /* Clear float sau li.member-row */
+        .area-team li.member-row::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
 
         /* --- RESPONSIVE --- */
         @media (max-width: 900px) {
@@ -229,6 +277,11 @@
                 min-height: 250px;
             }
             h1 { font-size: 2rem; }
+            
+            /* Điều chỉnh indent trên mobile để không bị lẹm */
+            .area-team li.member-row a:nth-of-type(n+2) {
+                margin-left: 100px; /* Giảm indent trên mobile */
+            }
         }
     </style>
 </head>
@@ -265,21 +318,16 @@
                 <h2>👥 Nhóm TRÀN BỘ NHỚ 2025</h2>
                 <p style="margin-top:0; margin-bottom:10px; font-size: 0.9em; opacity: 0.7;">HCMUS - TP.HCM</p>
                 <ul>
-                    <li>
+                    <li class="member-row">
                         <strong>Members:</strong> 
-                        <a href="#link-dao-pho-chill" target="_blank" title="Game: Dạo Phố CHILL">25120-Đoàn Hoàng Việt</a>, 
+                        <a href="#link-dao-pho-chill" target="_blank" title="Game: Dạo Phố CHILL">25120-Đoàn Hoàng Việt</a>
                         
-                        <a href="#link-error-run" target="_blank" title="Game: ERROR RUN">25120455-Võ Nguyễn Công Trí</a>, 
-                        
-                        <a href="#link-anyas-neo-dodger" target="_blank" title="Game: Anya’s Neo Dodger">25120-Nguyễn Lê Chí Tường</a>, 
-                        
-                        <a href="#link-sinh-vien-sinh-ton" target="_blank" title="Game: Sinh Viên Sinh Tồn">25120-Võ Ngọc Bảo Trân</a>, 
-                        
-                        <a href="#link-naruto-adventure" target="_blank" title="Game: Naruto Adventure">25120-Đỗ Duy Trường</a>, 
-                        
-                        <a href="#link-magician-vs-goblin" target="_blank" title="Game: Magician vs. Goblin">25120-Võ Minh Triết</a>, 
-                        
-                        <a href="#link-website" target="_blank" title="Website: TBN Studio">22120015-Nguyễn Tấn Duy Anh</a>, 
+                        <a href="#link-error-run" target="_blank" title="Game: ERROR RUN">25120455-Võ Nguyễn Công Trí</a>
+                        <a href="#link-anyas-neo-dodger" target="_blank" title="Game: Anya’s Neo Dodger">25120-Nguyễn Lê Chí Tường</a>
+                        <a href="#link-sinh-vien-sinh-ton" target="_blank" title="Game: Sinh Viên Sinh Tồn">25120-Võ Ngọc Bảo Trân</a>
+                        <a href="#link-naruto-adventure" target="_blank" title="Game: Naruto Adventure">25120-Đỗ Duy Trường</a>
+                        <a href="#link-magician-vs-goblin" target="_blank" title="Game: Magician vs. Goblin">25120-Võ Minh Triết</a>
+                        <a href="#link-website" target="_blank" title="Website: TBN Studio">22120015-Nguyễn Tấn Duy Anh</a>
                         <a href="#link-administrator" target="_blank" title="Administrator">25120-Đỗ Văn Tiến</a>
                     </li>
                     <li>

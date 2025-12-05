@@ -50,98 +50,55 @@
         @keyframes floatClouds { 0% { transform: translateX(-200px); } 100% { transform: translateX(110vw); } }
 
         .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 30px;
-            background: var(--nav-bg);
-            backdrop-filter: blur(12px);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
-            border-bottom: 1px solid rgba(255,255,255,0.3);
+            display: flex; justify-content: space-between; align-items: center; padding: 15px 30px;
+            background: var(--nav-bg); backdrop-filter: blur(12px); position: sticky; top: 0;
+            z-index: 1000; box-shadow: 0 2px 15px rgba(0,0,0,0.05); border-bottom: 1px solid rgba(255,255,255,0.3);
         }
         .logo {
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: var(--primary-color);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            font-size: 1.5rem; font-weight: 900; color: var(--primary-color); text-transform: uppercase;
+            letter-spacing: 1px; cursor: pointer; display: flex; align-items: center; gap: 10px;
             text-decoration: none;
         }
         .logo i { color: var(--accent-yellow); font-size: 1.8rem; }
 
-        .nav-links {
-            display: flex;
-            gap: 25px;
-            font-weight: 600;
-        }
-        .nav-links a {
-            text-decoration: none;
-            color: #555;
-            transition: 0.3s;
-            position: relative;
-        }
+        .nav-links { display: flex; gap: 25px; font-weight: 600; }
+        .nav-links a { text-decoration: none; color: #555; transition: 0.3s; position: relative; }
         .nav-links a:hover, .nav-links a.active { color: var(--primary-color); }
         .nav-links a::after {
-            content: ''; position: absolute; width: 0; height: 3px;
-            bottom: -5px; left: 0; background: var(--accent-yellow);
-            transition: width 0.3s; border-radius: 2px;
+            content: ''; position: absolute; width: 0; height: 3px; bottom: -5px; left: 0;
+            background: var(--accent-yellow); transition: width 0.3s; border-radius: 2px;
         }
         .nav-links a:hover::after { width: 100%; }
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
+        .nav-actions { display: flex; align-items: center; gap: 15px; }
         .search-box {
-            position: relative;
-            background: #f1f2f6;
-            border-radius: 30px;
-            padding: 5px 15px;
-            display: flex;
-            align-items: center;
-            border: 2px solid transparent;
-            transition: 0.3s;
+            position: relative; background: #f1f2f6; border-radius: 30px; padding: 5px 15px;
+            display: flex; align-items: center; border: 2px solid transparent; transition: 0.3s;
         }
-        .search-box:focus-within {
-            border-color: var(--primary-color);
-            background: #fff;
-        }
+        .search-box:focus-within { border-color: var(--primary-color); background: #fff; }
         .search-box input {
-            border: none; background: transparent; outline: none;
-            padding: 5px; width: 150px; color: #333; font-size: 0.9rem;
+            border: none; background: transparent; outline: none; padding: 5px; width: 150px; 
+            color: #333; font-size: 0.9rem;
         }
         .search-box i { color: #aaa; }
 
-        .icon-btn {
-            font-size: 1.2rem; color: #555; cursor: pointer; position: relative; transition: 0.3s;
-        }
+        .icon-btn { font-size: 1.2rem; color: #555; cursor: pointer; position: relative; transition: 0.3s; }
         .icon-btn:hover { color: var(--primary-color); transform: scale(1.1); }
         .cart-badge {
-            position: absolute; top: -8px; right: -8px;
-            background: var(--accent-pink); color: white;
-            font-size: 0.7rem; width: 18px; height: 18px;
-            border-radius: 50%; display: flex; justify-content: center; align-items: center;
-            font-weight: bold;
+            position: absolute; top: -8px; right: -8px; background: var(--accent-pink); color: white;
+            font-size: 0.7rem; width: 18px; height: 18px; border-radius: 50%; display: flex; 
+            justify-content: center; align-items: center; font-weight: bold;
         }
         .btn-login {
-            background: var(--primary-color); color: white;
-            border: none; padding: 8px 20px; border-radius: 20px;
-            font-weight: bold; cursor: pointer; transition: 0.3s;
+            background: var(--primary-color); color: white; border: none; padding: 8px 20px; 
+            border-radius: 20px; font-weight: bold; cursor: pointer; transition: 0.3s;
             box-shadow: 0 4px 10px rgba(0, 168, 255, 0.3);
         }
         .btn-login:hover { background: var(--primary-dark); transform: translateY(-2px); }
 
         .hero { text-align: center; padding: 60px 20px 40px; }
         .hero h1 {
-            font-size: 3rem; color: var(--primary-color);
-            text-shadow: 3px 3px 0px #fff; margin-bottom: 10px;
+            font-size: 3rem; color: var(--primary-color); text-shadow: 3px 3px 0px #fff; 
+            margin-bottom: 10px;
         }
         .hero p { background: #fff; display: inline-block; padding: 5px 20px; border-radius: 20px; color: #666; font-weight: 600; }
 
@@ -149,31 +106,18 @@
         h2 { border-left: 8px solid var(--accent-yellow); padding-left: 20px; margin: 20px 0 30px; text-transform: uppercase; color: var(--primary-color); font-weight: 800; }
         .game-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
         .game-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            overflow: hidden;
-            transition: all 0.3s;
-            box-shadow: 0 10px 25px rgba(0, 168, 255, 0.15);
-            position: relative;
+            background: var(--card-bg); border-radius: 20px; overflow: hidden; transition: all 0.3s;
+            box-shadow: 0 10px 25px rgba(0, 168, 255, 0.15); position: relative;
             border: 2px solid transparent;
         }
         .game-card:hover { transform: translateY(-10px); border-color: var(--accent-yellow); }
         .price-tag { position: absolute; top: 15px; right: 15px; background: var(--accent-pink); color: #fff; padding: 5px 12px; border-radius: 20px; font-weight: bold; font-size: 0.85rem; z-index: 2; }
         .price-tag.free { background: var(--primary-color); }
         .game-thumb {
-            width: 100%;
-            height: 180px;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
+            width: 100%; height: 180px; overflow: hidden; display: flex; align-items: center;
             justify-content: center;
         }
-        .game-thumb img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
+        .game-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
         .game-info { padding: 20px; }
         .game-title { font-size: 1.3rem; color: var(--primary-color); margin-bottom: 5px; font-weight: 700; }
         .game-desc { font-size: 0.9rem; color: #666; height: 42px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; margin-bottom: 15px;}
@@ -190,6 +134,56 @@
         input, textarea { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #ddd; background: #f9f9f9; outline: none; }
         input:focus, textarea:focus { border-color: var(--primary-color); background: #fff; }
         footer { text-align: center; padding: 40px; margin-top: 60px; color: #fff; background: var(--primary-color); font-weight: bold; }
+        
+        /* --- CSS MỚI CHO TRANG CHI TIẾT GAME (DETAIL PAGE) --- */
+        .detail-header { text-align: left; padding-top: 20px; margin-bottom: 30px; }
+        .detail-header h1 { font-size: 3rem; color: var(--text-color); text-shadow: none; margin-bottom: 5px; }
+        .detail-header p { background: var(--card-bg); padding: 5px 10px; border-radius: 10px; color: #555; font-weight: 600; display: inline-block; }
+
+        .detail-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; align-items: start; }
+        .video-player {
+            width: 100%;
+            height: 450px; 
+            background: #000;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        .video-player iframe {
+            width: 100%; height: 100%; border: none;
+        }
+
+        .game-specs {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .game-specs h3 { 
+            color: var(--primary-dark); 
+            margin-bottom: 15px; 
+            border-bottom: 3px solid var(--accent-yellow); 
+            padding-bottom: 5px; 
+        }
+        .spec-item { margin-bottom: 10px; font-size: 0.95rem; }
+        .spec-item strong { 
+            color: var(--text-color); 
+            display: inline-block; 
+            width: 110px; 
+        }
+        .spec-item span { font-weight: normal; color: #555; }
+        
+        .story-section { margin-top: 30px; }
+        .story-section h2 { margin-bottom: 15px; border-left: 8px solid var(--accent-pink); }
+        .story-section p, .story-section ul { background: var(--card-bg); padding: 20px; border-radius: 15px; margin-top: 15px; color: #333; }
+        .story-section ul { list-style: disc inside; padding-left: 40px; }
+
+
+        @media (max-width: 900px) {
+            .detail-grid { grid-template-columns: 1fr; }
+            .video-player { height: 300px; }
+        }
         @media (max-width: 768px) {
             .navbar { flex-direction: column; gap: 15px; padding: 15px; }
             .nav-links { gap: 15px; font-size: 0.9rem; width: 100%; justify-content: center; }
@@ -201,111 +195,132 @@
 </head>
 <body>
 
-    <div class="bg-animation">
-        <div class="cloud"></div>
-        <div class="cloud"></div>
-        <div class="cloud"></div>
-    </div>
-
-    <!-- Navbar với logo là <a> mở tab mới, thêm link Đăng tải game -->
-    <nav class="navbar">
-        <a class="logo" href="about.html" target="_blank">
-            <i class="fa-solid fa-gamepad"></i> TBN STUDIO
-        </a>
-        
-        <div class="nav-links">
-            <a href="#" class="active">Trang chủ</a>
-            <a href="#gallery-title">Khám phá</a>
-            <a href="#">Thể loại <i class="fa-solid fa-caret-down" style="font-size: 0.8rem;"></i></a>
-            <a href="#">Cộng đồng</a>
-            <a href="#uploadForm" id="uploadNavBtn" style="color:#00a8ff;font-weight:bold;">
-                <i class="fa-solid fa-upload"></i> Đăng tải game
-            </a>
+    <div id="app-container">
         </div>
-
-        <div class="nav-actions">
-            <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Tìm game...">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </div>
-            <div class="icon-btn" onclick="alert('Giỏ hàng của bạn đang trống!')">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <span class="cart-badge">0</span>
-            </div>
-            <button class="btn-login" onclick="alert('Chức năng đăng nhập đang bảo trì!')">Đăng nhập</button>
-        </div>
-    </nav>
-
-    <div class="hero">
-        <h1>TRÀN BỘ NHỚ</h1>
-        <p>✨ Hội chợ Game Indie - Nơi ý tưởng thành hiện thực ✨</p>
-    </div>
-
-    <div class="container">
-        <h2 id="gallery-title">🔥 Game Đề Xuất</h2>
-        <div class="game-grid" id="gameGrid"></div>
-
-        <h2>🚀 Đăng Game Mới</h2>
-        <div class="upload-section" id="uploadForm">
-            <form>
-                <div class="form-row">
-                    <div class="form-col">
-                        <label>Tên Game:</label>
-                        <input type="text" id="gName" required placeholder="Tên game...">
-                    </div>
-                    <div class="form-col">
-                        <label>Giá (VNĐ):</label>
-                        <input type="number" id="gPrice" placeholder="0 = Free">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Mô tả:</label>
-                    <textarea id="gDesc" rows="2" required placeholder="Mô tả ngắn..."></textarea>
-                </div>
-                <div class="form-group">
-                    <label>Thông tin Bank (Nếu bán):</label>
-                    <textarea id="gBank" rows="1" placeholder="STK nhận tiền..."></textarea>
-                </div>
-                <div class="form-group">
-                    <label>Ảnh bìa:</label>
-                    <input type="file" id="gImage" accept="image/*" required>
-                </div>
-                <button type="submit" class="btn-play" style="width: 200px; margin: 0 auto; display: block;">Đăng ngay</button>
-            </form>
-        </div>
-    </div>
 
     <footer>
         <p>&copy; 2025 Nhóm TRÀN BỘ NHỚ.</p>
     </footer>
 
     <script>
-        // JS scroll Đăng tải game khi bấm nav
-        document.getElementById("uploadNavBtn").addEventListener("click", function(e){
-            e.preventDefault();
-            document.getElementById("uploadForm").scrollIntoView({behavior: "smooth"});
-        });
-
+        // --- 1. GAME DATA ---
         const initialGames = [
-            { id: 1, name: "Magician vs Goblin", desc: "Đại chiến phép thuật và quái vật.", price: 0, bankInfo: "", img: "GameImage/game1.png"},
-            { id: 2, name: "Sinh viên sinh tồn", desc: "Sống sót qua mùa thi và mì gói.", price: 0, bankInfo: "", img: "GameImage/game2.png"},
-            { id: 3, name: "Anya's Neo Dodger", desc: "Né tránh bài tập trong thế giới Neon.", price: 0, bankInfo: "", img: "GameImage/game3.png"},
-            { id: 4, name: "ERROR RUN", desc: "Chạy trốn màn hình xanh chết chóc.", price: 0, bankInfo: "", img: "GameImage/game4.png"},
-            { id: 5, name: "Naruto Adventure", desc: "Nhiệm vụ Ninja cấp S.", price: 0, bankInfo: "", img: "GameImage/game5.png"},
-            { id: 6, name: "Dạo Phố Chill", desc: "Lái xe thư giãn cùng nhạc Lofi.", price: 0, bankInfo: "", img: "GameImage/game6.png"}
+            // Thêm các trường dữ liệu mới (video, detail)
+            { id: 1, name: "Magician vs Goblin", desc: "Đại chiến phép thuật và quái vật. Game nhập vai hành động.", price: 50000, bankInfo: "999999 - Techcombank - TEN NGUOI NHAN", img: "GameImage/game1.png", genre: "RPG, Action", players: "Single", developer: "Đoàn Hoàng Việt", release: "07/10/2025", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1"},
+            { id: 2, name: "Sinh viên sinh tồn", desc: "Sống sót qua mùa thi và mì gói.", price: 0, bankInfo: "", img: "GameImage/game2.png", genre: "Survival, Simulation", players: "Single/Multi", developer: "Võ Nguyễn Công Trí", release: "08/10/2025", videoUrl: "https://www.youtube.com/embed/aPgpJMc6mfU?autoplay=1&mute=1"},
+            { id: 3, name: "Anya's Neo Dodger", desc: "Né tránh bài tập trong thế giới Neon.", price: 0, bankInfo: "", img: "GameImage/game3.png", genre: "Arcade, Endless Runner", players: "Single", developer: "Nguyễn Lê Chí Tường", release: "09/10/2025", videoUrl: "https://www.youtube.com/embed/n4yK54iF55g?autoplay=1&mute=1"},
+            { id: 4, name: "ERROR RUN", desc: "Chạy trốn màn hình xanh chết chóc.", price: 20000, bankInfo: "777777 - ACB - NGUYEN LE CHI TUONG", img: "GameImage/game4.png", genre: "Platformer, Horror", players: "Single", developer: "Võ Ngọc Bảo Trân", release: "10/10/2025", videoUrl: "https://www.youtube.com/embed/aPgpJMc6mfU?autoplay=1&mute=1"},
+            { id: 5, name: "Naruto Adventure", desc: "Nhiệm vụ Ninja cấp S. Game phiêu lưu.", price: 0, bankInfo: "", img: "GameImage/game5.png", genre: "Adventure, Fighting", players: "Single", developer: "Đỗ Duy Trường", release: "11/10/2025", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1"},
+            { id: 6, name: "Dạo Phố Chill", desc: "Lái xe thư giãn cùng nhạc Lofi.", price: 100000, bankInfo: "111111 - Vietcombank - VO MINH TRIET", img: "GameImage/game6.png", genre: "Simulation, Relax", players: "Single", developer: "Võ Minh Triết", release: "12/10/2025", videoUrl: "https://www.youtube.com/embed/n4yK54iF55g?autoplay=1&mute=1"}
         ];
 
         let currentGames = [...initialGames];
-        const gameGrid = document.getElementById('gameGrid');
-        const uploadForm = document.getElementById('uploadForm').querySelector('form');
-        const searchInput = document.getElementById('searchInput');
-
+        const appContainer = document.getElementById('app-container');
         const formatter = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' });
 
-        function renderGames(games) {
-            gameGrid.innerHTML = "";
+        // --- 2. RENDER TRANG CHỦ (HOMEPAGE) ---
+        function renderHomePage() {
+            appContainer.innerHTML = `
+                <nav class="navbar">
+                    <a class="logo" href="${window.location.pathname}" target="_self">
+                        <i class="fa-solid fa-gamepad"></i> TBN STUDIO
+                    </a>
+                    
+                    <div class="nav-links">
+                        <a href="#" class="active">Trang chủ</a>
+                        <a href="#gallery-title">Khám phá</a>
+                        <a href="#">Thể loại <i class="fa-solid fa-caret-down" style="font-size: 0.8rem;"></i></a>
+                        <a href="#">Cộng đồng</a>
+                        <a href="#uploadForm" id="uploadNavBtn" style="color:#00a8ff;font-weight:bold;">
+                            <i class="fa-solid fa-upload"></i> Đăng tải game
+                        </a>
+                    </div>
+
+                    <div class="nav-actions">
+                        <div class="search-box">
+                            <input type="text" id="searchInput" placeholder="Tìm game...">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </div>
+                        <div class="icon-btn" onclick="alert('Giỏ hàng của bạn đang trống!')">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            <span class="cart-badge">0</span>
+                        </div>
+                        <button class="btn-login" onclick="alert('Chức năng đăng nhập đang bảo trì!')">Đăng nhập</button>
+                    </div>
+                </nav>
+
+                <div class="hero">
+                    <h1>TRÀN BỘ NHỚ</h1>
+                    <p>✨ Hội chợ Game Indie - Nơi ý tưởng thành hiện thực ✨</p>
+                </div>
+
+                <div class="container">
+                    <h2 id="gallery-title">🔥 Game Đề Xuất</h2>
+                    <div class="game-grid" id="gameGrid"></div>
+
+                    <h2>🚀 Đăng Game Mới</h2>
+                    <div class="upload-section" id="uploadForm">
+                        <form id="uploadFormContent">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label>Tên Game:</label>
+                                    <input type="text" id="gName" required placeholder="Tên game...">
+                                </div>
+                                <div class="form-col">
+                                    <label>Giá (VNĐ):</label>
+                                    <input type="number" id="gPrice" placeholder="0 = Free">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Mô tả:</label>
+                                <textarea id="gDesc" rows="2" required placeholder="Mô tả ngắn..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Thông tin Bank (Nếu bán):</label>
+                                <textarea id="gBank" rows="1" placeholder="STK nhận tiền..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Ảnh bìa:</label>
+                                <input type="file" id="gImage" accept="image/*" required>
+                            </div>
+                            <button type="submit" class="btn-play" style="width: 200px; margin: 0 auto; display: block;">Đăng ngay</button>
+                        </form>
+                    </div>
+                </div>
+            `;
+            
+            // Re-select DOM elements and attach events after rendering
+            const gameGrid = document.getElementById('gameGrid');
+            const uploadForm = document.getElementById('uploadFormContent');
+            const searchInput = document.getElementById('searchInput');
+            const uploadNavBtn = document.getElementById("uploadNavBtn");
+
+            // Re-render games
+            renderGames(currentGames, gameGrid);
+            
+            // Re-attach scroll event
+            uploadNavBtn.addEventListener("click", function(e){
+                e.preventDefault();
+                document.getElementById("uploadForm").scrollIntoView({behavior: "smooth"});
+            });
+
+            // Re-attach search event
+            searchInput.addEventListener('input', function(e) {
+                const keyword = e.target.value.toLowerCase();
+                const filteredGames = currentGames.filter(game => 
+                    game.name.toLowerCase().includes(keyword)
+                );
+                renderGames(filteredGames, gameGrid);
+            });
+
+            // Re-attach upload event
+            uploadForm.addEventListener('submit', handleGameUpload);
+        }
+
+        function renderGames(games, gridElement) {
+            gridElement.innerHTML = "";
             if(games.length === 0) {
-                gameGrid.innerHTML = "<p style='text-align:center; color:#666; grid-column: 1/-1;'>Không tìm thấy game nào...</p>";
+                gridElement.innerHTML = "<p style='text-align:center; color:#666; grid-column: 1/-1;'>Không tìm thấy game nào...</p>";
                 return;
             }
             games.forEach(game => {
@@ -323,26 +338,16 @@
                         <h3 class="game-title">${game.name}</h3>
                         <p class="game-desc">${game.desc}</p>
                         <div class="bank-info-display ${bankDisplayClass}">💳 CK: ${game.bankInfo}</div>
-                        <button onclick="alert('Play: ${game.name}')" class="btn-play" style="margin-top:10px">
+                        <button onclick="openGameDetail(${game.id})" class="btn-play" style="margin-top:10px">
                             ${isFree ? 'CHƠI NGAY' : 'MUA NGAY'}
                         </button>
                     </div>
                 `;
-                gameGrid.appendChild(card);
+                gridElement.appendChild(card);
             });
         }
-
-        renderGames(currentGames);
-
-        searchInput.addEventListener('input', function(e) {
-            const keyword = e.target.value.toLowerCase();
-            const filteredGames = currentGames.filter(game => 
-                game.name.toLowerCase().includes(keyword)
-            );
-            renderGames(filteredGames);
-        });
-
-        uploadForm.addEventListener('submit', function(e) {
+        
+        function handleGameUpload(e) {
             e.preventDefault();
             const name = document.getElementById('gName').value;
             const desc = document.getElementById('gDesc').value;
@@ -355,16 +360,116 @@
                 reader.onload = function(e) {
                     const newGame = {
                         id: Date.now(), name: name, desc: desc, price: price, bankInfo: bank,
-                        img: e.target.result 
+                        img: e.target.result, 
+                        // Thêm placeholders cho game mới
+                        genre: "Chưa xác định", players: "1", developer: "Bạn", release: new Date().toLocaleDateString('vi-VN'),
+                        videoUrl: "https://www.youtube.com/embed/n4yK54iF55g?autoplay=1&mute=1" 
                     };
                     currentGames.unshift(newGame);
-                    renderGames(currentGames);
+                    renderHomePage(); // Re-render để cập nhật danh sách
                     uploadForm.reset();
                     alert("Đăng game thành công!");
-                    searchInput.value = "";
+                    document.getElementById('searchInput').value = "";
                     document.getElementById('gallery-title').scrollIntoView({behavior: "smooth"});
                 }
                 reader.readAsDataURL(fileInput.files[0]);
+            }
+        }
+
+
+        // --- 3. LOGIC TRANG CHI TIẾT GAME (DETAIL PAGE) ---
+        function openGameDetail(gameId) {
+            // Mở trang chi tiết bằng cách thêm tham số 'game' vào URL và mở tab mới
+            window.open(`${window.location.pathname}?game=${gameId}`, '_blank');
+        }
+
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+        
+        function renderDetailPage(game) {
+            const isFree = game.price == 0;
+            const priceDisplay = isFree ? "FREE" : formatter.format(game.price);
+
+            appContainer.innerHTML = `
+                <nav class="navbar">
+                    <a class="logo" href="${window.location.pathname}" target="_self">
+                        <i class="fa-solid fa-gamepad"></i> TBN STUDIO
+                    </a>
+                    <div class="nav-links">
+                        <a href="${window.location.pathname}">Trang chủ</a>
+                        <a href="#">Khám phá</a>
+                    </div>
+                </nav>
+
+                <div class="container">
+                    <div class="detail-header">
+                        <h1>${game.name}</h1>
+                        <p>Tác giả: ${game.developer}</p>
+                        <button onclick="alert('${isFree ? 'Bắt đầu chơi ngay!' : 'Đã mua game! Vui lòng chuyển khoản: ' + game.bankInfo}')" 
+                                class="btn-play" style="width: 200px; margin-top: 20px; background: ${isFree ? 'var(--primary-color)' : 'var(--accent-pink)'}; box-shadow: 0 3px 0 ${isFree ? 'var(--primary-dark)' : '#d63031'}; color: white;">
+                            ${isFree ? 'CHƠI NGAY' : 'MUA VÀ TẢI'}
+                        </button>
+                    </div>
+
+                    <div class="detail-grid">
+                        <div class="main-content">
+                            <div class="video-player">
+                                <iframe src="${game.videoUrl}" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                            </div>
+
+                            <div class="story-section">
+                                <h2>📖 Chi tiết về Game</h2>
+                                <p><strong>Mô tả Game:</strong> ${game.desc} <br> ${game.bankInfo ? `**Lưu ý:** Vui lòng chuyển khoản đến **${game.bankInfo}** để nhận link tải.` : ''}</p>
+
+                                <h2>💡 Cốt truyện & Ý tưởng</h2>
+                                <p>Đây là khu vực chứa **Cốt truyện** và **Ý tưởng làm game**. Hiện tại đang được để trống (Chưa có dữ liệu chi tiết cho game này). </p>
+                                
+                                <p>Chúng tôi cam kết mang đến trải nghiệm độc đáo và sáng tạo. Cảm ơn bạn đã ủng hộ!</p>
+
+                                <h3>Hướng dẫn chơi và Điều kiện thắng/thua:</h3>
+                                <ul>
+                                    <li>**Cách chơi:** (Chưa có chi tiết)</li>
+                                    <li>**Điều kiện Thắng:** (Chưa có chi tiết)</li>
+                                    <li>**Điều kiện Thua:** (Chưa có chi tiết)</li>
+                                </ul>
+
+                            </div>
+                        </div>
+
+                        <div class="game-specs">
+                            <h3>🎮 Thông số kỹ thuật</h3>
+                            <div class="spec-item"><strong>Thể loại:</strong> <span>${game.genre}</span></div>
+                            <div class="spec-item"><strong>Số người chơi:</strong> <span>${game.players}</span></div>
+                            <div class="spec-item"><strong>Phát triển bởi:</strong> <span>${game.developer}</span></div>
+                            <div class="spec-item"><strong>Ngày đăng tải:</strong> <span>${game.release}</span></div>
+                            <div class="spec-item"><strong>Giá tiền:</strong> <span>${priceDisplay}</span></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            // Cập nhật title của tab
+            document.title = `${game.name} - Chi tiết | TBN Studio`;
+        }
+
+        // --- 4. KHỞI CHẠY LOGIC CHÍNH ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const gameId = getQueryParam('game');
+
+            if (gameId) {
+                // Nếu có tham số 'game', hiển thị trang chi tiết
+                const selectedGame = currentGames.find(g => g.id == gameId);
+                if (selectedGame) {
+                    renderDetailPage(selectedGame);
+                } else {
+                    // Xử lý game không tồn tại
+                    alert("Game này không tồn tại!");
+                    window.location.href = window.location.pathname; // Quay về trang chủ
+                }
+            } else {
+                // Nếu không có tham số, hiển thị trang chủ
+                renderHomePage();
             }
         });
     </script>

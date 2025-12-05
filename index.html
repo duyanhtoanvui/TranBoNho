@@ -206,12 +206,12 @@
         // --- 1. GAME DATA ---
         const initialGames = [
             // Thêm các trường dữ liệu mới (video, detail)
-            { id: 1, name: "Magician vs Goblin", desc: "Đại chiến phép thuật và quái vật. Game nhập vai hành động.", price: 50000, bankInfo: "999999 - Techcombank - TEN NGUOI NHAN", img: "GameImage/game1.png", genre: "RPG, Action", players: "Single", developer: "Đoàn Hoàng Việt", release: "07/10/2025", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1"},
-            { id: 2, name: "Sinh viên sinh tồn", desc: "Sống sót qua mùa thi và mì gói.", price: 0, bankInfo: "", img: "GameImage/game2.png", genre: "Survival, Simulation", players: "Single/Multi", developer: "Võ Nguyễn Công Trí", release: "08/10/2025", videoUrl: "https://www.youtube.com/embed/aPgpJMc6mfU?autoplay=1&mute=1"},
-            { id: 3, name: "Anya's Neo Dodger", desc: "Né tránh bài tập trong thế giới Neon.", price: 0, bankInfo: "", img: "GameImage/game3.png", genre: "Arcade, Endless Runner", players: "Single", developer: "Nguyễn Lê Chí Tường", release: "09/10/2025", videoUrl: "https://www.youtube.com/embed/n4yK54iF55g?autoplay=1&mute=1"},
-            { id: 4, name: "ERROR RUN", desc: "Chạy trốn màn hình xanh chết chóc.", price: 20000, bankInfo: "777777 - ACB - NGUYEN LE CHI TUONG", img: "GameImage/game4.png", genre: "Platformer, Horror", players: "Single", developer: "Võ Ngọc Bảo Trân", release: "10/10/2025", videoUrl: "https://www.youtube.com/embed/aPgpJMc6mfU?autoplay=1&mute=1"},
-            { id: 5, name: "Naruto Adventure", desc: "Nhiệm vụ Ninja cấp S. Game phiêu lưu.", price: 0, bankInfo: "", img: "GameImage/game5.png", genre: "Adventure, Fighting", players: "Single", developer: "Đỗ Duy Trường", release: "11/10/2025", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1"},
-            { id: 6, name: "Dạo Phố Chill", desc: "Lái xe thư giãn cùng nhạc Lofi.", price: 100000, bankInfo: "111111 - Vietcombank - VO MINH TRIET", img: "GameImage/game6.png", genre: "Simulation, Relax", players: "Single", developer: "Võ Minh Triết", release: "12/10/2025", videoUrl: "https://www.youtube.com/embed/n4yK54iF55g?autoplay=1&mute=1"}
+            { id: 1, name: "Magician vs Goblin", desc: "Đại chiến ảo thuật gia và quái vật. Game nhập vai hành động.", price: 50000, bankInfo: "999999 - Techcombank - VO MINH TRIET", img: "GameImage/game1.png", genre: "RPG, Action", players: "Single", developer: "Võ Minh Triết", release: "07/11/2025", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1"},
+            { id: 2, name: "Sinh viên sinh tồn", desc: "Sống sót qua 30 ngày cùng những biến cố bất ngờ.", price: 0, bankInfo: "", img: "GameImage/game2.png", genre: "Survival, Simulation", players: "Single/Multi", developer: "Võ Ngọc Bảo Trân", release: "08/11/2025", videoUrl: "https://www.youtube.com/embed/aPgpJMc6mfU?autoplay=1&mute=1"},
+            { id: 3, name: "Anya's Neo Dodger", desc: "Né tránh bài tập Vi Tích Phân trong thế giới Neon.", price: 0, bankInfo: "", img: "GameImage/game3.png", genre: "Arcade, Endless", players: "Single", developer: "Nguyễn Lê Chí Tường", release: "09/11/2025", videoUrl: "https://www.youtube.com/embed/n4yK54iF55g?autoplay=1&mute=1"},
+            { id: 4, name: "ERROR RUN", desc: "Chạy trốn màn hình xanh chết chóc.", price: 20000, bankInfo: "777777 - ACB - VO NGUYEN CONG TRI", img: "GameImage/game4.png", genre: "Platformer, Horror", players: "Single", developer: "Võ Nguyễn Công Trí", release: "10/11/2025", videoUrl: "https://www.youtube.com/embed/aPgpJMc6mfU?autoplay=1&mute=1"},
+            { id: 5, name: "Naruto Adventure", desc: "Nhiệm vụ Ninja cấp S cùng Kakashi(?) và Naruto. Game phiêu lưu làng Lá.", price: 0, bankInfo: "", img: "GameImage/game5.png", genre: "Adventure, Fighting", players: "Single", developer: "Đỗ Duy Trường", release: "11/11/2025", videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1"},
+            { id: 6, name: "Dạo Phố Chill", desc: "Lái xe thư giãn cùng nhạc Lofi.", price: 100000, bankInfo: "111111 - Vietcombank - DOAN HOANG VIET", img: "GameImage/game6.png", genre: "Simulation, Relax", players: "Single", developer: "Đoàn Hoàng Việt", release: "12/10/2025", videoUrl: "https://www.youtube.com/embed/n4yK54iF55g?autoplay=1&mute=1"}
         ];
 
         let currentGames = [...initialGames];
@@ -273,7 +273,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Mô tả:</label>
-                                <textarea id="gDesc" rows="2" required placeholder="Mô tả ngắn..."></textarea>
+                                <textarea id="gDesc" rows="2" required placeholder="Mô tả ngắn về game..."></textarea>
                             </div>
                             <div class="form-group">
                                 <label>Thông tin Bank (Nếu bán):</label>
@@ -368,7 +368,7 @@
                     currentGames.unshift(newGame);
                     renderHomePage(); // Re-render để cập nhật danh sách
                     uploadForm.reset();
-                    alert("Đăng game thành công!");
+                    alert("Đăng tải game thành công!");
                     document.getElementById('searchInput').value = "";
                     document.getElementById('gallery-title').scrollIntoView({behavior: "smooth"});
                 }
@@ -426,13 +426,13 @@
                                 <h2>💡 Cốt truyện & Ý tưởng</h2>
                                 <p>Đây là khu vực chứa **Cốt truyện** và **Ý tưởng làm game**. Hiện tại đang được để trống (Chưa có dữ liệu chi tiết cho game này). </p>
                                 
-                                <p>Chúng tôi cam kết mang đến trải nghiệm độc đáo và sáng tạo. Cảm ơn bạn đã ủng hộ!</p>
+                                <p>Chúng tôi cam kết mang đến trải nghiệm có 102 mà không có game nào khác có thể cho bạn. Cảm ơn bạn đã ủng hộ nhóm Tràn Bộ Nhớ!</p>
 
                                 <h3>Hướng dẫn chơi và Điều kiện thắng/thua:</h3>
                                 <ul>
-                                    <li>**Cách chơi:** (Chưa có chi tiết)</li>
-                                    <li>**Điều kiện Thắng:** (Chưa có chi tiết)</li>
-                                    <li>**Điều kiện Thua:** (Chưa có chi tiết)</li>
+                                    <li>*Cách chơi: (Chưa có chi tiết)</li>
+                                    <li>*Điều kiện Thắng: (Chưa có chi tiết)</li>
+                                    <li>*Điều kiện Thua: (Chưa có chi tiết)</li>
                                 </ul>
 
                             </div>

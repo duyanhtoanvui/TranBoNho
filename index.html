@@ -793,7 +793,7 @@
         .win-loss-list li { margin-bottom: 10px; display: flex; align-items: flex-start; gap: 10px; }
         .purchase-note { background: #fff3cd; color: #856404; padding: 15px; border-radius: 10px; margin-top: 20px; border: 1px solid #ffeeba; display: flex; align-items: center; gap: 10px; }
 
-        /* --- [MỚI TÍCH HỢP] CSS CHO PHẦN GIỚI THIỆU --- */
+        /* --- CSS CHO PHẦN GIỚI THIỆU --- */
         .intro-box {
             background: linear-gradient(to right, #ffffff, #f0f9ff);
             padding: 25px;
@@ -883,7 +883,8 @@
                 story: `Ý tưởng cốt lõi của trò chơi là mô phỏng lại cuộc chiến sinh tồn đô thị của một sinh viên năm nhất tại Việt Nam. Người chơi phải sống sót qua 30 ngày với ngân sách hạn hẹp, liên tục quản lý và cân bằng 4 chỉ số sinh mệnh: Tiền, Sức khỏe, Độ no, và Stress. Bối cảnh game tập trung vào những địa điểm quen thuộc (phòng trọ, quán cơm bình dân, giảng đường), nơi người chơi đối mặt với các sự kiện ngẫu nhiên mang tính may rủi cao (deadline gấp, hư xe, trúng thưởng). Toàn bộ câu chuyện được truyền tải qua các lựa chọn dựa trên văn bản. Mục tiêu là đạt đến Ngày 30 mà không để bất kỳ 3 chỉ số Tiền, Sức khỏe, Độ no (<=0) hoặc Stress (>=100).\n`,
                 gameplay: "Trò chơi diễn ra theo lượt, với mỗi lượt là một ngày. Người chơi điều khiển hoàn toàn bằng chuột, đưa ra quyết định thông qua các Nút Lựa Chọn đi kèm với mỗi sự kiện ngẫu nhiên hoặc cố định xuất hiện hàng ngày. Sau khi đưa ra quyết định, các chỉ số cốt lõi (Tiền, Sức khỏe, Độ no, Stress) sẽ thay đổi. Nhiệm vụ của bạn là quản lý và giữ 4 chỉ số này nằm trong giới hạn cho phép (tối thiểu 0, tối đa 100) cho đến khi hoàn thành Ngày 30.",
                 winCondition: "Sống sót qua 30 ngày.",
-                lossCondition: "Game Over sẽ xảy ra ngay lập tức nếu: Tiền <= 0 (Phá sản), Sức khỏe <= 0 (Kiệt sức), Độ no <= 0 (Chết đói), hoặc Stress >= 100 (Bỏ học về quê).\n"
+                // --- ĐÃ SỬA LỖI Ở ĐÂY (DÙNG DẤU ` thay vì ") ---
+                lossCondition: `Game Over sẽ xảy ra ngay lập tức nếu: Tiền <= 0 (Phá sản), Sức khỏe <= 0 (Kiệt sức), Độ no <= 0 (Chết đói), hoặc Stress >= 100 (Bỏ học về quê).\n`
             },
             { 
                 id: 3, 

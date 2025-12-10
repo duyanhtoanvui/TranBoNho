@@ -235,19 +235,44 @@
                 name: "Magician vs. Goblin", 
                 desc: "Đại chiến ảo thuật gia và quái vật Goblin. Game nhập vai hành động.", 
                 // Intro riêng cho game 1
-                intro: "Bước vào thế giới phép thuật đầy màu sắc nhưng cũng đầy rẫy hiểm nguy! Magician vs. Goblin không chỉ là một tựa game hành động đơn thuần, mà là cuộc hành trình khẳng định bản lĩnh của vị pháp sư cuối cùng. Bạn đã sẵn sàng dùng gậy phép để bảo vệ vương quốc chưa?",
+                intro: `Bạn có thể sống sót khỏi bầy Goblin không?
+                
+                        Magician vs Goblin là game hành động sống còn nhịp độ nhanh, nơi bạn vào vai một Pháp Sư trẻ bị bao vây bởi lũ Goblin hung hãn. Bạn chỉ có một mình — nhưng sở hữu ma thuật mạnh mẽ. Mỗi giây là một trận chiến sinh tồn khi bạn phải vừa né, vừa bắn phép, vừa cố gắng duy trì mạng sống giữa số lượng Goblin tăng dần theo thời gian.
+                        
+                        Các quyết định của bạn đều quan trọng !!!
+                        
+                        Liệu bạn có thể trụ đến cuối trận, hay sẽ bị đàn Goblin nuốt chửng giữa chiến trường?
+                        `,
                 price: 50000, 
                 bankInfo: "999999 - Techcombank - VO MINH TRIET", 
                 img: "GameImage/game1.png", 
-                genre: "RPG, Action", 
+                genre: "2D Action, Top-down Shooter, Survival Combat", 
                 players: "Single", 
                 developer: "Võ Minh Triết", 
                 release: "07/11/2025", 
                 videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1",
-                story: "Vương quốc Magic bị loài Goblin xâm chiếm. Bạn là hậu duệ cuối cùng của dòng tộc Pháp sư Tối thượng. Hãy sử dụng quyền năng của mình để bảo vệ viên đá Mana.",
-                gameplay: "Sử dụng WASD để di chuyển. Chuột trái để bắn cầu lửa, Chuột phải để dùng lá chắn.",
-                winCondition: "Tiêu diệt Goblin Lord ở màn 10.",
-                lossCondition: "Thanh máu về 0 hoặc Nhà chính bị phá hủy."
+                story: `Ý tưởng cốt lõi:
+                        
+                        + Tiêu diệt càng nhiều Goblin càng tốt.
+
+                        + Sống càng lâu càng tốt.
+
+                        + Cơ chế chơi nhanh, trực quan, mang tính phản xạ cao.
+
+                        + Toàn bộ hành động thực hiện trực tiếp trong gameplay không cần menu phức tạp.
+
+                        Cốt truyện:
+                        
+                        Bạn là một Pháp Sư học việc đang thực tập tại vùng rừng ma thuật. Trong lúc thiền luyện, một cánh cổng quái vật đột ngột mở ra, giải phóng Goblin từ chiều không gian khác.
+                        
+                        Nhiệm vụ của bạn phải trực tiếp cầm cự và tiêu diệt nhiều goblin nhất có thể để chờ viện binh đến !`,
+                gameplay: `Di chuyển: nút di chuyển hoặc chuột 
+
+                           Ngắm: theo hướng chuột.
+                           
+                           Bắn phép: Nhấn/giữ chuột trái → bắn Spell.`,
+                winCondition: `Không có điều kiện thắng cố định. Bạn càng sống lâu → càng “thắng”.`,
+                lossCondition: "Game Over ngay lập tức khi: Player HP = 0 (bị Goblin tấn công quá nhiều)."
             },
             { 
                 id: 2, 
@@ -272,7 +297,9 @@
                 developer: "Võ Ngọc Bảo Trân", 
                 release: "08/11/2025", 
                 videoUrl: "https://www.youtube.com/embed/aPgpJMc6mfU?autoplay=1&mute=1",
-                story: `Ý tưởng cốt lõi của trò chơi là mô phỏng lại cuộc chiến sinh tồn đô thị của một sinh viên năm nhất tại Việt Nam. Người chơi phải sống sót qua 30 ngày với ngân sách hạn hẹp, liên tục quản lý và cân bằng 4 chỉ số sinh mệnh: Tiền, Sức khỏe, Độ no, và Stress. Bối cảnh game tập trung vào những địa điểm quen thuộc (phòng trọ, quán cơm bình dân, giảng đường), nơi người chơi đối mặt với các sự kiện ngẫu nhiên mang tính may rủi cao (deadline gấp, hư xe, trúng thưởng). Toàn bộ câu chuyện được truyền tải qua các lựa chọn dựa trên văn bản. Mục tiêu là đạt đến Ngày 30 mà không để bất kỳ 3 chỉ số Tiền, Sức khỏe, Độ no (<=0) hoặc Stress (>=100).`,
+                story: `Ý tưởng cốt lõi của trò chơi là mô phỏng lại cuộc chiến sinh tồn đô thị của một sinh viên năm nhất tại Việt Nam. Người chơi phải sống sót qua 30 ngày với ngân sách hạn hẹp, liên tục quản lý và cân bằng 4 chỉ số sinh mệnh: Tiền, Sức khỏe, Độ no, và Stress. Bối cảnh game tập trung vào những địa điểm quen thuộc (phòng trọ, quán cơm bình dân, giảng đường), nơi người chơi đối mặt với các sự kiện ngẫu nhiên mang tính may rủi cao (deadline gấp, hư xe, trúng thưởng). Toàn bộ câu chuyện được truyền tải qua các lựa chọn dựa trên văn bản.
+                
+                        Mục tiêu là đạt đến Ngày 30 mà không để bất kỳ 3 chỉ số Tiền, Sức khỏe, Độ no (<=0) hoặc Stress (>=100).`,
                 gameplay: "Trò chơi diễn ra theo lượt, với mỗi lượt là một ngày. Người chơi điều khiển hoàn toàn bằng chuột, đưa ra quyết định thông qua các Nút Lựa Chọn đi kèm với mỗi sự kiện ngẫu nhiên hoặc cố định xuất hiện hàng ngày. Sau khi đưa ra quyết định, các chỉ số cốt lõi (Tiền, Sức khỏe, Độ no, Stress) sẽ thay đổi. Nhiệm vụ của bạn là quản lý và giữ 4 chỉ số này nằm trong giới hạn cho phép (tối thiểu 0, tối đa 100) cho đến khi hoàn thành Ngày 30.",
                 winCondition: "Sống sót qua 30 ngày.",
                 // --- ĐÃ SỬA LỖI Ở ĐÂY (DÙNG DẤU HUYỀN ` thay vì NGOẶC KÉP ") ---
@@ -292,7 +319,9 @@
                 developer: "Nguyễn Lê Chí Tường", 
                 release: "09/11/2025", 
                 videoUrl: "https://www.youtube.com/embed/n4yK54iF55g?autoplay=1&mute=1",
-                story: `Ý tưởng: Do sinh viên 25CTT6 HCMUS đang đối mặt với kỳ thi Vi Tích Phân căng thẳng, một học sinh bí ẩn trong lớp đã xây dựng game này để giúp các bạn cùng lớp và bản thân giải stress sau những giờ học cày try-hard Vi Tích Phân. Game là nơi chuyển hóa áp lực thành một thử thách giải trí tốc độ cao.
+                story: `Ý tưởng: Do sinh viên 25CTT6 HCMUS đang đối mặt với kỳ thi Vi Tích Phân căng thẳng, một học sinh bí ẩn trong lớp đã xây dựng game này để giúp các bạn cùng lớp và bản thân giải stress sau những giờ học cày try-hard Vi Tích Phân. 
+                                
+                                 Game là nơi chuyển hóa áp lực thành một thử thách giải trí tốc độ cao.
                 Cốt truyện:
                 Anya vốn là một cô bé ngây thơ, cute phô mai que, đến từ thế giới anime. Một ngày đẹp trời, BÙM! Anya bị chuyển sinh thẳng vào thế giới đời thường và trở thành một tân sinh viên Khoa học Tự nhiên tại HCMUS.
                 
@@ -309,26 +338,50 @@
                 name: "ERROR RUN", 
                 desc: "Chạy trốn màn hình xanh chết chóc gồm BUG và ERROR.", 
                 // Intro riêng cho game 4
-                intro: "Bạn đã bao giờ tự hỏi điều gì xảy ra bên trong máy tính khi màn hình xanh (BSOD) xuất hiện? ERROR RUN đưa bạn vào vai một file dữ liệu nhỏ bé đang tháo chạy khỏi sự hủy diệt của hệ thống. Một trải nghiệm kinh dị kỹ thuật số đầy kịch tính.",
+                intro: `HÃY TRÁNH NÉ TẤT CẢ CÁC BUG - ERROR ĐỂ MANG VỀ ĐIỂM SỐ CAO NHẤT CHO MÔN CƠ SỞ LẬP TRÌNH CỦA BẠN !!!
+
+                Liệu bạn có thể phá vỡ kỷ lục và trở thành "Thánh DEADLINE"?`,
                 price: 20000, 
                 bankInfo: "777777 - ACB - VO NGUYEN CONG TRI", 
                 img: "GameImage/game4.png", 
-                genre: "Endless, Horror", 
+                genre: "Endless Runner, Arcade, Flappy-style", 
                 players: "Single", 
                 developer: "Võ Nguyễn Công Trí", 
                 release: "10/11/2025", 
                 videoUrl: "https://www.youtube.com/embed/aPgpJMc6mfU?autoplay=1&mute=1",
-                story: "Bạn là một file dữ liệu quan trọng đang cố gắng thoát khỏi sự truy quét của Virus Màn Hình Xanh.",
-                gameplay: "Chạy không ngừng nghỉ (Endless Run). Nhấn Space để nhảy qua các đoạn mã lỗi (Bug).",
-                winCondition: "Không có đích đến, sống càng lâu càng tốt.",
-                lossCondition: "Bị Bug bắt kịp hoặc rơi xuống hố dữ liệu."
+                story: `Ý tưởng: Với bối cảnh gần gũi và hài hước về cuộc sống của sinh viên CNTT, game không chỉ mang lại những phút giây giải trí (và ức chế!) mà còn là một sự đồng cảm sâu sắc với những ai đã từng "thức đêm chạy deadline".
+                        
+                                 Hãy chuẩn bị tinh thần, giữ chặt phím Space và xem bạn có thể sống sót bao lâu trong thế giới code đầy lỗi này!
+                
+                        Cốt truyện: Vào lúc 23h58 đêm hạn chót, sau cú nhấn "Build & Run" định mệnh, chàng sinh viên Trí của FIT@HCMUS bất ngờ bị hút vào thế giới mã lệnh bởi lỗi "404 - Hope Not Found" và hóa thân thành một nhân vật 8-bit nhỏ bé.
+                        
+                                    Để thoát khỏi cơn ác mộng này và nộp bài kịp giờ, cậu phải liên tục "spam" phím Space, chật vật lượn lách qua những khe hở tử thần được tạo bởi cặp ngoặc thiếu, dấu chấm phẩy đi lạc và các vòng lặp vô tận. 
+                        
+                                    Cuộc đua giờ đây không chỉ là sinh tồn mà còn là hành trình cảm tử tìm đường đến cánh cổng Moodle thần thánh để "Commit code" thành công, bởi chỉ một cú va chạm nhỏ vào lỗi (Bug), Trí sẽ đối mặt với án tử đáng sợ nhất đời sinh viên: trượt môn và đóng tiền học lại!`,
+                gameplay: `Trên PC/Laptop: Nhấn phím Spacebar HOẶC click Chuột trái để làm nhân vật bay lên.
+                           
+                           Trên Mobile/Tablet: Chạm vào bất kỳ đâu trên màn hình để bay lên.`,
+                winCondition: `Không có đích đến, sống càng lâu càng tốt bằng cách điều khiển nhân vật bay qua các khe hở giữa các chướng ngại vật. 
+                
+                               Mỗi cặp ống lỗi vượt qua sẽ cho bạn 1 điểm.`,
+                lossCondition: `Tuyệt đối không được chạm vào:
+                
+                                + Các khối lỗi màu đỏ ("ERROR 404", "CSLT-MAT").
+                                
+                                + Giới hạn trên cùng (trần nhà) của màn hình.
+                                
+                                + Giới hạn dưới cùng (sàn nhà) của màn hình.
+                                
+                                Va chạm vào bất cứ thứ gì kể trên đồng nghĩa với GAME OVER.`
             },
             { 
                 id: 5, 
                 name: "Naruto Adventure", 
                 desc: "Nhiệm vụ Ninja cấp S cùng Kakashi(?) và Naruto.", 
                 // Intro riêng cho game 5
-                intro: "Dành cho các Fan cứng của thế giới Nhẫn giả! Naruto Adventure tái hiện lại những trận chiến đỉnh cao tại Làng Mưa. Hãy sát cánh cùng Naruto, thi triển Rasengan và bảo vệ danh dự của một Ninja chân chính trong nhiệm vụ cấp S này.",
+                intro: `Tựa game này là một trải nghiệm hành động platformer 2D Side-Scrolling mang phong cách Arcade, hoàn hảo cho một người chơi.
+                
+                        Mục tiêu của game là cho phép người chơi chọn lựa giữa các huyền thoại: Kakashi, Naruto,… và tham gia vào một cuộc chiến tốc độ cao chống lại Sound Ninja, sử dụng các tuyệt kỹ như Sharingan, Chidori, Rasengan và Kage Bunshin để bảo vệ Konoha khỏi hiểm họa.`,
                 price: 0, 
                 bankInfo: "", 
                 img: "GameImage/game5.png", 
@@ -337,10 +390,32 @@
                 developer: "Đỗ Duy Trường", 
                 release: "11/11/2025", 
                 videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1",
-                story: "Cùng Naruto thực hiện nhiệm vụ bí mật tại Làng Mưa. Đối đầu với các thành viên Akatsuki.",
-                gameplay: "Combo kỹ năng Q, W, E, R để tấn công đối thủ. F để lướt né đòn.",
-                winCondition: "Đánh bại Pain.",
-                lossCondition: "Hết máu."
+                story: `Ý tưởng trung tâm của game là mang lại trải nghiệm chiến đấu linh hoạt và cá nhân hóa. Người chơi đối diện với lựa chọn định hình lối chơi của mình:
+                        
+                        + Kakashi: Phù hợp với lối chơi chiến lược, đòi hỏi sự tính toán thời điểm chính xác khi sử dụng Sharingan.
+
+                        + Naruto: Phù hợp với lối chơi cường độ cao, tấn công trực diện, gây sát thương lớn và diện rộng bằng Rasengan.
+
+                        Game là nơi kiểm tra khả năng làm chủ tốc độ phản xạ và bộ kỹ năng độc đáo của người chơi trên những chiến trường khốc liệt.
+                        
+                        Cốt truyện: Bảo vệ Làng Lá: Sau cái chết của Hokage Đệ Tam, Làng rơi vào tình trạng bất ổn, tạo cơ hội cho thế lực lính đánh thuê tàn bạo là Ninja Làng Âm Thanh xâm nhập. Bạn được giao nhiệm vụ mật: Lựa chọn Anh hùng Kakashi Hatake hoặc Naruto Uzumaki để thực hiện nhiệm vụ tiêu diệt chúng.`,
+                gameplay: `Di chuyển: Dùng Phím Mũi Tên Trái/Phải hoặc A/D.
+            
+                           Nhảy: Dùng Phím Mũi Tên Lên hoặc W.
+
+                           Tấn công cơ bản: Phím J (Đấm) và K (Đá).
+
+                           Tuyệt Kỹ Đặc Trưng: Phím L (Chidori nếu là Kakashi, Rasengan nếu là Naruto).
+                           
+                           Siêu Tuyệt Kỹ: Phím U (Sharingan nếu là Kakashi, Kage Bunshin nếu là Naruto).`,
+                winCondition: `Thắng Màn : Bạn chiến thắng một màn chơi khi tiêu diệt được tất cả các đơn vị Sound Ninja trên bản đồ. Màn hình "STAGE CLEAR!" sẽ xuất hiện, cho phép bạn chuyển tiếp sang Level tiếp theo.
+                               
+                               Hoàn Thành Game: Khi bạn hoàn thành Level cuối cùng, màn hình "GAME COMPLETE!" sẽ xuất hiện.`,
+                lossCondition: `Game kết thúc và màn hình "GAME OVER" sẽ xuất hiện nếu:
+                                
+                                + Máu Về 0: Thanh máu của nhân vật chính cạn kiệt sau khi nhận sát thương từ kẻ địch.
+                                
+                                + Rơi Vực: Nhân vật rơi khỏi giới hạn màn hình chơi.`
             },
             { 
                 id: 6, 
@@ -351,13 +426,17 @@
                 price: 100000, 
                 bankInfo: "111111 - Vietcombank - DOAN HOANG VIET", 
                 img: "GameImage/game6.png", 
-                genre: "Simulation, Relax", 
+                genre: "Simulation / Hangout", 
                 players: "Single", 
                 developer: "Đoàn Hoàng Việt", 
                 release: "12/10/2025", 
                 videoUrl: "https://www.youtube.com/embed/n4yK54iF55g?autoplay=1&mute=1",
                 story: "Không có kẻ thù, không áp lực. Chỉ có bạn, chiếc xe và âm nhạc trong thành phố về đêm.",
-                gameplay: "Lái xe tự do khám phá thành phố. Bấm M để đổi bài hát.",
+                gameplay: `⌨️ Di chuyển: W, A, S, D hoặc Mũi tên.
+                           
+                           👀 Quan sát: Chuột xoay 360 độ.
+
+                           🚗 Menu điện thoại: Nhấn nút M trên màn hình.`,
                 winCondition: "Không có, game chỉ để thư giãn.",
                 lossCondition: "Không có."
             }

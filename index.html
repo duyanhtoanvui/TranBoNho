@@ -237,12 +237,11 @@
                 // Intro riêng cho game 1
                 intro: `Bạn có thể sống sót khỏi bầy Goblin không?
                 
-                        Magician vs Goblin là game hành động sống còn nhịp độ nhanh, nơi bạn vào vai một Pháp Sư trẻ bị bao vây bởi lũ Goblin hung hãn. Bạn chỉ có một mình — nhưng sở hữu ma thuật mạnh mẽ. Mỗi giây là một trận chiến sinh tồn khi bạn phải vừa né, vừa bắn phép, vừa cố gắng duy trì mạng sống giữa số lượng Goblin tăng dần theo thời gian.
+                        Magician vs. Goblin là game hành động sống còn nhịp độ nhanh, nơi bạn vào vai một Pháp Sư trẻ bị bao vây bởi lũ Goblin hung hãn. Bạn chỉ có một mình — nhưng sở hữu ma thuật mạnh mẽ. Mỗi giây là một trận chiến sinh tồn khi bạn phải vừa né, vừa bắn phép, vừa cố gắng duy trì mạng sống giữa số lượng Goblin tăng dần theo thời gian.
                         
                         Các quyết định của bạn đều quan trọng !!!
                         
-                        Liệu bạn có thể trụ đến cuối trận, hay sẽ bị đàn Goblin nuốt chửng giữa chiến trường?
-                        `,
+                        Liệu bạn có thể trụ đến cuối trận, hay sẽ bị đàn Goblin nuốt chửng giữa chiến trường?`,
                 price: 50000, 
                 bankInfo: "999999 - Techcombank - VO MINH TRIET", 
                 img: "GameImage/game1.png", 
@@ -895,7 +894,7 @@
         
         .story-section { margin-top: 30px; }
         /* CSS cho phần nội dung chi tiết động */
-        .story-box { background: var(--card-bg); padding: 25px; border-radius: 15px; margin-top: 15px; color: #333; line-height: 1.8; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .story-box { background: var(--card-bg); padding: 25px; border-radius: 15px; margin-top: 15px; color: #333; line-height: 1.6; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
         .gameplay-box { background: var(--card-bg); padding: 25px; border-radius: 15px; margin-top: 15px; color: #333; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
         .win-loss-list { list-style: none; padding-left: 0; margin-top: 15px; }
         .win-loss-list li { margin-bottom: 10px; display: flex; align-items: flex-start; gap: 10px; }
@@ -927,8 +926,20 @@
             font-size: 1.1rem;
             color: #444;
             font-weight: 500;
-            /* ĐÃ THÊM DÒNG NÀY ĐỂ GIỮ KÝ TỰ XUỐNG DÒNG (ENTER) */
-            white-space: pre-line; 
+            /* Đã bỏ white-space: pre-line để dùng hàm xử lý HTML tùy chỉnh */
+        }
+        
+        /* CSS cho List tạo tự động từ dấu + */
+        .custom-list {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        .custom-list li {
+            margin-bottom: 5px;
+            list-style-type: disc;
+        }
+        .content-paragraph {
+            margin-bottom: 15px;
         }
 
         /* --- RESPONSIVE --- */
@@ -1029,7 +1040,6 @@
                 Mục tiêu là đạt đến Ngày 30 mà không để bất kỳ 3 chỉ số Tiền, Sức khỏe, Độ no (<=0) hoặc Stress (>=100).`,
                 gameplay: "Trò chơi diễn ra theo lượt, với mỗi lượt là một ngày. Người chơi điều khiển hoàn toàn bằng chuột, đưa ra quyết định thông qua các Nút Lựa Chọn đi kèm với mỗi sự kiện ngẫu nhiên hoặc cố định xuất hiện hàng ngày. Sau khi đưa ra quyết định, các chỉ số cốt lõi (Tiền, Sức khỏe, Độ no, Stress) sẽ thay đổi. Nhiệm vụ của bạn là quản lý và giữ 4 chỉ số này nằm trong giới hạn cho phép (tối thiểu 0, tối đa 100) cho đến khi hoàn thành Ngày 30.",
                 winCondition: "Sống sót qua 30 ngày.",
-                // --- ĐÃ SỬA LỖI Ở ĐÂY (DÙNG DẤU HUYỀN ` thay vì NGOẶC KÉP ") ---
                 lossCondition: `Game Over sẽ xảy ra ngay lập tức nếu: Tiền <= 0 (Phá sản), Sức khỏe <= 0 (Kiệt sức), Độ no <= 0 (Chết đói), hoặc Stress >= 100 (Bỏ học về quê).`
             },
             { 
@@ -1173,6 +1183,61 @@
         const appContainer = document.getElementById('app-container');
         const formatter = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' });
 
+        // --- HÀM XỬ LÝ VĂN BẢN MỚI (FORMAT TEXT) ---
+        // Hàm này sẽ:
+        // 1. Tách văn bản thành các đoạn (paragraph) dựa trên 2 dấu xuống dòng (\n\n)
+        // 2. Nếu trong đoạn có dòng bắt đầu bằng "+", nó sẽ gom lại thành danh sách <ul>
+        // 3. Nếu là văn bản thường, nó sẽ bọc trong <p> và giữ lại các dấu xuống dòng đơn (<br>)
+        function formatGameText(text) {
+            if (!text) return "";
+            // Tách các đoạn lớn bằng 2 dấu xuống dòng (empty line)
+            const paragraphs = text.split(/\n\s*\n/);
+            
+            let html = '';
+            
+            paragraphs.forEach(para => {
+                // Kiểm tra xem đoạn này có chứa dấu + (bullet point) không
+                if (para.trim().includes('+')) {
+                    // Nếu có, xử lý từng dòng
+                    const lines = para.split('\n');
+                    let inList = false;
+                    
+                    lines.forEach(line => {
+                        let cleanLine = line.trim();
+                        if (cleanLine.startsWith('+')) {
+                            // Bắt đầu một danh sách nếu chưa có
+                            if (!inList) {
+                                html += '<ul class="custom-list">';
+                                inList = true;
+                            }
+                            // Thêm item, bỏ dấu + đi
+                            html += `<li>${cleanLine.substring(1).trim()}</li>`;
+                        } else {
+                            // Nếu gặp dòng không phải list, đóng list cũ lại
+                            if (inList) {
+                                html += '</ul>';
+                                inList = false;
+                            }
+                            // Hiển thị dòng text thường trong khối này
+                            if (cleanLine.length > 0) {
+                                html += `<div class="content-paragraph">${line}</div>`;
+                            }
+                        }
+                    });
+                    // Đóng thẻ ul nếu còn mở
+                    if (inList) html += '</ul>';
+                } else {
+                    // Nếu là đoạn văn bản thường (không có list)
+                    if (para.trim().length > 0) {
+                        // Thay thế dấu xuống dòng đơn (\n) thành <br> để giữ định dạng
+                        html += `<p class="content-paragraph">${para.replace(/\n/g, '<br>')}</p>`;
+                    }
+                }
+            });
+            
+            return html;
+        }
+
         // --- 2. HÀM RENDER TRANG CHỦ (HOMEPAGE) ---
         function renderHomePage() {
             appContainer.innerHTML = `
@@ -1313,7 +1378,6 @@
                         img: e.target.result, 
                         genre: "Indie", players: "1", developer: "Cộng đồng", release: new Date().toLocaleDateString('vi-VN'),
                         videoUrl: "https://www.youtube.com/embed/n4yK54iF55g?autoplay=1&mute=1",
-                        // Mặc định cho game mới upload: intro sẽ lấy tạm từ desc
                         intro: desc,
                         story: "Nội dung đang được tác giả cập nhật...",
                         gameplay: "Liên hệ tác giả để biết thêm chi tiết.",
@@ -1343,14 +1407,12 @@
             const isFree = game.price == 0;
             const priceDisplay = isFree ? "FREE" : formatter.format(game.price);
 
-            // Fallback nếu thiếu dữ liệu
-            const storyText = game.story || "Đang cập nhật...";
-            const gameplayText = game.gameplay || "Sử dụng bàn phím và chuột.";
-            const winText = game.winCondition || "Hoàn thành mục tiêu.";
-            const lossText = game.lossCondition || "Hết mạng.";
-            
-            // Lấy intro riêng, nếu không có thì fallback về desc
-            const introText = game.intro || game.desc;
+            // Xử lý văn bản bằng hàm formatGameText để hiển thị đẹp
+            const storyText = formatGameText(game.story || "Đang cập nhật...");
+            const gameplayText = formatGameText(game.gameplay || "Sử dụng bàn phím và chuột.");
+            const winText = formatGameText(game.winCondition || "Hoàn thành mục tiêu.");
+            const lossText = formatGameText(game.lossCondition || "Hết mạng.");
+            const introText = formatGameText(game.intro || game.desc);
 
             appContainer.innerHTML = `
                 <nav class="navbar">
@@ -1382,27 +1444,31 @@
                             <div class="intro-box">
                                 <h2><i class="fa-regular fa-star" style="color: var(--accent-yellow);"></i> Giới thiệu chung</h2>
                                 <div class="intro-content">
-                                    <p>${introText}</p>
+                                    ${introText}
                                 </div>
                             </div>
                             <div class="story-section">
                                 <h2 style="border-left: 8px solid var(--accent-pink);">📖 Cốt truyện & Ý tưởng</h2>
                                 <div class="story-box">
-                                    <p>${storyText}</p>
+                                    ${storyText}
                                 </div>
 
                                 <h2 style="margin-top: 30px;">🎮 Hướng dẫn chơi</h2>
                                 <div class="gameplay-box">
-                                    <p><strong>Cách điều khiển:</strong> ${gameplayText}</p>
+                                    <strong>Cách điều khiển:</strong> ${gameplayText}
                                     
                                     <ul class="win-loss-list">
                                         <li>
-                                            <i class="fa-solid fa-trophy" style="color: gold; font-size: 1.2rem;"></i> 
-                                            <strong>Thắng:</strong> ${winText}
+                                            <i class="fa-solid fa-trophy" style="color: gold; font-size: 1.2rem; margin-top: 5px;"></i> 
+                                            <div style="flex:1;">
+                                                <strong>Thắng:</strong> ${winText}
+                                            </div>
                                         </li>
                                         <li>
-                                            <i class="fa-solid fa-skull" style="color: #ff7675; font-size: 1.2rem;"></i> 
-                                            <strong>Thua:</strong> ${lossText}
+                                            <i class="fa-solid fa-skull" style="color: #ff7675; font-size: 1.2rem; margin-top: 5px;"></i> 
+                                            <div style="flex:1;">
+                                                <strong>Thua:</strong> ${lossText}
+                                            </div>
                                         </li>
                                     </ul>
                                 </div>

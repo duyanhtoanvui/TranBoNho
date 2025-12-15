@@ -856,7 +856,7 @@
             --accent-pink: #ff7675;
             --nav-bg: rgba(255, 255, 255, 0.9); 
             --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            --success-color: #2ecc71; /* Màu cho nút thanh toán/đã sở hữu */
+            --success-color: #2ecc71;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
@@ -965,7 +965,7 @@
         
         .price-tag { position: absolute; top: 15px; right: 15px; background: var(--accent-pink); color: #fff; padding: 5px 12px; border-radius: 20px; font-weight: bold; font-size: 0.85rem; z-index: 2; }
         .price-tag.free { background: var(--primary-color); }
-        .price-tag.owned { background: var(--success-color); } /* [MỚI] Style cho thẻ đã sở hữu */
+        .price-tag.owned { background: var(--success-color); }
         
         .game-thumb { width: 100%; height: 180px; overflow: hidden; }
         .game-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s; }
@@ -978,20 +978,49 @@
         .bank-info-display { background: #f0f9ff; padding: 10px; margin-top: 10px; border-radius: 8px; font-size: 0.85rem; color: #555; border-left: 3px solid var(--primary-color); display: none; margin-bottom: 10px;}
         .show-bank { display: block; }
 
-        /* [CẬP NHẬT] Button Group trong Card */
-        .card-actions { margin-top: auto; display: flex; gap: 10px; }
+        /* [UPDATED] Button Group Styles for Card */
+        /* Đảm bảo nút luôn nằm trong container này để có kích thước hợp lý */
+        .card-actions {
+            margin-top: auto;
+            display: flex;
+            gap: 10px;
+            width: 100%;
+        }
         
         .btn-play { 
-            flex: 2; padding: 10px; background: var(--accent-yellow); color: #2c3e50; border: none; border-radius: 30px; font-weight: 800; cursor: pointer; transition: 0.2s; box-shadow: 0 3px 0 #e1b12c; 
+            flex: 2;
+            padding: 10px; 
+            background: var(--accent-yellow); 
+            color: #2c3e50; 
+            border: none; 
+            border-radius: 30px; 
+            font-weight: 800; 
+            cursor: pointer; 
+            transition: 0.2s; 
+            box-shadow: 0 3px 0 #e1b12c; 
+            text-align: center;
         }
         .btn-play:hover { background: #fcd567; transform: translateY(-2px); }
         .btn-play:active { transform: translateY(2px); box-shadow: none; }
 
-        .btn-add-cart {
-            flex: 1; padding: 10px; background: #fff; color: var(--primary-color); border: 2px solid var(--primary-color); border-radius: 30px; font-weight: bold; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center;
+        /* Nút phụ (Thêm vào giỏ / Chi tiết) */
+        .btn-secondary {
+            flex: 1;
+            padding: 10px;
+            background: #fff;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
         }
-        .btn-add-cart:hover { background: var(--primary-color); color: white; }
-        .btn-add-cart.added { background: #ddd; color: #666; border-color: #ddd; cursor: not-allowed; }
+        .btn-secondary:hover { background: var(--primary-color); color: white; }
+        .btn-secondary.added { background: #ddd; color: #666; border-color: #ddd; cursor: not-allowed; }
 
 
         /* --- FORM UPLOAD --- */
@@ -1055,7 +1084,7 @@
         .custom-list li { margin-bottom: 5px; list-style-type: disc; }
         .content-paragraph { margin-bottom: 15px; }
 
-        /* --- [MỚI] CSS CHO TRANG GIỎ HÀNG (CART PAGE) --- */
+        /* --- CSS CHO TRANG GIỎ HÀNG (CART PAGE) --- */
         .cart-section { margin-top: 20px; }
         .cart-table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .cart-table th, .cart-table td { padding: 15px; text-align: left; border-bottom: 1px solid #eee; }
@@ -1102,7 +1131,7 @@
     </footer>
 
     <script>
-        // --- 1. DỮ LIỆU GAME (DATABASE) - GIỮ NGUYÊN ---
+        // --- 1. DỮ LIỆU GAME (DATABASE) ---
         const initialGames = [
             { 
                 id: 1, 
@@ -1386,7 +1415,6 @@
         }
 
         // --- 3. HELPER FUNCTIONS (FORMAT TEXT) ---
-        // GIỮ NGUYÊN HÀM NÀY THEO YÊU CẦU
         function formatGameText(text) {
             if (!text) return "";
 
@@ -1429,6 +1457,9 @@
         
         // Điều hướng chung
         function openCartInNewTab() { window.open(`${window.location.pathname}?view=cart`, '_blank'); }
+        // Để nút "Đã sở hữu" hoạt động như link tới Cart trên cùng tab
+        function goToCartView() { window.location.href = `${window.location.pathname}?view=cart`; }
+
         function openGameDetail(gameId) { window.open(`${window.location.pathname}?game=${gameId}`, '_blank'); }
         function getQueryParam(param) { const urlParams = new URLSearchParams(window.location.search); return urlParams.get(param); }
 
@@ -1436,12 +1467,14 @@
         function renderHomePage() {
             appContainer.innerHTML = `
                 <nav class="navbar">
-                    <a class="logo" href="${window.location.pathname}">
+                    <a class="logo" href="about.html">
                         <i class="fa-solid fa-gamepad"></i> TBN STUDIO
                     </a>
                     <div class="nav-links">
                         <a href="#" class="active">Trang chủ</a>
                         <a href="#gallery-title">Khám phá</a>
+                        <a href="#">Thể loại <i class="fa-solid fa-caret-down" style="font-size: 0.8rem;"></i></a>
+                        <a href="#">Cộng đồng</a>
                         <a href="#uploadForm" id="uploadNavBtn" style="color:var(--primary-color);font-weight:bold;">
                             <i class="fa-solid fa-upload"></i> Đăng tải game
                         </a>
@@ -1525,17 +1558,28 @@
                 if (isOwned) { priceDisplay = "OWNED"; priceClass = "owned"; }
                 const bankDisplayClass = (!isFree && game.bankInfo) ? "show-bank" : "";
 
-                // Logic hiển thị nút
+                // --- XỬ LÝ NÚT BẤM (ĐÃ CHỈNH SỬA) ---
                 let buttonHtml = '';
+                
                 if (isOwned) {
-                     buttonHtml = `<button onclick="alert('Đang khởi động game...')" class="btn-play" style="background:var(--success-color); color:white;">ĐÃ SỞ HỮU</button>`;
+                    // Đã sở hữu: Hiện 2 nút (Chi tiết & Đã sở hữu -> Cart)
+                     buttonHtml = `
+                        <div class="card-actions">
+                             <button onclick="openGameDetail(${game.id})" class="btn-secondary" style="flex:1;">Chi tiết</button>
+                             <button onclick="goToCartView()" class="btn-play" style="flex:1; background:var(--success-color); color:white;">Đã sở hữu</button>
+                        </div>`;
                 } else if (isFree) {
-                     buttonHtml = `<button onclick="openGameDetail(${game.id})" class="btn-play">CHƠI NGAY</button>`;
+                    // Miễn phí: Hiện 1 nút Chơi ngay (Nhỏ lại nhờ bọc trong card-actions)
+                     buttonHtml = `
+                        <div class="card-actions">
+                            <button onclick="openGameDetail(${game.id})" class="btn-play">CHƠI NGAY</button>
+                        </div>`;
                 } else {
+                    // Trả phí: Mua ngay & Thêm giỏ
                     buttonHtml = `
                         <div class="card-actions">
                              <button onclick="openGameDetail(${game.id})" class="btn-play">MUA NGAY</button>
-                             <button onclick="addToCart(${game.id})" class="btn-add-cart ${isInCart ? 'added' : ''}" title="${isInCart ? 'Đã trong giỏ' : 'Thêm vào giỏ'}">
+                             <button onclick="addToCart(${game.id})" class="btn-secondary ${isInCart ? 'added' : ''}" title="${isInCart ? 'Đã trong giỏ' : 'Thêm vào giỏ'}">
                                 <i class="fa-solid ${isInCart ? 'fa-check' : 'fa-cart-plus'}"></i>
                              </button>
                         </div>`;
@@ -1800,4 +1844,3 @@
     </script>
 </body>
 </html>
-

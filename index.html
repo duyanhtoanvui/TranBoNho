@@ -856,7 +856,7 @@
             --accent-pink: #ff7675;
             --nav-bg: rgba(255, 255, 255, 0.9); 
             --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            --success-color: #2ecc71;
+            --success-color: #2ecc71; /* Màu cho nút thanh toán/đã sở hữu */
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
@@ -965,7 +965,7 @@
         
         .price-tag { position: absolute; top: 15px; right: 15px; background: var(--accent-pink); color: #fff; padding: 5px 12px; border-radius: 20px; font-weight: bold; font-size: 0.85rem; z-index: 2; }
         .price-tag.free { background: var(--primary-color); }
-        .price-tag.owned { background: var(--success-color); }
+        .price-tag.owned { background: var(--success-color); } /* [MỚI] Style cho thẻ đã sở hữu */
         
         .game-thumb { width: 100%; height: 180px; overflow: hidden; }
         .game-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s; }
@@ -975,46 +975,24 @@
         .game-title { font-size: 1.3rem; color: var(--primary-color); margin-bottom: 5px; font-weight: 700; }
         .game-desc { font-size: 0.9rem; color: #666; margin-bottom: 15px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
         
-        /* [UPDATED] Button Group Styles for Card */
-        .card-actions {
-            margin-top: auto;
-            display: flex;
-            gap: 10px;
-        }
+        .bank-info-display { background: #f0f9ff; padding: 10px; margin-top: 10px; border-radius: 8px; font-size: 0.85rem; color: #555; border-left: 3px solid var(--primary-color); display: none; margin-bottom: 10px;}
+        .show-bank { display: block; }
+
+        /* [CẬP NHẬT] Button Group trong Card */
+        .card-actions { margin-top: auto; display: flex; gap: 10px; }
+        
         .btn-play { 
-            flex: 2;
-            padding: 10px; 
-            background: var(--accent-yellow); 
-            color: #2c3e50; 
-            border: none; 
-            border-radius: 30px; 
-            font-weight: 800; 
-            cursor: pointer; 
-            transition: 0.2s; 
-            box-shadow: 0 3px 0 #e1b12c; 
+            flex: 2; padding: 10px; background: var(--accent-yellow); color: #2c3e50; border: none; border-radius: 30px; font-weight: 800; cursor: pointer; transition: 0.2s; box-shadow: 0 3px 0 #e1b12c; 
         }
         .btn-play:hover { background: #fcd567; transform: translateY(-2px); }
         .btn-play:active { transform: translateY(2px); box-shadow: none; }
 
         .btn-add-cart {
-            flex: 1;
-            padding: 10px;
-            background: #fff;
-            color: var(--primary-color);
-            border: 2px solid var(--primary-color);
-            border-radius: 30px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            flex: 1; padding: 10px; background: #fff; color: var(--primary-color); border: 2px solid var(--primary-color); border-radius: 30px; font-weight: bold; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center;
         }
         .btn-add-cart:hover { background: var(--primary-color); color: white; }
         .btn-add-cart.added { background: #ddd; color: #666; border-color: #ddd; cursor: not-allowed; }
 
-        .bank-info-display { background: #f0f9ff; padding: 10px; margin-top: 10px; border-radius: 8px; font-size: 0.85rem; color: #555; border-left: 3px solid var(--primary-color); display: none; }
-        .show-bank { display: block; }
 
         /* --- FORM UPLOAD --- */
         .upload-section { background: #fff; padding: 30px; border-radius: 20px; margin-top: 50px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
@@ -1117,14 +1095,14 @@
 <body>
 
     <div id="app-container">
-        </div>
+    </div>
 
     <footer>
         <p>&copy; 2025 Nhóm TRÀN BỘ NHỚ.</p>
     </footer>
 
     <script>
-        // --- 1. DỮ LIỆU GAME (DATABASE) ---
+        // --- 1. DỮ LIỆU GAME (DATABASE) - GIỮ NGUYÊN ---
         const initialGames = [
             { 
                 id: 1, 
@@ -1132,46 +1110,73 @@
                 desc: "Đại chiến ảo thuật gia và quái vật Goblin. Game nhập vai hành động.", 
                 intro: `Bạn có thể sống sót khỏi bầy Goblin không?
                 
-                Magician vs Goblin là game hành động sống còn nhịp độ nhanh, nơi bạn vào vai một Pháp Sư trẻ bị bao vây bởi lũ Goblin hung hãn. Bạn chỉ có một mình — nhưng sở hữu ma thuật mạnh mẽ.
+                Magician vs Goblin là game hành động sống còn nhịp độ nhanh, nơi bạn vào vai một Pháp Sư trẻ bị bao vây bởi lũ Goblin hung hãn. Bạn chỉ có một mình — nhưng sở hữu ma thuật mạnh mẽ. Mỗi giây là một trận chiến sinh tồn khi bạn phải vừa né, vừa bắn phép, vừa cố gắng duy trì mạng sống giữa số lượng Goblin tăng dần theo thời gian.
                 
-                Liệu bạn có thể trụ đến cuối trận, hay sẽ bị đàn Goblin nuốt chửng giữa chiến trường?`,
+                Các quyết định của bạn đều quan trọng !!!
+                
+                Liệu bạn có thể trụ đến cuối trận, hay sẽ bị đàn Goblin nuốt chửng giữa chiến trường?
+                `,
                 price: 50000, 
                 bankInfo: "999999 - Techcombank - VO MINH TRIET", 
                 img: "GameImage/game1.png", 
-                genre: "2D Action, Survival", 
+                genre: "2D Action, Top-down Shooter, Survival Combat", 
                 players: "Single", 
                 developer: "Võ Minh Triết", 
                 release: "07/11/2025", 
                 videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1",
                 story: `Ý tưởng cốt lõi:
-                + Tiêu diệt càng nhiều Goblin càng tốt.
-                + Sống càng lâu càng tốt.
                 
+                + Tiêu diệt càng nhiều Goblin càng tốt.
+
+                + Sống càng lâu càng tốt.
+
+                + Cơ chế chơi nhanh, trực quan, mang tính phản xạ cao.
+
+                + Toàn bộ hành động thực hiện trực tiếp trong gameplay không cần menu phức tạp.
+
                 Cốt truyện:
-                Bạn là một Pháp Sư học việc đang thực tập tại vùng rừng ma thuật. Trong lúc thiền luyện, một cánh cổng quái vật đột ngột mở ra...`,
-                gameplay: `Di chuyển: nút di chuyển hoặc chuột. Ngắm: theo hướng chuột. Bắn phép: Nhấn/giữ chuột trái.`,
+                
+                Bạn là một Pháp Sư học việc đang thực tập tại vùng rừng ma thuật. Trong lúc thiền luyện, một cánh cổng quái vật đột ngột mở ra, giải phóng Goblin từ chiều không gian khác.
+                
+                Nhiệm vụ của bạn phải trực tiếp cầm cự và tiêu diệt nhiều goblin nhất có thể để chờ viện binh đến !`,
+                gameplay: `Di chuyển: nút di chuyển hoặc chuột 
+
+                Ngắm: theo hướng chuột.
+                
+                Bắn phép: Nhấn/giữ chuột trái → bắn Spell.`,
                 winCondition: `Không có điều kiện thắng cố định. Bạn càng sống lâu → càng “thắng”.`,
-                lossCondition: "Game Over ngay lập tức khi: Player HP = 0."
+                lossCondition: "Game Over ngay lập tức khi: Player HP = 0 (bị Goblin tấn công quá nhiều)."
             },
             { 
                 id: 2, 
                 name: "Sinh Viên sinh tồn", 
                 desc: "Sống sót qua 30 ngày cùng những biến cố bất ngờ thời Sinh viên.", 
-                intro: `Chào mừng bạn đến với chiến trường khốc liệt nhất: Đại Học! Không có súng đạn, kẻ thù của bạn là 'Deadline', 'Mì tôm' và 'Hết tiền'.`,
+                intro: `Chào mừng bạn đến với chiến trường khốc liệt nhất: Đại Học! Không có súng đạn, kẻ thù của bạn là 'Deadline', 'Mì tôm' và 'Hết tiền'.
+                Bạn có thể TRỤ tới ngày cuối cùng được không?
+                
+                Survival Sinh Viên là game mô phỏng quản lý tài nguyên căng thẳng, nơi bạn vào vai sinh viên năm nhất cố gắng sống sót qua 30 ngày đầu tiên với một khoản trợ cấp eo hẹp.
+                
+                Mỗi ngày là một thử thách: Cân bằng giữa việc ăn uống, học tập và kiểm soát Stress! Mọi lựa chọn đều quan trọng. Bạn sẽ ăn mì gói hay mạo hiểm mua cơm bụi? Dành tiền sửa xe hay bỏ học để ngủ bù?
+                
+                ⚠️ Cẩn thận: Chỉ số Tiền, Sức khỏe, Độ no, hoặc Stress vượt ngưỡng sẽ dẫn đến Game Over ngay lập tức!
+                
+                Liệu bạn có thể chiến thắng định mệnh, hay sẽ phải "bỏ học về quê" trước Ngày 30? Chơi ngay và tìm câu trả lời!`,
                 price: 0, 
                 bankInfo: "", 
                 img: "GameImage/game2.png", 
-                genre: "2D Simulator", 
+                genre: "2D Simulator, Resource management, Visual / Text-driven", 
                 players: "Single", 
                 developer: "Võ Ngọc Bảo Trân", 
                 release: "08/11/2025", 
                 videoUrl: "https://www.youtube.com/embed/7rkcFUS7tNI",
-                story: `Ý tưởng cốt lõi: Mô phỏng lại cuộc chiến sinh tồn đô thị của một sinh viên năm nhất.
+                story: `Ý tưởng cốt lõi của trò chơi là mô phỏng lại cuộc chiến sinh tồn đô thị của một sinh viên năm nhất tại Việt Nam. Người chơi phải sống sót qua 30 ngày với ngân sách hạn hẹp, liên tục quản lý và cân bằng 4 chỉ số sinh mệnh: Tiền, Sức khỏe, Độ no, và Stress. 
+                
+                Bối cảnh game tập trung vào những địa điểm quen thuộc (phòng trọ, quán cơm bình dân, giảng đường), nơi người chơi đối mặt với các sự kiện ngẫu nhiên mang tính may rủi cao (deadline gấp, hư xe, trúng thưởng). Toàn bộ câu chuyện được truyền tải qua các lựa chọn dựa trên văn bản.
                 
                 Mục tiêu là đạt đến Ngày 30 mà không để bất kỳ 3 chỉ số Tiền, Sức khỏe, Độ no (<=0) hoặc Stress (>=100).`,
-                gameplay: "Trò chơi diễn ra theo lượt. Quản lý 4 chỉ số Tiền, Sức khỏe, Độ no, Stress.",
+                gameplay: "Trò chơi diễn ra theo lượt, với mỗi lượt là một ngày. Người chơi điều khiển hoàn toàn bằng chuột, đưa ra quyết định thông qua các Nút Lựa Chọn đi kèm với mỗi sự kiện ngẫu nhiên hoặc cố định xuất hiện hàng ngày. Sau khi đưa ra quyết định, các chỉ số cốt lõi (Tiền, Sức khỏe, Độ no, Stress) sẽ thay đổi. Nhiệm vụ của bạn là quản lý và giữ 4 chỉ số này nằm trong giới hạn cho phép (tối thiểu 0, tối đa 100) cho đến khi hoàn thành Ngày 30.",
                 winCondition: "Sống sót qua 30 ngày.",
-                lossCondition: `Game Over nếu: Tiền <= 0, Sức khỏe <= 0, Độ no <= 0, hoặc Stress >= 100.`
+                lossCondition: `Game Over sẽ xảy ra ngay lập tức nếu: Tiền <= 0 (Phá sản), Sức khỏe <= 0 (Kiệt sức), Độ no <= 0 (Chết đói), hoặc Stress >= 100 (Bỏ học về quê).`
             },
             { 
                 id: 3, 
@@ -1181,39 +1186,78 @@
                 price: 0, 
                 bankInfo: "", 
                 img: "GameImage/game3.png", 
-                genre: "Arcade Survival", 
+                genre: "Arcade Survival, Endless, 8-bit", 
                 players: "Single", 
                 developer: "Nguyễn Lê Chí Tường", 
                 release: "09/11/2025", 
                 videoUrl: "https://www.youtube.com/embed/xqmehhKTZZI",
-                story: `Cốt truyện: Anya bị chuyển sinh thành sinh viên HCMUS. Mỗi đêm cô phải né tránh những cuốn sách Vi Tích Phân rơi xuống.`,
-                gameplay: "Dùng Phím Mũi Tên Trái/Phải để di chuyển Anya.",
-                winCondition: "Sống sót và vượt qua kỳ thi Vi Tích Phân.",
-                lossCondition: "Va chạm 3 lần với sách Vi Tích Phân."
+                story: `Ý tưởng: 
+                
+                Do sinh viên 25CTT6 HCMUS đang đối mặt với kỳ thi Vi Tích Phân căng thẳng, một học sinh bí ẩn trong lớp đã xây dựng game này để giúp các bạn cùng lớp và bản thân giải stress sau những giờ học cày try-hard Vi Tích Phân. 
+                
+                Game là nơi chuyển hóa áp lực thành một thử thách giải trí tốc độ cao.
+                Cốt truyện:
+                Anya vốn là một cô bé ngây thơ, cute phô mai que, đến từ thế giới anime. Một ngày đẹp trời, BÙM! Anya bị chuyển sinh thẳng vào thế giới đời thường và trở thành một tân sinh viên Khoa học Tự nhiên tại HCMUS.
+                
+                Cuộc sống tưởng chừng êm đẹp cho đến khi cô gặp Kẻ Phản Diện Vi Tích Phân. Áp lực học tập, deadline dí đã biến tâm trí cô thành một bãi chiến trường.
+                
+                Mỗi đêm, Anya phải bước vào cơn ác mộng: Trong không gian Retro-Cyberpunk của tiềm thức, những cuốn sách Vi Tich Phân liên tục rơi xuống Ziczac với tốc độ nhanh dần, muốn "đè bẹp" cô. Mục tiêu duy nhất: Sống sót!
+                `,
+                gameplay: "Dùng Phím Mũi Tên Trái/Phải để di chuyển Anya né tránh những cuốn sách Vi Tích Phân.",
+                winCondition: "Sống sót và vượt qua được kỳ thi Vi Tích Phân ngoài đời thực! =))",
+                lossCondition: "Va chạm 3 lần với sách Vi Tích Phân và bị kiến thức đè bẹp sẽ GAME OVER."
             },
             { 
                 id: 4, 
                 name: "ERROR RUN", 
                 desc: "Chạy trốn màn hình xanh chết chóc gồm BUG và ERROR.", 
-                intro: `HÃY TRÁNH NÉ TẤT CẢ CÁC BUG - ERROR ĐỂ MANG VỀ ĐIỂM SỐ CAO NHẤT !!!`,
+                intro: `HÃY TRÁNH NÉ TẤT CẢ CÁC BUG - ERROR ĐỂ MANG VỀ ĐIỂM SỐ CAO NHẤT CHO MÔN CƠ SỞ LẬP TRÌNH CỦA BẠN !!!
+
+                Liệu bạn có thể phá vỡ kỷ lục và trở thành "Thánh DEADLINE"?`,
                 price: 20000, 
                 bankInfo: "777777 - ACB - VO NGUYEN CONG TRI", 
                 img: "GameImage/game4.png", 
-                genre: "Endless Runner", 
+                genre: "Endless Runner, Arcade, Flappy-style", 
                 players: "Single", 
                 developer: "Võ Nguyễn Công Trí", 
                 release: "10/11/2025", 
                 videoUrl: "https://www.youtube.com/embed/6AuqZ9ZINVQ",
-                story: `Cốt truyện: Sinh viên Trí bị hút vào thế giới mã lệnh. Cậu phải nhảy qua các lỗi (Bug) để tìm đường đến cổng Moodle nộp bài.`,
-                gameplay: `Spacebar/Click chuột để bay lên.`,
-                winCondition: `Sống càng lâu càng tốt.`,
-                lossCondition: `Chạm vào lỗi (ERROR) hoặc sàn/trần nhà.`
+                story: `Ý tưởng: 
+                
+                Với bối cảnh gần gũi và hài hước về cuộc sống của sinh viên CNTT, game không chỉ mang lại những phút giây giải trí (và ức chế!) mà còn là một sự đồng cảm sâu sắc với những ai đã từng "thức đêm chạy deadline".
+                
+                Hãy chuẩn bị tinh thần, giữ chặt phím Space và xem bạn có thể sống sót bao lâu trong thế giới code đầy lỗi này!
+                
+                Cốt truyện: 
+                
+                Vào lúc 23h58 đêm hạn chót, sau cú nhấn "Build & Run" định mệnh, chàng sinh viên Trí của FIT@HCMUS bất ngờ bị hút vào thế giới mã lệnh bởi lỗi "404 - Hope Not Found" và hóa thân thành một nhân vật 8-bit nhỏ bé.
+                
+                Để thoát khỏi cơn ác mộng này và nộp bài kịp giờ, cậu phải liên tục "spam" phím Space, chật vật lượn lách qua những khe hở tử thần được tạo bởi cặp ngoặc thiếu, dấu chấm phẩy đi lạc và các vòng lặp vô tận. 
+                
+                Cuộc đua giờ đây không chỉ là sinh tồn mà còn là hành trình cảm tử tìm đường đến cánh cổng Moodle thần thánh để "Commit code" thành công, bởi chỉ một cú va chạm nhỏ vào lỗi (Bug), Trí sẽ đối mặt với án tử đáng sợ nhất đời sinh viên: trượt môn và đóng tiền học lại!`,
+                gameplay: `Trên PC/Laptop: Nhấn phím Spacebar HOẶC click Chuột trái để làm nhân vật bay lên.
+                
+                Trên Mobile/Tablet: Chạm vào bất kỳ đâu trên màn hình để bay lên.`,
+                winCondition: `Không có đích đến, sống càng lâu càng tốt bằng cách điều khiển nhân vật bay qua các khe hở giữa các chướng ngại vật. 
+                
+                Mỗi cặp ống lỗi vượt qua sẽ cho bạn 1 điểm.`,
+                lossCondition: `Tuyệt đối không được chạm vào:
+                
+                + Các khối lỗi màu đỏ ("ERROR 404", "CSLT-MAT").
+                
+                + Giới hạn trên cùng (trần nhà) của màn hình.
+                
+                + Giới hạn dưới cùng (sàn nhà) của màn hình.
+                
+                Va chạm vào bất cứ thứ gì kể trên đồng nghĩa với GAME OVER.`
             },
             { 
                 id: 5, 
                 name: "Naruto Adventure", 
                 desc: "Nhiệm vụ Ninja cấp S cùng Kakashi(?) và Naruto.", 
-                intro: `Game hành động platformer 2D. Chọn Kakashi hoặc Naruto để bảo vệ Konoha.`,
+                intro: `Tựa game này là một trải nghiệm hành động platformer 2D Side-Scrolling mang phong cách Arcade, hoàn hảo cho một người chơi.
+                
+                Mục tiêu của game là cho phép người chơi chọn lựa giữa các huyền thoại: Kakashi, Naruto,… và tham gia vào một cuộc chiến tốc độ cao chống lại Sound Ninja, sử dụng các tuyệt kỹ như Sharingan, Chidori, Rasengan và Kage Bunshin để bảo vệ Konoha khỏi hiểm họa.`,
                 price: 0, 
                 bankInfo: "", 
                 img: "GameImage/game5.png", 
@@ -1222,16 +1266,40 @@
                 developer: "Đỗ Duy Trường", 
                 release: "11/11/2025", 
                 videoUrl: "https://www.youtube.com/embed/4XScOKO0Y40",
-                story: `Nhiệm vụ mật: Tiêu diệt Ninja Làng Âm Thanh đang xâm nhập Làng Lá.`,
-                gameplay: `Di chuyển: Mũi tên. Tấn công: J, K. Tuyệt kỹ: L, U.`,
-                winCondition: `Tiêu diệt hết kẻ địch trong màn.`,
-                lossCondition: `Hết máu hoặc rơi xuống vực.`
+                story: `Ý tưởng trung tâm của game là mang lại trải nghiệm chiến đấu linh hoạt và cá nhân hóa. Người chơi đối diện với lựa chọn định hình lối chơi của mình:
+                
+                + Kakashi: Phù hợp với lối chơi chiến lược, đòi hỏi sự tính toán thời điểm chính xác khi sử dụng Sharingan.
+
+                + Naruto: Phù hợp với lối chơi cường độ cao, tấn công trực diện, gây sát thương lớn và diện rộng bằng Rasengan.
+
+                Game là nơi kiểm tra khả năng làm chủ tốc độ phản xạ và bộ kỹ năng độc đáo của người chơi trên những chiến trường khốc liệt.
+                
+                Cốt truyện: Bảo vệ Làng Lá: Sau cái chết của Hokage Đệ Tam, Làng rơi vào tình trạng bất ổn, tạo cơ hội cho thế lực lính đánh thuê tàn bạo là Ninja Làng Âm Thanh xâm nhập. Bạn được giao nhiệm vụ mật: Lựa chọn Anh hùng Kakashi Hatake hoặc Naruto Uzumaki để thực hiện nhiệm vụ tiêu diệt chúng.`,
+                gameplay: `Di chuyển: Dùng Phím Mũi Tên Trái/Phải hoặc A/D.
+                
+                Nhảy: Dùng Phím Mũi Tên Lên hoặc W.
+
+                Tấn công cơ bản: Phím J (Đấm) và K (Đá).
+
+                Tuyệt Kỹ Đặc Trưng: Phím L (Chidori nếu là Kakashi, Rasengan nếu là Naruto).
+                
+                Siêu Tuyệt Kỹ: Phím U (Sharingan nếu là Kakashi, Kage Bunshin nếu là Naruto).`,
+                winCondition: `Thắng Màn : Bạn chiến thắng một màn chơi khi tiêu diệt được tất cả các đơn vị Sound Ninja trên bản đồ. Màn hình "STAGE CLEAR!" sẽ xuất hiện, cho phép bạn chuyển tiếp sang Level tiếp theo.
+                
+                Hoàn Thành Game: Khi bạn hoàn thành Level cuối cùng, màn hình "GAME COMPLETE!" sẽ xuất hiện.`,
+                lossCondition: `Game kết thúc và màn hình "GAME OVER" sẽ xuất hiện nếu:
+                
+                + Máu Về 0: Thanh máu của nhân vật chính cạn kiệt sau khi nhận sát thương từ kẻ địch.
+                
+                + Rơi Vực: Nhân vật rơi khỏi giới hạn màn hình chơi.`
             },
             { 
                 id: 6, 
                 name: "Dạo Phố CHILL", 
                 desc: "Lái xe thư giãn cùng nhạc Lofi trong thế giới siêu thực.", 
-                intro: `Gác lại mọi âu lo, bật nhạc lên và tận hưởng. Chỉ có bạn và chiếc xe trong màn đêm êm dịu.`,
+                intro: `Gác lại mọi âu lo, bật nhạc lên và tận hưởng. 'Dạo Phố CHILL' không có thắng thua, không có kẻ địch, chỉ có bạn và chiếc xe lướt đi trong màn đêm êm dịu. Một liều thuốc tinh thần hoàn hảo sau những giờ làm việc căng thẳng.
+
+                `,
                 price: 100000, 
                 bankInfo: "111111 - Vietcombank - DOAN HOANG VIET", 
                 img: "GameImage/game6.png", 
@@ -1240,8 +1308,34 @@
                 developer: "Đoàn Hoàng Việt", 
                 release: "12/10/2025", 
                 videoUrl: "https://www.youtube.com/embed/jNlELPjMwOQ",
-                story: `Cốt truyện: Bạn là lữ khách vô danh tại 'Phố nhỏ', nơi thời gian dừng lại. Hãy lái xe, nghe nhạc và tìm kiếm những mảnh ký ức bình yên.`,
-                gameplay: `W,A,S,D để lái xe. M để mở điện thoại.`,
+                story: `Ý tưởng:
+                
+                Không có kẻ thù, không áp lực. Chỉ có bạn, chiếc xe và âm nhạc trong thành phố về đêm.
+
+                "Khám phá, chill, ngắm cảnh và trò chuyện."
+
+                CHÀO MỪNG ĐẾN VỚI THẾ GIỚI “KHÁC BIỆT” 
+
+                Bước vào thế giới Open World rộng lớn, nơi bạn thoát khỏi deadline và áp lực. Tự tay cầm lái những chiếc siêu xe, lượn lờ dưới ánh đèn Neon thành phố và bật Mic "tám" chuyện cùng hội bạn. Đây là không gian Slow Living dành riêng cho Gen Z.
+
+                Cốt truyện:
+
+                Trong một thế giới nơi con người đang dần đánh mất khả năng mơ mộng vì guồng quay hối hả của cuộc sống hiện đại, bạn vào vai một lữ khách vô danh trở về góc phố hoài niệm mang tên 'Phố nhỏ'. 
+                
+                Đây là nơi duy nhất trên thế giới mà thời gian dường như bỏ quên, luôn dừng lại ở khoảnh khắc nhập nhoạng tối êm đềm với cơn mưa bụi lất phất không bao giờ dứt. 
+                
+                Bạn không có thanh máu, không có kẻ thù, và cũng chẳng bị hối thúc bởi thời gian; suy nghĩ duy nhất của bạn là rảo bước thật chậm trên những con đường lát đá phủ rêu, lắng nghe tiếng mưa rơi tí tách trên chiếc ô trong suốt và tiếng nhạc Jazz du dương phát ra từ những ngọn đèn đường hiu hắt. 
+                
+                Trên hành trình vô định ấy, bạn sẽ đi tìm lại những 'mảnh vỡ ánh sáng' đang trôi nổi—đó là hiện thân của những kỷ niệm hạnh phúc nhỏ bé mà cư dân thành phố đã vô tình đánh rơi và lãng quên: một lá thư tình chưa bao giờ gửi, chiếc vé xem phim của mối tình đầu, hay đơn giản là mùi hương của tiệm bánh mì nướng năm xưa. 
+                
+                Mỗi bước chân của bạn không chỉ là sự di chuyển, mà là hành trình thắp sáng lại từng góc phố u tối, ghép lại những mảnh ký ức vụn vỡ để kể lên một câu chuyện cảm động, sâu sắc về sự chữa lành và nhắc nhở người chơi trân trọng những điều bình dị nhất mà mình đang có.
+
+                `,
+                gameplay: `⌨️ Di chuyển: W, A, S, D hoặc Mũi tên.
+                
+                👀 Quan sát: Chuột xoay 360 độ.
+
+                🚗 Menu điện thoại: Nhấn nút M trên màn hình.`,
                 winCondition: "Không có, game chỉ để thư giãn.",
                 lossCondition: "Khi tắt game =))"
             }
@@ -1252,23 +1346,13 @@
         const formatter = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' });
 
         // --- 2. HỆ THỐNG QUẢN LÝ GIỎ HÀNG (STORAGE) ---
-        // Lấy danh sách ID trong giỏ
-        function getCart() {
-            return JSON.parse(localStorage.getItem('cart') || '[]');
-        }
-        // Lưu giỏ
-        function saveCart(cart) {
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartBadge();
-        }
-        // Thêm vào giỏ
+        function getCart() { return JSON.parse(localStorage.getItem('cart') || '[]'); }
+        function saveCart(cart) { localStorage.setItem('cart', JSON.stringify(cart)); updateCartBadge(); }
+        
         function addToCart(gameId) {
             let cart = getCart();
             let library = getLibrary();
-            if (library.includes(gameId)) {
-                alert("Bạn đã sở hữu game này rồi!");
-                return;
-            }
+            if (library.includes(gameId)) { alert("Bạn đã sở hữu game này rồi!"); return; }
             if (!cart.includes(gameId)) {
                 cart.push(gameId);
                 saveCart(cart);
@@ -1276,29 +1360,22 @@
             } else {
                 alert("Game này đã có trong giỏ hàng!");
             }
-            // Render lại để nút cập nhật trạng thái
             if (!getQueryParam('view') && !getQueryParam('game')) {
                 const gameGrid = document.getElementById('gameGrid');
                 if (gameGrid) renderGames(currentGames, gameGrid);
             }
         }
-        // Xóa khỏi giỏ
+        
         function removeFromCart(gameId) {
             let cart = getCart();
             cart = cart.filter(id => id !== gameId);
             saveCart(cart);
-            renderCartPage(); // Render lại trang giỏ hàng
+            renderCartPage();
         }
-        // Lấy danh sách đã mua
-        function getLibrary() {
-            return JSON.parse(localStorage.getItem('library') || '[]');
-        }
-        // Lưu danh sách đã mua
-        function saveLibrary(library) {
-            localStorage.setItem('library', JSON.stringify(library));
-        }
+        
+        function getLibrary() { return JSON.parse(localStorage.getItem('library') || '[]'); }
+        function saveLibrary(library) { localStorage.setItem('library', JSON.stringify(library)); }
 
-        // Cập nhật số lượng trên icon giỏ hàng
         function updateCartBadge() {
             const badge = document.querySelector('.cart-badge');
             if (badge) {
@@ -1308,11 +1385,15 @@
             }
         }
 
-        // --- 3. HELPER FUNCTIONS ---
+        // --- 3. HELPER FUNCTIONS (FORMAT TEXT) ---
+        // GIỮ NGUYÊN HÀM NÀY THEO YÊU CẦU
         function formatGameText(text) {
             if (!text) return "";
+
             let formatted = text
                 .replace(/Ý tưởng cốt lõi/g, "<strong>Ý tưởng cốt lõi</strong>")
+                .replace(/Ý tưởng trung tâm/g, "<strong>Ý tưởng trung tâm</strong>")
+                .replace(/Ý tưởng:/g, "<strong>Ý tưởng:</strong>")
                 .replace(/Cốt truyện:/g, "<strong>Cốt truyện:</strong>")
                 .replace(/Cốt truyện(?![^<]*>)/g, "<strong>Cốt truyện</strong>"); 
 
@@ -1323,6 +1404,7 @@
                 if (para.trim().includes('+')) {
                     const lines = para.split('\n');
                     let inList = false;
+                    
                     lines.forEach(line => {
                         let cleanLine = line.trim();
                         if (cleanLine.startsWith('+')) {
@@ -1330,50 +1412,40 @@
                             html += `<li>${cleanLine.substring(1).trim()}</li>`;
                         } else {
                             if (inList) { html += '</ul>'; inList = false; }
-                            if (cleanLine.length > 0) html += `<div class="content-paragraph">${line}</div>`;
+                            if (cleanLine.length > 0) { html += `<div class="content-paragraph">${line}</div>`; }
                         }
                     });
                     if (inList) html += '</ul>';
                 } else {
-                    if (para.trim().length > 0) html += `<div class="content-paragraph">${para.replace(/\n/g, '<br>')}</div>`;
+                    if (para.trim().length > 0) {
+                        html += `<div class="content-paragraph">${para.replace(/\n/g, '<br>')}</div>`;
+                    }
                 }
             });
             return html;
         }
 
-        function getQueryParam(param) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(param);
-        }
-
-        // Điều hướng: Mở Cart trong tab mới (cho Navbar)
-        function openCartInNewTab() {
-            window.open(`${window.location.pathname}?view=cart`, '_blank');
-        }
-
-        // Điều hướng: Mở chi tiết game
-        function openGameDetail(gameId) {
-            window.location.href = `${window.location.pathname}?game=${gameId}`;
-        }
-
         // --- 4. RENDER CÁC TRANG ---
+        
+        // Điều hướng chung
+        function openCartInNewTab() { window.open(`${window.location.pathname}?view=cart`, '_blank'); }
+        function openGameDetail(gameId) { window.open(`${window.location.pathname}?game=${gameId}`, '_blank'); }
+        function getQueryParam(param) { const urlParams = new URLSearchParams(window.location.search); return urlParams.get(param); }
 
-        // === 4.1 TRANG CHỦ (HOMEPAGE) ===
+        // === 4.1 TRANG CHỦ ===
         function renderHomePage() {
             appContainer.innerHTML = `
                 <nav class="navbar">
                     <a class="logo" href="${window.location.pathname}">
                         <i class="fa-solid fa-gamepad"></i> TBN STUDIO
                     </a>
-                    
                     <div class="nav-links">
                         <a href="#" class="active">Trang chủ</a>
                         <a href="#gallery-title">Khám phá</a>
-                        <a href="#uploadForm" id="uploadNavBtn" style="color: var(--primary-color); font-weight:bold;">
+                        <a href="#uploadForm" id="uploadNavBtn" style="color:var(--primary-color);font-weight:bold;">
                             <i class="fa-solid fa-upload"></i> Đăng tải game
                         </a>
                     </div>
-
                     <div class="nav-actions">
                         <div class="search-box">
                             <input type="text" id="searchInput" placeholder="Tìm game...">
@@ -1398,7 +1470,7 @@
 
                     <h2>🚀 Đăng Game Mới</h2>
                     <div class="upload-section" id="uploadForm">
-                         <form id="uploadFormContent">
+                        <form id="uploadFormContent">
                             <div class="form-row">
                                 <div class="form-col"><label>Tên Game:</label><input type="text" id="gName" required placeholder="Tên game..."></div>
                                 <div class="form-col"><label>Giá (VNĐ):</label><input type="number" id="gPrice" placeholder="0 = Free"></div>
@@ -1418,7 +1490,7 @@
             const uploadNavBtn = document.getElementById("uploadNavBtn");
 
             renderGames(currentGames, gameGrid);
-            updateCartBadge(); // Cập nhật badge lúc load trang
+            updateCartBadge();
             
             uploadNavBtn.addEventListener("click", function(e){
                 e.preventDefault();
@@ -1434,7 +1506,6 @@
             uploadForm.addEventListener('submit', handleGameUpload);
         }
 
-        // Render danh sách game ở Trang chủ (Sửa lại nút bấm)
         function renderGames(games, gridElement) {
             gridElement.innerHTML = "";
             const cart = getCart();
@@ -1452,34 +1523,22 @@
                 let priceDisplay = isFree ? "FREE" : formatter.format(game.price);
                 let priceClass = isFree ? "free" : "";
                 if (isOwned) { priceDisplay = "OWNED"; priceClass = "owned"; }
+                const bankDisplayClass = (!isFree && game.bankInfo) ? "show-bank" : "";
 
                 // Logic hiển thị nút
                 let buttonHtml = '';
-                
                 if (isOwned) {
-                    // Đã sở hữu -> Chỉ hiện nút Chơi (full width)
-                     buttonHtml = `
-                        <div class="card-actions">
-                             <button onclick="alert('Đang khởi động game...')" class="btn-play" style="background:var(--success-color); color:white;">ĐÃ SỞ HỮU</button>
-                        </div>
-                    `;
+                     buttonHtml = `<button onclick="alert('Đang khởi động game...')" class="btn-play" style="background:var(--success-color); color:white;">ĐÃ SỞ HỮU</button>`;
                 } else if (isFree) {
-                    // Miễn phí -> Chỉ hiện nút Chơi
-                     buttonHtml = `
-                        <div class="card-actions">
-                             <button onclick="openGameDetail(${game.id})" class="btn-play">CHƠI NGAY</button>
-                        </div>
-                    `;
+                     buttonHtml = `<button onclick="openGameDetail(${game.id})" class="btn-play">CHƠI NGAY</button>`;
                 } else {
-                    // Game tốn tiền -> Hiện 2 nút: Mua ngay và Thêm giỏ hàng
                     buttonHtml = `
                         <div class="card-actions">
                              <button onclick="openGameDetail(${game.id})" class="btn-play">MUA NGAY</button>
                              <button onclick="addToCart(${game.id})" class="btn-add-cart ${isInCart ? 'added' : ''}" title="${isInCart ? 'Đã trong giỏ' : 'Thêm vào giỏ'}">
                                 <i class="fa-solid ${isInCart ? 'fa-check' : 'fa-cart-plus'}"></i>
                              </button>
-                        </div>
-                    `;
+                        </div>`;
                 }
 
                 const card = document.createElement('div');
@@ -1490,23 +1549,46 @@
                     <div class="game-info">
                         <h3 class="game-title">${game.name}</h3>
                         <p class="game-desc">${game.desc}</p>
+                        <div class="bank-info-display ${bankDisplayClass}">💳 CK: ${game.bankInfo}</div>
                         ${buttonHtml}
                     </div>
                 `;
                 gridElement.appendChild(card);
             });
         }
+        
+        function handleGameUpload(e) {
+            e.preventDefault();
+            const name = document.getElementById('gName').value;
+            const desc = document.getElementById('gDesc').value;
+            const price = parseInt(document.getElementById('gPrice').value) || 0;
+            const bank = document.getElementById('gBank').value;
+            const fileInput = document.getElementById('gImage');
+            
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const newGame = {
+                        id: Date.now(), name: name, desc: desc, price: price, bankInfo: bank,
+                        img: e.target.result, 
+                        genre: "Indie", players: "1", developer: "Cộng đồng", release: new Date().toLocaleDateString('vi-VN'),
+                        videoUrl: "https://www.youtube.com/embed/n4yK54iF55g?autoplay=1&mute=1",
+                        intro: desc, story: "Nội dung đang được tác giả cập nhật...", gameplay: "Liên hệ tác giả...", winCondition: "...", lossCondition: "..."
+                    };
+                    currentGames.unshift(newGame);
+                    alert("Đăng tải game thành công!");
+                    renderHomePage(); 
+                }
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        }
 
-        // === 4.2 TRANG GIỎ HÀNG (CART PAGE) - TAB MỚI ===
+        // === 4.2 TRANG GIỎ HÀNG (CART PAGE) ===
         function renderCartPage() {
             const cartIds = getCart();
             const libraryIds = getLibrary();
-
-            // Lọc ra danh sách object game từ ID
             const cartItems = initialGames.filter(g => cartIds.includes(g.id));
             const ownedItems = initialGames.filter(g => libraryIds.includes(g.id));
-
-            // Tính tổng tiền
             const total = cartItems.reduce((sum, item) => sum + item.price, 0);
 
             let cartHtml = '';
@@ -1516,11 +1598,7 @@
                 cartHtml = `
                     <table class="cart-table">
                         <thead>
-                            <tr>
-                                <th>Game</th>
-                                <th>Giá</th>
-                                <th>Hành động</th>
-                            </tr>
+                            <tr><th>Game</th><th>Giá</th><th>Hành động</th></tr>
                         </thead>
                         <tbody>
                             ${cartItems.map(item => `
@@ -1530,25 +1608,17 @@
                                         <strong>${item.name}</strong>
                                     </td>
                                     <td>${formatter.format(item.price)}</td>
-                                    <td>
-                                        <button class="btn-remove" onclick="removeFromCart(${item.id})">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
-                                    </td>
+                                    <td><button class="btn-remove" onclick="removeFromCart(${item.id})"><i class="fa-solid fa-trash"></i></button></td>
                                 </tr>
                             `).join('')}
                         </tbody>
                     </table>
                     <div class="cart-total">Tổng cộng: ${formatter.format(total)}</div>
-                    
                     <div style="background: #fff3cd; padding: 15px; margin-top: 20px; border-radius: 10px; border: 1px solid #ffeeba;">
                          <strong><i class="fa-solid fa-circle-info"></i> Thông tin thanh toán:</strong><br>
                          Các game trong giỏ sẽ được thanh toán qua chuyển khoản. Vui lòng nhấn nút bên dưới để xác nhận đã chuyển khoản và nhận game.
                     </div>
-
-                    <button class="btn-checkout" onclick="processCheckout()">
-                        <i class="fa-regular fa-credit-card"></i> THANH TOÁN NGAY
-                    </button>
+                    <button class="btn-checkout" onclick="processCheckout()"><i class="fa-regular fa-credit-card"></i> THANH TOÁN NGAY</button>
                 `;
             }
 
@@ -1578,7 +1648,6 @@
                         <a href="#" class="active">Giỏ hàng</a>
                     </div>
                 </nav>
-
                 <div class="container cart-section">
                     <h1><i class="fa-solid fa-cart-shopping"></i> Giỏ hàng của bạn</h1>
                     ${cartHtml}
@@ -1588,23 +1657,19 @@
             document.title = "Giỏ hàng | TBN Studio";
         }
 
-        // Xử lý thanh toán (Giả lập)
         function processCheckout() {
             const cartIds = getCart();
             if(confirm(`Xác nhận thanh toán cho ${cartIds.length} tựa game?`)) {
                 let library = getLibrary();
-                // Chuyển từ giỏ sang library
-                library = [...new Set([...library, ...cartIds])]; // Merge và unique
-                
+                library = [...new Set([...library, ...cartIds])];
                 saveLibrary(library);
-                saveCart([]); // Xóa giỏ
-                
+                saveCart([]); 
                 alert("Thanh toán thành công! Cảm ơn bạn đã ủng hộ Indie Game.");
-                renderCartPage(); // Render lại trang để thấy game đã mua
+                renderCartPage(); 
             }
         }
 
-        // === 4.3 TRANG CHI TIẾT (DETAIL PAGE) ===
+        // === 4.3 TRANG CHI TIẾT ===
         function renderDetailPage(game) {
             const library = getLibrary();
             const isOwned = library.includes(game.id);
@@ -1613,27 +1678,24 @@
 
             const storyText = formatGameText(game.story || "Đang cập nhật...");
             const gameplayText = formatGameText(game.gameplay || "Sử dụng bàn phím và chuột.");
+            const winText = formatGameText(game.winCondition || "Hoàn thành mục tiêu.");
+            const lossText = formatGameText(game.lossCondition || "Hết mạng.");
             const introText = formatGameText(game.intro || game.desc);
 
-            // Logic nút bấm trang chi tiết
             let mainButtonHtml = '';
             if (isOwned || isFree) {
                 mainButtonHtml = `
                     <button onclick="alert('Bắt đầu tải xuống game... Chúc bạn chơi vui vẻ!')" 
                             class="btn-play" style="width: 250px; margin-top: 20px; background: var(--primary-color); color: white; box-shadow: 0 4px 0 var(--primary-dark);">
                         <i class="fa-solid fa-download"></i> TẢI VÀ CHƠI NGAY
-                    </button>
-                `;
+                    </button>`;
             } else {
-                // Nếu chưa mua -> Nút dẫn đến trang thanh toán (view=cart)
-                // Theo yêu cầu: Nhấn Mua -> Dẫn đến tính năng giỏ hàng, chuẩn bị giao dịch
                 mainButtonHtml = `
                     <button onclick="buyNowFromDetail(${game.id})" 
                             class="btn-play" style="width: 250px; margin-top: 20px; background: var(--accent-pink); color: white; box-shadow: 0 4px 0 #d63031;">
                         <i class="fa-solid fa-cart-plus"></i> MUA VÀ TẢI (${priceDisplay})
                     </button>
-                    <p style="margin-top:10px; font-size:0.9rem; color:#666;">*Game sẽ được thêm vào giỏ và chuyển đến trang thanh toán.</p>
-                `;
+                    <p style="margin-top:10px; font-size:0.9rem; color:#666;">*Game sẽ được thêm vào giỏ và chuyển đến trang thanh toán.</p>`;
             }
 
             appContainer.innerHTML = `
@@ -1653,7 +1715,7 @@
                 <div class="container">
                     <div class="detail-header">
                         <h1>${game.name}</h1>
-                        <p>Tác giả: ${game.developer}</p> <br>
+                        <p>Tác giả: ${game.developer}</p>
                         ${mainButtonHtml}
                     </div>
 
@@ -1673,10 +1735,24 @@
                                 <div class="gameplay-box">
                                     <strong>Cách điều khiển:</strong> ${gameplayText}
                                     <ul class="win-loss-list">
-                                        <li><i class="fa-solid fa-trophy" style="color: gold;"></i> <div><strong>Thắng:</strong> ${game.winCondition}</div></li>
-                                        <li><i class="fa-solid fa-skull" style="color: #ff7675;"></i> <div><strong>Thua:</strong> ${game.lossCondition}</div></li>
+                                        <li>
+                                            <i class="fa-solid fa-trophy" style="color: gold; font-size: 1.2rem; margin-top: 5px;"></i> 
+                                            <div style="flex:1;"><strong>Thắng:</strong> ${winText}</div>
+                                        </li>
+                                        <li>
+                                            <i class="fa-solid fa-skull" style="color: #ff7675; font-size: 1.2rem; margin-top: 5px;"></i> 
+                                            <div style="flex:1;"><strong>Thua:</strong> ${lossText}</div>
+                                        </li>
                                     </ul>
                                 </div>
+                                ${!isFree ? `
+                                <div class="purchase-note">
+                                    <i class="fa-solid fa-triangle-exclamation" style="font-size: 1.5rem;"></i>
+                                    <div>
+                                        <strong>Lưu ý mua game:</strong><br>
+                                        Vui lòng chuyển khoản số tiền <strong>${priceDisplay}</strong> đến STK: <strong>${game.bankInfo}</strong>.
+                                    </div>
+                                </div>` : ''}
                             </div>
                         </div>
 
@@ -1687,6 +1763,9 @@
                             <div class="spec-item"><strong>Phát triển bởi:</strong> <span>${game.developer}</span></div>
                             <div class="spec-item"><strong>Ngày đăng tải:</strong> <span>${game.release}</span></div>
                             <div class="spec-item"><strong>Giá tiền:</strong> <span style="color: var(--accent-pink); font-weight:bold;">${priceDisplay}</span></div>
+                            <div class="spec-item" style="margin-top:15px; border-top:1px solid #eee; padding-top:10px;">
+                                <strong>Trạng thái:</strong> <br> <span style="color: green; font-weight:bold;">Đang phát hành</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1695,43 +1774,13 @@
             updateCartBadge();
         }
 
-        // Chức năng Mua ngay từ trang Chi tiết: Thêm vào giỏ -> Chuyển sang view giỏ hàng (trong cùng tab)
         function buyNowFromDetail(gameId) {
             let cart = getCart();
             if(!cart.includes(gameId)) {
                 cart.push(gameId);
                 saveCart(cart);
             }
-            // Chuyển hướng view sang giỏ hàng (cùng tab)
             window.location.href = `${window.location.pathname}?view=cart`;
-        }
-        
-        // Handle upload đơn giản (chỉ cập nhật mảng local cho session hiện tại)
-        function handleGameUpload(e) {
-            e.preventDefault();
-            const name = document.getElementById('gName').value;
-            const desc = document.getElementById('gDesc').value;
-            const price = parseInt(document.getElementById('gPrice').value) || 0;
-            const bank = document.getElementById('gBank').value;
-            const fileInput = document.getElementById('gImage');
-            
-            if (fileInput.files && fileInput.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const newGame = {
-                        id: Date.now(), name: name, desc: desc, price: price, bankInfo: bank,
-                        img: e.target.result, 
-                        genre: "Indie", players: "1", developer: "Cộng đồng", release: new Date().toLocaleDateString('vi-VN'),
-                        videoUrl: "https://www.youtube.com/embed/n4yK54iF55g?autoplay=1&mute=1",
-                        intro: desc, story: "Nội dung đang được tác giả cập nhật...", gameplay: "Liên hệ tác giả...", 
-                        winCondition: "...", lossCondition: "..."
-                    };
-                    currentGames.unshift(newGame);
-                    alert("Đăng tải game thành công!");
-                    renderHomePage(); 
-                }
-                reader.readAsDataURL(fileInput.files[0]);
-            }
         }
 
         // --- 5. MAIN INIT ---
@@ -1740,17 +1789,15 @@
             const view = getQueryParam('view');
 
             if (view === 'cart') {
-                // Render trang giỏ hàng
                 renderCartPage();
             } else if (gameId) {
-                // Render trang chi tiết
                 const selectedGame = currentGames.find(g => g.id == gameId);
                 selectedGame ? renderDetailPage(selectedGame) : (alert("Game không tồn tại!"), renderHomePage());
             } else {
-                // Render trang chủ
                 renderHomePage();
             }
         });
     </script>
 </body>
 </html>
+

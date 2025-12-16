@@ -1113,7 +1113,7 @@
         }
         .nav-links a:hover::after { width: 100%; }
 
-        /* --- CSS DROPDOWN THỂ LOẠI (MỚI) --- */
+        /* --- CSS DROPDOWN THỂ LOẠI --- */
         .dropdown { position: relative; display: flex; align-items: center; height: 100%; }
         
         .dropdown-content {
@@ -1121,17 +1121,21 @@
             position: absolute;
             background-color: #fff;
             min-width: 220px;
+            max-height: 400px; /* Giới hạn chiều cao nếu danh sách quá dài */
+            overflow-y: auto; /* Thêm thanh cuộn */
             box-shadow: 0 8px 25px rgba(0,0,0,0.15);
             z-index: 1001;
             border-radius: 10px;
             padding: 10px 0;
-            top: 100%; /* Đẩy menu xuống dưới */
+            top: 100%; 
             left: 0;
             border: 1px solid rgba(0,0,0,0.05);
-            margin-top: 10px; /* Khoảng cách nhỏ để không bị mất hover */
+            margin-top: 10px; 
         }
         
-        /* Tạo cầu nối tàng hình để không mất hover khi di chuột xuống */
+        .dropdown-content::-webkit-scrollbar { width: 5px; }
+        .dropdown-content::-webkit-scrollbar-thumb { background: #ccc; border-radius: 5px; }
+
         .dropdown-content::before {
             content: "";
             position: absolute;
@@ -1156,10 +1160,9 @@
         .dropdown-content a:hover {
             background-color: var(--bg-gradient-2);
             color: var(--primary-color);
-            padding-left: 25px; /* Hiệu ứng đẩy nhẹ */
+            padding-left: 25px; 
         }
 
-        /* Hiện menu khi rê chuột vào */
         .dropdown:hover .dropdown-content { display: block; animation: fadeIn 0.3s ease; }
         
         @keyframes fadeIn {
@@ -1741,14 +1744,17 @@
             return html;
         }
 
-        // --- 4. CÁC HÀM XỬ LÝ MENU DROPDOWN & LỌC GENRE (MỚI) ---
+        // --- 4. CÁC HÀM XỬ LÝ MENU DROPDOWN & LỌC GENRE (ĐÃ NÂNG CẤP) ---
         function getAllGenres() {
             let allGenres = [];
             initialGames.forEach(game => {
-                let genres = game.genre.split(',').map(g => g.trim());
+                // CHỈNH SỬA: Tách cả dấu phẩy (,) và dấu gạch chéo (/)
+                // Regex /[,\/]/ nghĩa là: tìm dấu phẩy HOẶC dấu gạch chéo để cắt
+                let genres = game.genre.split(/[,\/]/).map(g => g.trim());
                 allGenres.push(...genres);
             });
-            return [...new Set(allGenres)];
+            // Lọc trùng và sắp xếp A-Z
+            return [...new Set(allGenres)].sort();
         }
 
         function renderGenreDropdown() {

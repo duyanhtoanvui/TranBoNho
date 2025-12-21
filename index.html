@@ -1391,14 +1391,16 @@
     </footer>
 
     <script>
-        // --- 1. DỮ LIỆU GAME (DATABASE) ĐÃ CẬP NHẬT (GAME 7-12 LÀ GAME NỔI TIẾNG) ---
+        // --- 1. DỮ LIỆU GAME (DATABASE) ĐÃ CẬP NHẬT (GAME 9 là HAY DAY) ---
         const initialGames = [
             // --- CÁC GAME GỐC CỦA NHÓM (1-6) ---
             { 
                 id: 1, 
                 name: "Magician vs. Goblin", 
                 desc: "Đại chiến ảo thuật gia và quái vật Goblin. Game nhập vai hành động.", 
-                intro: `Bạn có thể sống sót khỏi bầy Goblin không?`,
+                intro: `Bạn có thể sống sót khỏi bầy Goblin không?
+                
+                Magician vs Goblin là game hành động sống còn nhịp độ nhanh, nơi bạn vào vai một Pháp Sư trẻ bị bao vây bởi lũ Goblin hung hãn. Bạn chỉ có một mình — nhưng sở hữu ma thuật mạnh mẽ. Mỗi giây là một trận chiến sinh tồn khi bạn phải vừa né, vừa bắn phép, vừa cố gắng duy trì mạng sống giữa số lượng Goblin tăng dần theo thời gian.`,
                 price: 50000, 
                 bankInfo: "999999 - Techcombank - VO MINH TRIET", 
                 img: "GameImage/game1.png", 
@@ -1408,8 +1410,16 @@
                 release: "07/11/2025", 
                 videoUrl: "https://www.youtube.com/embed/kS1iZw9P5O0",
                 downloadUrl: "https://vominhtriet.itch.io/blackmagician-vs-goblin", 
-                story: `Tiêu diệt càng nhiều Goblin càng tốt. Sống càng lâu càng tốt.`,
-                gameplay: `Di chuyển: nút di chuyển hoặc chuột. Bắn phép: Nhấn/giữ chuột trái.`,
+                story: `Ý tưởng cốt lõi:
+                + Tiêu diệt càng nhiều Goblin càng tốt.
+                + Sống càng lâu càng tốt.
+                + Cơ chế chơi nhanh, trực quan.
+
+                Cốt truyện:
+                Bạn là một Pháp Sư học việc đang thực tập tại vùng rừng ma thuật. Cánh cổng quái vật mở ra, nhiệm vụ của bạn là cầm cự chờ viện binh!`,
+                gameplay: `Di chuyển: nút di chuyển hoặc chuột 
+                Ngắm: theo hướng chuột.
+                Bắn phép: Nhấn/giữ chuột trái → bắn Spell.`,
                 winCondition: `Sống càng lâu càng tốt.`,
                 lossCondition: "HP = 0."
             },
@@ -1417,7 +1427,8 @@
                 id: 2, 
                 name: "Sinh Viên sinh tồn", 
                 desc: "Sống sót qua 30 ngày cùng những biến cố bất ngờ thời Sinh viên.", 
-                intro: `Chào mừng bạn đến với chiến trường khốc liệt nhất: Đại Học!`,
+                intro: `Chào mừng bạn đến với chiến trường khốc liệt nhất: Đại Học! Không có súng đạn, kẻ thù của bạn là 'Deadline', 'Mì tôm' và 'Hết tiền'.
+                Bạn có thể TRỤ tới ngày cuối cùng được không?`,
                 price: 0, 
                 bankInfo: "", 
                 img: "GameImage/game2.png", 
@@ -1427,8 +1438,9 @@
                 release: "08/11/2025", 
                 videoUrl: "https://www.youtube.com/embed/7rkcFUS7tNI",
                 downloadUrl: "https://barotrun.itch.io/sinhvien-sinhton", 
-                story: `Mô phỏng cuộc chiến sinh tồn đô thị của sinh viên năm nhất.`,
-                gameplay: "Game theo lượt (Turn-based). Dùng chuột lựa chọn quyết định.",
+                story: `Mô phỏng cuộc chiến sinh tồn đô thị của sinh viên năm nhất.
+                Mục tiêu: Đạt đến Ngày 30 mà không để chỉ số Tiền, Sức khỏe, Độ no <=0 hoặc Stress >=100.`,
+                gameplay: "Game theo lượt (Turn-based). Dùng chuột lựa chọn quyết định cho các sự kiện hàng ngày.",
                 winCondition: "Sống sót qua 30 ngày.",
                 lossCondition: `Tiền <= 0, Sức khỏe <= 0, Độ no <= 0, hoặc Stress >= 100.`
             },
@@ -1446,7 +1458,7 @@
                 release: "09/11/2025", 
                 videoUrl: "https://www.youtube.com/embed/xqmehhKTZZI",
                 downloadUrl: "https://chituong217.itch.io/anyas-neo-dodger",
-                story: `Anya bị chuyển sinh vào thế giới thực tại HCMUS.`,
+                story: `Anya bị chuyển sinh vào thế giới thực tại HCMUS. Mỗi đêm cô phải né tránh những cuốn sách Vi Tích Phân rơi xuống trong giấc mơ Cyberpunk.`,
                 gameplay: "Dùng Phím Mũi Tên Trái/Phải để di chuyển Anya né tránh.",
                 winCondition: "Sống sót càng lâu càng tốt.",
                 lossCondition: "Va chạm 3 lần với sách Vi Tích Phân."
@@ -1455,7 +1467,7 @@
                 id: 4, 
                 name: "ERROR RUN", 
                 desc: "Chạy trốn màn hình xanh chết chóc gồm BUG và ERROR.", 
-                intro: `HÃY TRÁNH NÉ TẤT CẢ CÁC BUG - ERROR ĐỂ MANG VỀ ĐIỂM SỐ CAO NHẤT!`,
+                intro: `HÃY TRÁNH NÉ TẤT CẢ CÁC BUG - ERROR ĐỂ MANG VỀ ĐIỂM SỐ CAO NHẤT CHO MÔN CƠ SỞ LẬP TRÌNH CỦA BẠN !!!`,
                 price: 20000, 
                 bankInfo: "777777 - ACB - VO NGUYEN CONG TRI", 
                 img: "GameImage/game4.png", 
@@ -1465,7 +1477,7 @@
                 release: "10/11/2025", 
                 videoUrl: "https://www.youtube.com/embed/6AuqZ9ZINVQ",
                 downloadUrl: "https://congtri25ctt6.itch.io/error-run", 
-                story: `Sinh viên Trí bị hút vào thế giới mã lệnh.`,
+                story: `Sinh viên Trí bị hút vào thế giới mã lệnh. Phải liên tục bay qua các khe hở bug để commit code kịp deadline.`,
                 gameplay: `PC: Spacebar/Chuột trái. Mobile: Chạm màn hình.`,
                 winCondition: `Sống càng lâu càng tốt, ghi điểm cao.`,
                 lossCondition: `Va chạm vào cột lỗi, trần hoặc sàn nhà.`
@@ -1474,7 +1486,7 @@
                 id: 5, 
                 name: "Naruto Adventure", 
                 desc: "Nhiệm vụ Ninja cấp S cùng Kakashi(?) và Naruto.", 
-                intro: `Game hành động platformer 2D. Chọn Naruto hoặc Kakashi.`,
+                intro: `Game hành động platformer 2D. Chọn Naruto hoặc Kakashi để bảo vệ Làng Lá khỏi Sound Ninja.`,
                 price: 0, 
                 bankInfo: "", 
                 img: "GameImage/game5.png", 
@@ -1484,7 +1496,7 @@
                 release: "11/11/2025", 
                 videoUrl: "https://www.youtube.com/embed/4XScOKO0Y40",
                 downloadUrl: "https://truonghhaz.itch.io/naruto-adventure", 
-                story: `Bảo vệ Làng Lá khỏi Ninja Làng Âm Thanh.`,
+                story: `Bảo vệ Làng Lá khỏi Ninja Làng Âm Thanh. Kakashi thiên về chiến thuật, Naruto thiên về tấn công diện rộng.`,
                 gameplay: `Di chuyển: Mũi tên/WASD. Tấn công: J, K. Tuyệt kỹ: L, U.`,
                 winCondition: `Tiêu diệt hết địch để qua màn.`,
                 lossCondition: `Máu về 0 hoặc rơi xuống vực.`
@@ -1493,7 +1505,7 @@
                 id: 6, 
                 name: "Dạo Phố CHILL", 
                 desc: "Lái xe thư giãn cùng nhạc Lofi trong thế giới siêu thực.", 
-                intro: `Gác lại âu lo, bật nhạc lên và tận hưởng.`,
+                intro: `Gác lại âu lo, bật nhạc lên và tận hưởng. Chỉ có bạn và chiếc xe lướt đi trong màn đêm.`,
                 price: 100000, 
                 bankInfo: "111111 - Vietcombank - DOAN HOANG VIET", 
                 img: "GameImage/game6.png", 
@@ -1503,13 +1515,13 @@
                 release: "12/10/2025", 
                 videoUrl: "https://www.youtube.com/embed/jNlELPjMwOQ",
                 downloadUrl: "https://www.roblox.com/games/13217277322/Dao-Pho-Chill", 
-                story: `Một thế giới mở để chill, lái xe ngắm cảnh và nghe nhạc.`,
+                story: `Một thế giới mở để chill, lái xe ngắm cảnh và nghe nhạc. Không áp lực, không kẻ thù.`,
                 gameplay: `Di chuyển: WASD. Chuột: Xoay camera. M: Menu điện thoại.`,
                 winCondition: "Không có, game chỉ để thư giãn.",
                 lossCondition: "Khi tắt game."
             },
 
-            // --- CÁC GAME NỔI TIẾNG (THAY THẾ VÀ THÊM MỚI) ---
+            // --- CÁC GAME NỔI TIẾNG (GAME 7-12) ---
             { 
                 id: 7, 
                 name: "Elden Ring", 
@@ -1517,15 +1529,17 @@
                 intro: "Đứng lên, hỡi Kẻ bị vấy bẩn (Tarnished), và để ân sủng dẫn lối bạn chạm tay vào chiếc nhẫn Elden Ring.", 
                 price: 999000, 
                 bankInfo: "STEAM - STORE", 
-                img: "https://placehold.co/600x400?text=Elden+Ring", // Ảnh placeholder online
+                img: "https://placehold.co/600x400?text=Elden+Ring", 
                 genre: "Action RPG, Open World, Soulslike", 
                 players: "Single, Multiplayer", 
                 developer: "FromSoftware Inc.", 
                 release: "25/02/2022", 
                 videoUrl: "https://www.youtube.com/embed/E3Huy2cdih0", 
                 downloadUrl: "https://store.steampowered.com/app/1245620/ELDEN_RING/", 
-                story: "Tại vùng đất Lands Between, chiếc nhẫn Elden Ring đã vỡ vụn. Các á thần tranh giành các mảnh vỡ, gây ra cuộc chiến tranh tàn khốc. Bạn phải thu thập các mảnh vỡ để trở thành Elden Lord.", 
-                gameplay: "Khám phá thế giới mở rộng lớn, chiến đấu với những con trùm khổng lồ, xây dựng nhân vật với phép thuật và vũ khí đa dạng.", 
+                story: `Vùng đất Lands Between từng rực rỡ dưới sự cai trị của Nữ hoàng Marika Đấng Vĩnh Hằng. Nhưng chiếc nhẫn Elden Ring đã vỡ vụn... Những đứa con á thần của Marika tranh giành các mảnh vỡ (Great Runes), gây ra cuộc chiến tranh tàn khốc mang tên The Shattering. 
+                
+                Bạn là một Tarnished (Kẻ bị hắt hủi), trở về từ cõi chết để băng qua màn sương mù, thu thập các mảnh vỡ, diện kiến Marika và trở thành Elden Lord mới.`, 
+                gameplay: "Khám phá thế giới mở rộng lớn, chiến đấu với những con trùm khổng lồ, xây dựng nhân vật với hàng trăm loại vũ khí và phép thuật.", 
                 winCondition: "Đánh bại Elden Beast và chọn kết thúc của bạn.", 
                 lossCondition: "You Died (Chết và mất Runes)." 
             },
@@ -1543,29 +1557,35 @@
                 release: "24/02/2017", 
                 videoUrl: "https://www.youtube.com/embed/UAO2urG23S4", 
                 downloadUrl: "https://store.steampowered.com/app/367520/Hollow_Knight/", 
-                story: "Bạn là một hiệp sĩ vô danh đi sâu vào lòng đất Hallownest, đối mặt với sự nhiễm bệnh (Infection) đang khiến cư dân phát điên.", 
-                gameplay: "Di chuyển khéo léo (nhảy, lướt, bám tường), chiến đấu bằng kiếm (Nail) và sử dụng bùa chú (Charms).", 
+                story: `Bên dưới thị trấn Dirtmouth điêu tàn là vương quốc côn trùng Hallownest cổ đại đã sụp đổ. Một bệnh dịch kỳ lạ (The Infection) đang biến cư dân thành những xác sống điên loạn. 
+                
+                Bạn là một Hiệp sĩ nhỏ bé, vô danh, mang theo thanh Nail cùn, đi sâu vào lòng đất để khám phá bí mật về Vua Nhợt Nhạt (Pale King) và phong ấn nguồn gốc của bệnh dịch trước khi nó nuốt chửng tất cả.`, 
+                gameplay: "Di chuyển khéo léo (nhảy, lướt, bám tường), chiến đấu bằng kiếm (Nail) và sử dụng bùa chú (Charms) để tăng sức mạnh.", 
                 winCondition: "Đánh bại The Radiance hoặc The Hollow Knight.", 
-                lossCondition: "Hết mặt nạ (Máu) và quay lại ghế đá gần nhất." 
+                lossCondition: "Hết mặt nạ (Máu) và quay lại ghế đá gần nhất (mất Geo)." 
             },
             { 
                 id: 9, 
-                name: "Stardew Valley", 
-                desc: "Game nông trại thư giãn, xây dựng cuộc sống mơ ước.", 
-                intro: "Bạn thừa kế trang trại cũ của ông nội. Với công cụ cũ và một ít tiền, bạn bắt đầu cuộc sống mới.", 
-                price: 165000, 
-                bankInfo: "STEAM - STORE", 
-                img: "https://placehold.co/600x400?text=Stardew+Valley", 
-                genre: "Simulation, RPG, Farming", 
-                players: "Single, Co-op", 
-                developer: "ConcernedApe", 
-                release: "26/02/2016", 
-                videoUrl: "https://www.youtube.com/embed/ot7uXAWTIXM", 
-                downloadUrl: "https://store.steampowered.com/app/413150/Stardew_Valley/", 
-                story: "Rời bỏ công việc văn phòng nhàm chán tại Joja Corp, bạn về quê nuôi cá, trồng thêm rau và kết bạn với dân làng Pelican Town.", 
-                gameplay: "Trồng trọt, chăn nuôi, câu cá, khai thác mỏ, tặng quà và kết hôn.", 
-                winCondition: "Hoàn thành Community Center hoặc đạt 100% Perfection.", 
-                lossCondition: "Không có điều kiện thua, chỉ cần thư giãn." 
+                name: "Hay Day", 
+                desc: "Game nông trại vui vẻ số 1 trên di động. Xây dựng trang trại trong mơ của bạn.", 
+                intro: "Chào mừng đến với nông trại tuyệt vời nhất trên di động! Làm quen với đất đai, chăm sóc mùa màng và trao đổi hàng hóa với bạn bè và hàng xóm.", 
+                price: 0, 
+                bankInfo: "SUPERCELL", 
+                img: "https://placehold.co/600x400?text=Hay+Day", 
+                genre: "Simulation, Farming, Casual", 
+                players: "Single, Multiplayer (Neighborhood)", 
+                developer: "Supercell", 
+                release: "21/06/2012", 
+                videoUrl: "https://www.youtube.com/embed/H5tO9y_5tS4", 
+                downloadUrl: "https://supercell.com/en/games/hayday/", 
+                story: `Bạn nhận được một bức thư từ người chú Greg thân thiết. Ông ấy đã lớn tuổi và không thể quán xuyến nổi nông trại cũ của gia đình nữa, vì vậy ông muốn trao lại quyền thừa kế và quản lý cho bạn. 
+                
+                Nông trại hiện tại khá hoang sơ và bừa bộn, nhưng với sự chăm chỉ và óc sáng tạo, bạn hoàn toàn có thể biến nó thành một thiên đường nông nghiệp trù phú nhất thung lũng. 
+                
+                Cốt truyện không chỉ dừng lại ở việc trồng cây, mà là hành trình kết nối cộng đồng: buôn bán với các nhân vật thăm viếng, hoàn thành đơn hàng xe tải, tàu thủy, phục vụ khách du lịch tại Thị Trấn và tham gia các cuộc đua Derby kịch tính cùng hội nông dân (Neighborhood).`, 
+                gameplay: "Thao tác chạm và vuốt đơn giản để gieo hạt, thu hoạch, cho thú ăn. Xây dựng các máy sản xuất (lò nướng, máy ép đường,...) để tạo ra sản phẩm và bán lấy tiền vàng.", 
+                winCondition: "Không có kết thúc. Mục tiêu là mở rộng trang trại, lên cấp và đạt các thành tựu.", 
+                lossCondition: "Không có. Đây là game thư giãn, bạn không thể thua." 
             },
             { 
                 id: 10, 
@@ -1581,7 +1601,9 @@
                 release: "09/11/2022", 
                 videoUrl: "https://www.youtube.com/embed/EE-4GvjKcfs", 
                 downloadUrl: "https://store.steampowered.com/app/2322010/God_of_War_Ragnark/", 
-                story: "Kratos phải đối mặt với quá khứ và các vị thần Bắc Âu như Thor và Odin để bảo vệ con trai mình.", 
+                story: `Fimbulwinter (Mùa đông khắc nghiệt) đã bao trùm 9 cõi, báo hiệu ngày tận thế Ragnarök đang đến gần. Kratos và Atreus phải hành trình qua từng thế giới để tìm kiếm câu trả lời trước khi các vị thần Asgard (Odin, Thor) phát động chiến tranh. 
+                
+                Đây không chỉ là cuộc chiến sinh tồn, mà là câu chuyện về sự trưởng thành, lòng tin và sự buông bỏ giữa hai cha con Chiến Thần.`, 
                 gameplay: "Chiến đấu bạo lực với Rìu Leviathan và Dao Blades of Chaos. Giải đố và khám phá cốt truyện sâu sắc.", 
                 winCondition: "Hoàn thành cốt truyện chính và đánh bại Odin.", 
                 lossCondition: "Hết máu trong combat." 
@@ -1600,7 +1622,9 @@
                 release: "27/10/2009", 
                 videoUrl: "https://www.youtube.com/embed/mDYqT0_9VR4", 
                 downloadUrl: "https://signup.leagueoflegends.com/", 
-                story: "Các anh hùng (Champions) từ khắp vùng Runeterra tập hợp lại để chiến đấu.", 
+                story: `Trong thế giới Runeterra đầy ma thuật và xung đột, các anh hùng (Champions) từ những vùng đất đối nghịch như Demacia công lý, Noxus tàn bạo, hay Ionia huyền bí... tập hợp lại tại Summoner's Rift. 
+                
+                Mỗi trận chiến là một cuộc đấu trí căng thẳng để phá hủy Nexus đối phương. Cốt truyện được mở rộng qua từng vị tướng với những mối thù truyền kiếp và lý tưởng riêng.`, 
                 gameplay: "Điều khiển tướng, farm lính, mua trang bị và phối hợp đồng đội giao tranh tổng.", 
                 winCondition: "Phá hủy nhà chính (Nexus) của địch.", 
                 lossCondition: "Nhà chính mình bị phá hủy hoặc đầu hàng (FF 15)." 
@@ -1619,7 +1643,9 @@
                 release: "18/11/2011", 
                 videoUrl: "https://www.youtube.com/embed/MmB9b5njVbA", 
                 downloadUrl: "https://www.minecraft.net/", 
-                story: "Không có cốt truyện cố định. Bạn tự viết nên câu chuyện của mình trong thế giới vô tận.", 
+                story: `Không có kịch bản định sẵn, bạn tỉnh dậy giữa một thế giới hoang sơ rộng lớn. Bạn có thể chọn cuộc sống bình yên: làm ruộng, chăn nuôi, xây nhà. 
+                
+                Hoặc dấn thân vào nguy hiểm: chế tạo vũ khí, xuống địa ngục (Nether), tìm kiếm Stronghold và tiêu diệt Rồng Ender để giải phóng thế giới The End. Cốt truyện chính là hành trình sáng tạo của riêng bạn.`, 
                 gameplay: "Chế độ Sinh tồn (kiếm ăn, đánh quái) hoặc Sáng tạo (bất tử, full nguyên liệu).", 
                 winCondition: "Đánh bại rồng Ender (tuỳ chọn).", 
                 lossCondition: "Hết máu và rơi đồ (Survival)." 

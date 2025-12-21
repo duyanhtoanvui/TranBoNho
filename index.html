@@ -1349,7 +1349,7 @@
     <title>TRÀN BỘ NHỚ - Game Marketplace</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* --- CSS GIỮ NGUYÊN NHƯ CŨ --- */
+        /* --- CSS GIỮ NGUYÊN --- */
         :root {
             --bg-gradient-1: #87CEEB; 
             --bg-gradient-2: #E0F7FA; 
@@ -1480,7 +1480,7 @@
             display: flex; align-items: center; gap: 10px; font-weight: bold; color: var(--primary-dark); cursor: pointer;
         }
 
-        /* --- LOGIN PAGE STYLES (NEW) --- */
+        /* --- LOGIN PAGE STYLES --- */
         .login-container {
             max-width: 450px; margin: 50px auto; background: #fff; padding: 40px; 
             border-radius: 20px; box-shadow: 0 15px 30px rgba(0,0,0,0.1); text-align: center;
@@ -1640,7 +1640,7 @@
     <script>
         // --- 1. DỮ LIỆU GAME (DATABASE) ---
         const initialGames = [
-            // --- CÁC GAME GỐC (1-6) ---
+            // --- CÁC GAME GỐC (1-6) - ĐÃ KHÔI PHỤC NỘI DUNG GỐC ---
             { 
                 id: 1, 
                 name: "Magician vs. Goblin", 
@@ -2240,6 +2240,7 @@
                             <a href="#">Thể loại <i class="fa-solid fa-caret-down" style="font-size: 0.8rem;"></i></a>
                             <div class="dropdown-content" id="genreDropdown"></div>
                         </div>
+                        <a href="#">Cộng đồng</a>
                         <a href="#" onclick="goToUploadPage()" style="color:var(--primary-color);font-weight:bold;">
                             <i class="fa-solid fa-upload"></i> Đăng tải game
                         </a>

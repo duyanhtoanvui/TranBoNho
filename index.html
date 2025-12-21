@@ -1391,34 +1391,25 @@
     </footer>
 
     <script>
-        // --- 1. DỮ LIỆU GAME (DATABASE) ĐÃ CẬP NHẬT (THÊM GAME 7, 8, 9) ---
+        // --- 1. DỮ LIỆU GAME (DATABASE) ĐÃ CẬP NHẬT (GAME 7-12 LÀ GAME NỔI TIẾNG) ---
         const initialGames = [
+            // --- CÁC GAME GỐC CỦA NHÓM (1-6) ---
             { 
                 id: 1, 
                 name: "Magician vs. Goblin", 
                 desc: "Đại chiến ảo thuật gia và quái vật Goblin. Game nhập vai hành động.", 
-                intro: `Bạn có thể sống sót khỏi bầy Goblin không?
-                
-                Magician vs Goblin là game hành động sống còn nhịp độ nhanh, nơi bạn vào vai một Pháp Sư trẻ bị bao vây bởi lũ Goblin hung hãn. Bạn chỉ có một mình — nhưng sở hữu ma thuật mạnh mẽ. Mỗi giây là một trận chiến sinh tồn khi bạn phải vừa né, vừa bắn phép, vừa cố gắng duy trì mạng sống giữa số lượng Goblin tăng dần theo thời gian.`,
+                intro: `Bạn có thể sống sót khỏi bầy Goblin không?`,
                 price: 50000, 
                 bankInfo: "999999 - Techcombank - VO MINH TRIET", 
                 img: "GameImage/game1.png", 
-                genre: "2D Action, Top-down Shooter, Survival Combat", 
+                genre: "2D Action, Top-down Shooter", 
                 players: "Single", 
                 developer: "Võ Minh Triết", 
                 release: "07/11/2025", 
                 videoUrl: "https://www.youtube.com/embed/kS1iZw9P5O0",
                 downloadUrl: "https://vominhtriet.itch.io/blackmagician-vs-goblin", 
-                story: `Ý tưởng cốt lõi:
-                + Tiêu diệt càng nhiều Goblin càng tốt.
-                + Sống càng lâu càng tốt.
-                + Cơ chế chơi nhanh, trực quan.
-
-                Cốt truyện:
-                Bạn là một Pháp Sư học việc đang thực tập tại vùng rừng ma thuật. Cánh cổng quái vật mở ra, nhiệm vụ của bạn là cầm cự chờ viện binh!`,
-                gameplay: `Di chuyển: nút di chuyển hoặc chuột 
-                Ngắm: theo hướng chuột.
-                Bắn phép: Nhấn/giữ chuột trái → bắn Spell.`,
+                story: `Tiêu diệt càng nhiều Goblin càng tốt. Sống càng lâu càng tốt.`,
+                gameplay: `Di chuyển: nút di chuyển hoặc chuột. Bắn phép: Nhấn/giữ chuột trái.`,
                 winCondition: `Sống càng lâu càng tốt.`,
                 lossCondition: "HP = 0."
             },
@@ -1426,8 +1417,7 @@
                 id: 2, 
                 name: "Sinh Viên sinh tồn", 
                 desc: "Sống sót qua 30 ngày cùng những biến cố bất ngờ thời Sinh viên.", 
-                intro: `Chào mừng bạn đến với chiến trường khốc liệt nhất: Đại Học! Không có súng đạn, kẻ thù của bạn là 'Deadline', 'Mì tôm' và 'Hết tiền'.
-                Bạn có thể TRỤ tới ngày cuối cùng được không?`,
+                intro: `Chào mừng bạn đến với chiến trường khốc liệt nhất: Đại Học!`,
                 price: 0, 
                 bankInfo: "", 
                 img: "GameImage/game2.png", 
@@ -1437,9 +1427,8 @@
                 release: "08/11/2025", 
                 videoUrl: "https://www.youtube.com/embed/7rkcFUS7tNI",
                 downloadUrl: "https://barotrun.itch.io/sinhvien-sinhton", 
-                story: `Mô phỏng cuộc chiến sinh tồn đô thị của sinh viên năm nhất.
-                Mục tiêu: Đạt đến Ngày 30 mà không để chỉ số Tiền, Sức khỏe, Độ no <=0 hoặc Stress >=100.`,
-                gameplay: "Game theo lượt (Turn-based). Dùng chuột lựa chọn quyết định cho các sự kiện hàng ngày.",
+                story: `Mô phỏng cuộc chiến sinh tồn đô thị của sinh viên năm nhất.`,
+                gameplay: "Game theo lượt (Turn-based). Dùng chuột lựa chọn quyết định.",
                 winCondition: "Sống sót qua 30 ngày.",
                 lossCondition: `Tiền <= 0, Sức khỏe <= 0, Độ no <= 0, hoặc Stress >= 100.`
             },
@@ -1451,13 +1440,13 @@
                 price: 0, 
                 bankInfo: "", 
                 img: "GameImage/game3.png", 
-                genre: "Arcade Survival, Endless, 8-bit", 
+                genre: "Arcade Survival, Endless", 
                 players: "Single", 
                 developer: "Nguyễn Lê Chí Tường", 
                 release: "09/11/2025", 
                 videoUrl: "https://www.youtube.com/embed/xqmehhKTZZI",
                 downloadUrl: "https://chituong217.itch.io/anyas-neo-dodger",
-                story: `Anya bị chuyển sinh vào thế giới thực tại HCMUS. Mỗi đêm cô phải né tránh những cuốn sách Vi Tích Phân rơi xuống trong giấc mơ Cyberpunk.`,
+                story: `Anya bị chuyển sinh vào thế giới thực tại HCMUS.`,
                 gameplay: "Dùng Phím Mũi Tên Trái/Phải để di chuyển Anya né tránh.",
                 winCondition: "Sống sót càng lâu càng tốt.",
                 lossCondition: "Va chạm 3 lần với sách Vi Tích Phân."
@@ -1466,7 +1455,7 @@
                 id: 4, 
                 name: "ERROR RUN", 
                 desc: "Chạy trốn màn hình xanh chết chóc gồm BUG và ERROR.", 
-                intro: `HÃY TRÁNH NÉ TẤT CẢ CÁC BUG - ERROR ĐỂ MANG VỀ ĐIỂM SỐ CAO NHẤT CHO MÔN CƠ SỞ LẬP TRÌNH CỦA BẠN !!!`,
+                intro: `HÃY TRÁNH NÉ TẤT CẢ CÁC BUG - ERROR ĐỂ MANG VỀ ĐIỂM SỐ CAO NHẤT!`,
                 price: 20000, 
                 bankInfo: "777777 - ACB - VO NGUYEN CONG TRI", 
                 img: "GameImage/game4.png", 
@@ -1476,7 +1465,7 @@
                 release: "10/11/2025", 
                 videoUrl: "https://www.youtube.com/embed/6AuqZ9ZINVQ",
                 downloadUrl: "https://congtri25ctt6.itch.io/error-run", 
-                story: `Sinh viên Trí bị hút vào thế giới mã lệnh. Phải liên tục bay qua các khe hở bug để commit code kịp deadline.`,
+                story: `Sinh viên Trí bị hút vào thế giới mã lệnh.`,
                 gameplay: `PC: Spacebar/Chuột trái. Mobile: Chạm màn hình.`,
                 winCondition: `Sống càng lâu càng tốt, ghi điểm cao.`,
                 lossCondition: `Va chạm vào cột lỗi, trần hoặc sàn nhà.`
@@ -1485,7 +1474,7 @@
                 id: 5, 
                 name: "Naruto Adventure", 
                 desc: "Nhiệm vụ Ninja cấp S cùng Kakashi(?) và Naruto.", 
-                intro: `Game hành động platformer 2D. Chọn Naruto hoặc Kakashi để bảo vệ Làng Lá khỏi Sound Ninja.`,
+                intro: `Game hành động platformer 2D. Chọn Naruto hoặc Kakashi.`,
                 price: 0, 
                 bankInfo: "", 
                 img: "GameImage/game5.png", 
@@ -1495,7 +1484,7 @@
                 release: "11/11/2025", 
                 videoUrl: "https://www.youtube.com/embed/4XScOKO0Y40",
                 downloadUrl: "https://truonghhaz.itch.io/naruto-adventure", 
-                story: `Bảo vệ Làng Lá khỏi Ninja Làng Âm Thanh. Kakashi thiên về chiến thuật, Naruto thiên về tấn công diện rộng.`,
+                story: `Bảo vệ Làng Lá khỏi Ninja Làng Âm Thanh.`,
                 gameplay: `Di chuyển: Mũi tên/WASD. Tấn công: J, K. Tuyệt kỹ: L, U.`,
                 winCondition: `Tiêu diệt hết địch để qua màn.`,
                 lossCondition: `Máu về 0 hoặc rơi xuống vực.`
@@ -1504,7 +1493,7 @@
                 id: 6, 
                 name: "Dạo Phố CHILL", 
                 desc: "Lái xe thư giãn cùng nhạc Lofi trong thế giới siêu thực.", 
-                intro: `Gác lại âu lo, bật nhạc lên và tận hưởng. Chỉ có bạn và chiếc xe lướt đi trong màn đêm.`,
+                intro: `Gác lại âu lo, bật nhạc lên và tận hưởng.`,
                 price: 100000, 
                 bankInfo: "111111 - Vietcombank - DOAN HOANG VIET", 
                 img: "GameImage/game6.png", 
@@ -1514,68 +1503,126 @@
                 release: "12/10/2025", 
                 videoUrl: "https://www.youtube.com/embed/jNlELPjMwOQ",
                 downloadUrl: "https://www.roblox.com/games/13217277322/Dao-Pho-Chill", 
-                story: `Một thế giới mở để chill, lái xe ngắm cảnh và nghe nhạc. Không áp lực, không kẻ thù.`,
+                story: `Một thế giới mở để chill, lái xe ngắm cảnh và nghe nhạc.`,
                 gameplay: `Di chuyển: WASD. Chuột: Xoay camera. M: Menu điện thoại.`,
                 winCondition: "Không có, game chỉ để thư giãn.",
                 lossCondition: "Khi tắt game."
             },
-            // --- CÁC GAME MỚI ĐƯỢC THÊM VÀO ---
+
+            // --- CÁC GAME NỔI TIẾNG (THAY THẾ VÀ THÊM MỚI) ---
             { 
                 id: 7, 
-                name: "Huyền Thoại Xe Bus", 
-                desc: "Trải nghiệm cảm giác mạnh khi lái xe bus số 8 ở Sài Gòn.", 
-                intro: `Bạn có dám cầm lái chuyến xe "tử thần"? Đón khách đúng giờ hoặc bị trừ lương!`,
-                price: 0, 
-                bankInfo: "", 
-                img: "GameImage/game1.png", // Bạn nhớ thay bằng hình khác nhé
-                genre: "Simulation, Racing, Comedy", 
-                players: "Single", 
-                developer: "Team Xe Ôm Công Nghệ", 
-                release: "20/12/2025", 
-                videoUrl: "https://www.youtube.com/embed/jNlELPjMwOQ", // Video demo
-                downloadUrl: "#", 
-                story: `Vào vai bác tài xe bus huyền thoại. Nhiệm vụ của bạn là luồn lách qua các con hẻm, tránh Ninja Lead và đón sinh viên đi học đúng giờ.`,
-                gameplay: `WASD để lái xe. Space để phanh gấp. H để bóp còi inh ỏi.`,
-                winCondition: "Hoàn thành chuyến xe mà không gây tai nạn.",
-                lossCondition: "Kẹt xe quá lâu hoặc va chạm quá nhiều."
+                name: "Elden Ring", 
+                desc: "Siêu phẩm hành động nhập vai thế giới mở từ FromSoftware.", 
+                intro: "Đứng lên, hỡi Kẻ bị vấy bẩn (Tarnished), và để ân sủng dẫn lối bạn chạm tay vào chiếc nhẫn Elden Ring.", 
+                price: 999000, 
+                bankInfo: "STEAM - STORE", 
+                img: "https://placehold.co/600x400?text=Elden+Ring", // Ảnh placeholder online
+                genre: "Action RPG, Open World, Soulslike", 
+                players: "Single, Multiplayer", 
+                developer: "FromSoftware Inc.", 
+                release: "25/02/2022", 
+                videoUrl: "https://www.youtube.com/embed/E3Huy2cdih0", 
+                downloadUrl: "https://store.steampowered.com/app/1245620/ELDEN_RING/", 
+                story: "Tại vùng đất Lands Between, chiếc nhẫn Elden Ring đã vỡ vụn. Các á thần tranh giành các mảnh vỡ, gây ra cuộc chiến tranh tàn khốc. Bạn phải thu thập các mảnh vỡ để trở thành Elden Lord.", 
+                gameplay: "Khám phá thế giới mở rộng lớn, chiến đấu với những con trùm khổng lồ, xây dựng nhân vật với phép thuật và vũ khí đa dạng.", 
+                winCondition: "Đánh bại Elden Beast và chọn kết thúc của bạn.", 
+                lossCondition: "You Died (Chết và mất Runes)." 
             },
             { 
                 id: 8, 
-                name: "Trùm Trà Sữa", 
-                desc: "Xây dựng đế chế trà sữa từ một xe đẩy vỉa hè.", 
-                intro: `Pha chế, bán hàng và mở rộng chuỗi cửa hàng trà sữa khắp thành phố.`,
-                price: 25000, 
-                bankInfo: "888888 - MBBank - NGUYEN VAN A", 
-                img: "GameImage/game2.png", // Bạn nhớ thay bằng hình khác nhé
-                genre: "Tycoon, Management, Idle", 
+                name: "Hollow Knight", 
+                desc: "Kiệt tác Metroidvania vẽ tay đầy nghệ thuật và thử thách.", 
+                intro: "Khám phá vương quốc côn trùng Hallownest bị lãng quên và giải mã những bí ẩn cổ xưa.", 
+                price: 165000, 
+                bankInfo: "STEAM - STORE", 
+                img: "https://placehold.co/600x400?text=Hollow+Knight", 
+                genre: "Metroidvania, Action, Indie", 
                 players: "Single", 
-                developer: "Milktea Lover", 
-                release: "21/12/2025", 
-                videoUrl: "https://www.youtube.com/embed/7rkcFUS7tNI", // Video demo
-                downloadUrl: "#", 
-                story: `Bắt đầu với vốn liếng ít ỏi, bạn phải sáng tạo ra công thức trà sữa trân châu đường đen ngon nhất để đánh bại đối thủ cạnh tranh.`,
-                gameplay: `Click chuột để pha chế. Nâng cấp menu và thuê nhân viên trong bảng quản lý.`,
-                winCondition: "Mở được chi nhánh thứ 10.",
-                lossCondition: "Phá sản (Tiền < 0)."
+                developer: "Team Cherry", 
+                release: "24/02/2017", 
+                videoUrl: "https://www.youtube.com/embed/UAO2urG23S4", 
+                downloadUrl: "https://store.steampowered.com/app/367520/Hollow_Knight/", 
+                story: "Bạn là một hiệp sĩ vô danh đi sâu vào lòng đất Hallownest, đối mặt với sự nhiễm bệnh (Infection) đang khiến cư dân phát điên.", 
+                gameplay: "Di chuyển khéo léo (nhảy, lướt, bám tường), chiến đấu bằng kiếm (Nail) và sử dụng bùa chú (Charms).", 
+                winCondition: "Đánh bại The Radiance hoặc The Hollow Knight.", 
+                lossCondition: "Hết mặt nạ (Máu) và quay lại ghế đá gần nhất." 
             },
             { 
                 id: 9, 
-                name: "Đại Chiến Đồ Án", 
-                desc: "Game nhập vai hành động tiêu diệt BUG và DEADLINE.", 
-                intro: `Mỗi dòng code là một nhát kiếm. Liệu bạn có bảo vệ được đồ án tốt nghiệp?`,
-                price: 50000, 
-                bankInfo: "999999 - VPBank - LE THI B", 
-                img: "GameImage/game3.png", // Bạn nhớ thay bằng hình khác nhé
-                genre: "RPG, Roguelike, Action", 
-                players: "Co-op", 
-                developer: "Sinh Viên Năm Cuối", 
-                release: "22/12/2025", 
-                videoUrl: "https://www.youtube.com/embed/kS1iZw9P5O0", // Video demo
-                downloadUrl: "#", 
-                story: `Trong thế giới số, các Bug đã biến thành quái vật. Bạn là hiệp sĩ IT được chọn để thanh tẩy mã nguồn.`,
-                gameplay: `Di chuyển và tung chiêu thức (Q, W, E, R) để tiêu diệt quái vật Bug.`,
-                winCondition: "Đánh bại trùm cuối 'Hội Đồng Phản Biện'.",
-                lossCondition: "Hết máu hoặc trễ Deadline."
+                name: "Stardew Valley", 
+                desc: "Game nông trại thư giãn, xây dựng cuộc sống mơ ước.", 
+                intro: "Bạn thừa kế trang trại cũ của ông nội. Với công cụ cũ và một ít tiền, bạn bắt đầu cuộc sống mới.", 
+                price: 165000, 
+                bankInfo: "STEAM - STORE", 
+                img: "https://placehold.co/600x400?text=Stardew+Valley", 
+                genre: "Simulation, RPG, Farming", 
+                players: "Single, Co-op", 
+                developer: "ConcernedApe", 
+                release: "26/02/2016", 
+                videoUrl: "https://www.youtube.com/embed/ot7uXAWTIXM", 
+                downloadUrl: "https://store.steampowered.com/app/413150/Stardew_Valley/", 
+                story: "Rời bỏ công việc văn phòng nhàm chán tại Joja Corp, bạn về quê nuôi cá, trồng thêm rau và kết bạn với dân làng Pelican Town.", 
+                gameplay: "Trồng trọt, chăn nuôi, câu cá, khai thác mỏ, tặng quà và kết hôn.", 
+                winCondition: "Hoàn thành Community Center hoặc đạt 100% Perfection.", 
+                lossCondition: "Không có điều kiện thua, chỉ cần thư giãn." 
+            },
+            { 
+                id: 10, 
+                name: "God of War Ragnarök", 
+                desc: "Hành trình sử thi của Kratos và Atreus qua 9 cõi Bắc Âu.", 
+                intro: "Fimbulwinter đang đến gần. Kratos và Atreus phải quyết định số phận của họ trước khi Ragnarök xảy ra.", 
+                price: 1200000, 
+                bankInfo: "SONY - STEAM", 
+                img: "https://placehold.co/600x400?text=God+of+War", 
+                genre: "Action-Adventure, Hack and Slash", 
+                players: "Single", 
+                developer: "Santa Monica Studio", 
+                release: "09/11/2022", 
+                videoUrl: "https://www.youtube.com/embed/EE-4GvjKcfs", 
+                downloadUrl: "https://store.steampowered.com/app/2322010/God_of_War_Ragnark/", 
+                story: "Kratos phải đối mặt với quá khứ và các vị thần Bắc Âu như Thor và Odin để bảo vệ con trai mình.", 
+                gameplay: "Chiến đấu bạo lực với Rìu Leviathan và Dao Blades of Chaos. Giải đố và khám phá cốt truyện sâu sắc.", 
+                winCondition: "Hoàn thành cốt truyện chính và đánh bại Odin.", 
+                lossCondition: "Hết máu trong combat." 
+            },
+            { 
+                id: 11, 
+                name: "League of Legends", 
+                desc: "Đấu trường trận chiến trực tuyến nhiều người chơi (MOBA) số 1 thế giới.", 
+                intro: "Chọn vị tướng của bạn và lập đội để phá hủy nhà chính đối phương (Nexus).", 
+                price: 0, 
+                bankInfo: "RIOT GAMES", 
+                img: "https://placehold.co/600x400?text=League+of+Legends", 
+                genre: "MOBA, Strategy", 
+                players: "Multiplayer (5v5)", 
+                developer: "Riot Games", 
+                release: "27/10/2009", 
+                videoUrl: "https://www.youtube.com/embed/mDYqT0_9VR4", 
+                downloadUrl: "https://signup.leagueoflegends.com/", 
+                story: "Các anh hùng (Champions) từ khắp vùng Runeterra tập hợp lại để chiến đấu.", 
+                gameplay: "Điều khiển tướng, farm lính, mua trang bị và phối hợp đồng đội giao tranh tổng.", 
+                winCondition: "Phá hủy nhà chính (Nexus) của địch.", 
+                lossCondition: "Nhà chính mình bị phá hủy hoặc đầu hàng (FF 15)." 
+            },
+            { 
+                id: 12, 
+                name: "Minecraft", 
+                desc: "Thế giới của những khối vuông kỳ diệu. Giới hạn là trí tưởng tượng của bạn.", 
+                intro: "Xây dựng mọi thứ, từ ngôi nhà đơn sơ đến lâu đài vĩ đại nhất.", 
+                price: 750000, 
+                bankInfo: "MICROSOFT", 
+                img: "https://placehold.co/600x400?text=Minecraft", 
+                genre: "Sandbox, Survival", 
+                players: "Single, Multiplayer", 
+                developer: "Mojang Studios", 
+                release: "18/11/2011", 
+                videoUrl: "https://www.youtube.com/embed/MmB9b5njVbA", 
+                downloadUrl: "https://www.minecraft.net/", 
+                story: "Không có cốt truyện cố định. Bạn tự viết nên câu chuyện của mình trong thế giới vô tận.", 
+                gameplay: "Chế độ Sinh tồn (kiếm ăn, đánh quái) hoặc Sáng tạo (bất tử, full nguyên liệu).", 
+                winCondition: "Đánh bại rồng Ender (tuỳ chọn).", 
+                lossCondition: "Hết máu và rơi đồ (Survival)." 
             }
         ];
 

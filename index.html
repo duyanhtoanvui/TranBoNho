@@ -396,6 +396,18 @@
         }
 
         // =======================================================
+        // DỮ LIỆU TÁC GIẢ (LIÊN KẾT ĐẾN ABOUT.HTML) - NEW
+        // =======================================================
+        const developerProfiles = {
+            "Võ Minh Triết": "https://sites.google.com/view/hcmus-vminhtrit/trang-ch%E1%BB%A7",
+            "Võ Ngọc Bảo Trân": "https://barotrun.github.io/profile/?fbclid=IwY2xjawOlDs9leHRuA2FlbQIxMABicmlkETEwc042cVdZalg1OFAweFhKc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHhHaFw6Zcgq9wQ-X7JR3uuN3-Zjy2je3An7_SopplkJHX1uA_YE9N0OVHs7O_aem_2bpyjOY098EJnc04Y2QNZw#home",
+            "Nguyễn Lê Chí Tường": "https://chituong217.github.io/Gioithieubanthan_Project_NMCNTT/?fbclid=IwY2xjawOlD_FleHRuA2FlbQIxMABicmlkETEwc042cVdZalg1OFAweFhKc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHl645m2zXWdkLc_hPBoFXvIKKL1vhzO_1lLQ8AUDtziyX3Di7aAXnsUqTa8N_aem_kKNRXmCTeCGS1ARRJU_YEA",
+            "Võ Nguyễn Công Trí": "https://sites.google.com/view/portfolio-congtri25ctt6/?fbclid=IwY2xjawOmMe5leHRuA2FlbQIxMABicmlkETFZbWVOZnd6enNyejBKc1Izc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHqzHuEWuHSbSDnRvykors0ty-1BxsCq_k9o8PJeDSPx8BJSr0PAmYiTqkqsE_aem_-ZBV7le05ZMn4vSJdxcn0Qn",
+            "Đỗ Duy Trường": "https://miofeiyan.github.io/doduytruonghcmus/?fbclid=IwY2xjawOlDypleHRuA2FlbQIxMABicmlkETEwc042cVdZalg1OFAweFhKc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHsy3cxuOHAJKDzbqeGS97AbZklk8Q45Lsx6wf6K-eNKtBDhvuO-xCwV--WPY_aem_kIrYfx1KeCtXqUT7TETLSg",
+            "Đoàn Hoàng Việt": "https://vhoanghviet.github.io/ThongTinCaNhan/?fbclid=IwY2xjawOmMhZleHRuA2FlbQIxMABicmlkETFZbWVOZnd6enNyejBKc1Izc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHvHNmf69uEdNfARQhMxwtAou5fJ4Rb7-a3sDka6T62_Gx29Wr32LUZ5cHHjB_aem_XKff2MUyN4nzTmq9pQ2JFw#"
+        };
+
+        // =======================================================
         // DỮ LIỆU GAME VÀ ĐÁNH GIÁ (DATA)
         // =======================================================
         const initialGames = [
@@ -1655,12 +1667,18 @@
                     <p style="margin-top:10px; font-size:0.9rem; color:#666;">*Game sẽ được thêm vào giỏ và chuyển đến trang thanh toán.</p>`;
             }
 
+            // === UPDATE HERE: Link to Developer Profile ===
+            const devUrl = developerProfiles[game.developer];
+            const developerHtml = devUrl
+                ? `<a href="${devUrl}" target="_blank" style="color: var(--primary-color); text-decoration: underline;" title="Xem hồ sơ tác giả">${game.developer}</a>`
+                : game.developer;
+
             appContainer.innerHTML = `
                 ${getNavbar()}
                 <div class="container">
                     <div class="detail-header">
                         <h1>${game.name}</h1>
-                        <p>Tác giả: ${game.developer}</p>
+                        <p>Tác giả: ${developerHtml}</p>
                         ${mainButtonHtml}
                     </div>
                     <div class="detail-grid">
@@ -1690,7 +1708,7 @@
                             <h3>🔍 Thông số kỹ thuật</h3>
                             <div class="spec-item"><strong>Thể loại:</strong> <span>${game.genre}</span></div>
                             <div class="spec-item"><strong>Số người chơi:</strong> <span>${game.players}</span></div>
-                            <div class="spec-item"><strong>Phát triển bởi:</strong> <span>${game.developer}</span></div>
+                            <div class="spec-item"><strong>Phát triển bởi:</strong> <span>${developerHtml}</span></div>
                             <div class="spec-item"><strong>Ngày đăng tải:</strong> <span>${game.release}</span></div>
                             <div class="spec-item"><strong>Giá tiền:</strong> <span style="color: var(--accent-pink); font-weight:bold;">${priceDisplay}</span></div>
                             
@@ -1791,8 +1809,8 @@
     <style>
         /* --- CSS GIỮ NGUYÊN 100% CÁC PHẦN CŨ --- */
         :root {
-            --bg-gradient-1: #87CEEB; 
-            --bg-gradient-2: #E0F7FA; 
+            --bg-gradient-1: #87CEEB; /* Màu xanh da trời */
+            --bg-gradient-2: #E0F7FA; /* Màu xanh nhạt cyan */
             --card-bg: rgba(255, 255, 255, 0.95);
             --text-color: #2c3e50;
             --primary-color: #00a8ff;
@@ -1811,9 +1829,66 @@
             line-height: 1.6;
             overflow-x: hidden;
             min-height: 100vh;
-            background-color: #87CEEB;
-            background: linear-gradient(180deg, var(--bg-gradient-1) 0%, var(--bg-gradient-2) 100%);
+            position: relative; /* Cần thiết để các họa tiết nền định vị đúng */
+
+            /* --- UPDATED: NỀN GIỮ MÀU CŨ NHƯNG CÓ HỌA TIẾT VUI NHỘN --- */
+            /* 1. Lớp nền gradient gốc (cố định khi cuộn) */
+            background-color: var(--bg-gradient-1);
+            background-image: linear-gradient(180deg, var(--bg-gradient-1) 0%, var(--bg-gradient-2) 100%);
+            background-attachment: fixed; /* Giúp nền không bị trôi khi cuộn trang */
+            z-index: 0;
         }
+
+        /* --- TẠO HỌA TIẾT NỀN HOẠT HÌNH (PSEUDO-ELEMENTS) --- */
+        /* Sử dụng ::before và ::after để tạo các lớp họa tiết chồng lên nền gradient gốc */
+        body::before,
+        body::after {
+            content: '';
+            position: fixed; /* Cố định vị trí so với màn hình */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Nằm phía sau nội dung trang */
+            pointer-events: none; /* Không ảnh hưởng đến việc click chuột */
+        }
+
+        /* Lớp 1 (::before): Họa tiết các khối tròn sáng trôi lơ lửng (Bong bóng/Mây) */
+        body::before {
+            opacity: 0.4; /* Độ trong suốt nhẹ */
+            /* Tạo các vùng sáng hình tròn bằng radial-gradient */
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(224, 247, 250, 0.4) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.2) 0%, transparent 60%);
+            background-size: 150% 150%;
+            animation: floatingBubbles 25s ease-in-out infinite alternate;
+        }
+
+        /* Lớp 2 (::after): Họa tiết lưới Pixel mờ (Tạo cảm giác game retro) */
+        body::after {
+            opacity: 0.15; /* Rất mờ để không rối mắt */
+            /* Tạo lưới bằng linear-gradient lặp lại */
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.5) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.5) 1px, transparent 1px);
+            background-size: 30px 30px; /* Kích thước ô lưới */
+            /* Cho lưới di chuyển chéo nhẹ nhàng */
+            animation: subtleGridMove 60s linear infinite;
+        }
+
+        /* Animation cho các họa tiết */
+        @keyframes floatingBubbles {
+            0% { background-position: 0% 0%, 0% 0%, 0% 0%; }
+            100% { background-position: 50% 20%, 20% 60%, 80% 40%; transform: scale(1.1); }
+        }
+
+        @keyframes subtleGridMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 30px 30px; }
+        }
+        /* --------------------------------------------------------- */
+
 
         /* --- NAVBAR STYLES --- */
         .navbar {

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
@@ -1883,6 +1883,1814 @@
             const u = document.getElementById('regUser').value;
             const p = document.getElementById('regPass').value;
             if(u && p) registerUser(u, p);
+            else alert("Vui lòng nhập đầy đủ thông tin!");
+        }
+
+        function handleLoginSubmit() {
+            const u = document.getElementById('loginUser').value;
+            const p = document.getElementById('loginPass').value;
+            if(u && p) loginUser(u, p);
+            else alert("Vui lòng nhập đầy đủ thông tin!");
+        }
+
+        // === MAIN INIT ===
+        document.addEventListener('DOMContentLoaded', function() {
+            initSystemAccounts(); 
+            initSystemReviews(); // Khởi tạo review mẫu
+            initSystemNews(); // Khởi tạo tin tức mẫu và hệ thống tin tức động
+            initSystemChat(); // Khởi tạo chat mẫu
+            
+            const gameId = getQueryParam('game');
+            const view = getQueryParam('view');
+
+            if (view === 'cart') {
+                renderCartPage();
+            } else if (view === 'upload') {
+                renderUploadPage();
+            } else if (view === 'login') {
+                renderLoginPage();
+            } else if (view === 'community') {
+                renderCommunityPage(); 
+            } else if (view === 'discover') {
+                renderDiscoverPage(); // Render trang khám phá
+            } else if (gameId) {
+                const selectedGame = currentGames.find(g => g.id == gameId);
+                selectedGame ? renderDetailPage(selectedGame) : (alert("Game không tồn tại!"), renderHomePage());
+            } else {
+                renderHomePage();
+            }
+        });
+    </script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRÀN BỘ NHỚ - Game Marketplace</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- CSS GIỮ NGUYÊN 100% CÁC PHẦN CŨ --- */
+        :root {
+            --bg-gradient-1: #87CEEB; 
+            --bg-gradient-2: #E0F7FA; 
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --text-color: #2c3e50;
+            --primary-color: #00a8ff;
+            --primary-dark: #0984e3;
+            --accent-yellow: #fbc531;
+            --accent-pink: #ff7675;
+            --nav-bg: rgba(255, 255, 255, 0.9); 
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --success-color: #2ecc71;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            color: var(--text-color);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            background-color: #87CEEB;
+            background: linear-gradient(180deg, var(--bg-gradient-1) 0%, var(--bg-gradient-2) 100%);
+            position: relative;
+        }
+
+        /* --- ANIMATED BACKGROUND STYLES (VUI NHỘN & CÔNG NGHỆ) --- */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0; 
+            pointer-events: none;
+        }
+
+        #app-container, nav, footer { position: relative; z-index: 1; }
+
+        .bg-item {
+            position: absolute;
+            bottom: -150px;
+            color: rgba(255, 255, 255, 0.4);
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-shadow: 2px 2px 5px rgba(0, 168, 255, 0.2);
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
+        }
+
+        .bg-item i { font-size: 2.5rem; margin-bottom: 5px; }
+        .bg-item span {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+
+        @keyframes floatWobble {
+            0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            25% { transform: translateY(-30vh) translateX(30px) rotate(10deg); }
+            50% { transform: translateY(-60vh) translateX(-30px) rotate(-10deg); }
+            75% { transform: translateY(-90vh) translateX(30px) rotate(5deg); opacity: 0.8; }
+            100% { transform: translateY(-120vh) translateX(0) rotate(0deg); opacity: 0; }
+        }
+
+        .bg-item:nth-child(1) { left: 5%; animation-name: floatWobble; animation-duration: 18s; animation-delay: 0s; font-size: 1.2rem; }
+        .bg-item:nth-child(2) { left: 15%; animation-name: floatWobble; animation-duration: 25s; animation-delay: 5s; color: rgba(255,255,255,0.3); }
+        .bg-item:nth-child(3) { left: 25%; animation-name: floatWobble; animation-duration: 15s; animation-delay: 2s; transform: scale(1.5); }
+        .bg-item:nth-child(4) { left: 35%; animation-name: floatWobble; animation-duration: 22s; animation-delay: 8s; }
+        .bg-item:nth-child(5) { left: 50%; animation-name: floatWobble; animation-duration: 30s; animation-delay: 1s; font-size: 1.5rem; }
+        .bg-item:nth-child(6) { left: 65%; animation-name: floatWobble; animation-duration: 19s; animation-delay: 6s; }
+        .bg-item:nth-child(7) { left: 75%; animation-name: floatWobble; animation-duration: 28s; animation-delay: 3s; transform: scale(0.8); }
+        .bg-item:nth-child(8) { left: 85%; animation-name: floatWobble; animation-duration: 24s; animation-delay: 9s; }
+        .bg-item:nth-child(9) { left: 95%; animation-name: floatWobble; animation-duration: 35s; animation-delay: 0s; }
+        .bg-item:nth-child(10) { left: 10%; animation-name: floatWobble; animation-duration: 20s; animation-delay: 12s; }
+        .bg-item:nth-child(11) { left: 60%; animation-name: floatWobble; animation-duration: 26s; animation-delay: 15s; color: rgba(255,255,255,0.5); }
+        .tech-text { color: rgba(200, 240, 255, 0.6) !important; font-weight: 900; }
+
+        /* --- NAVBAR STYLES --- */
+        .navbar {
+            display: flex; justify-content: space-between; align-items: center; padding: 15px 30px;
+            background: var(--nav-bg); backdrop-filter: blur(10px); position: sticky; top: 0;
+            z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-bottom: 1px solid rgba(255,255,255,0.5);
+        }
+        .logo { font-size: 1.5rem; font-weight: 900; color: var(--primary-color); text-transform: uppercase; letter-spacing: 1px; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+        .logo i { color: var(--accent-yellow); font-size: 1.8rem; }
+        .nav-links { display: flex; gap: 25px; font-weight: 600; align-items: center; }
+        .nav-links a { text-decoration: none; color: #555; transition: 0.3s; position: relative; font-size: 1rem; cursor: pointer; }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary-color); }
+        .nav-links a::after { content: ''; position: absolute; width: 0; height: 3px; bottom: -5px; left: 0; background: var(--accent-yellow); transition: width 0.3s; border-radius: 2px; }
+        .nav-links a:hover::after { width: 100%; }
+
+        /* --- DROPDOWN --- */
+        .dropdown { position: relative; display: flex; align-items: center; height: 100%; }
+        .dropdown-content { display: none; position: absolute; background-color: #fff; min-width: 220px; max-height: 400px; overflow-y: auto; box-shadow: 0 8px 25px rgba(0,0,0,0.15); z-index: 1001; border-radius: 10px; padding: 10px 0; top: 100%; left: 0; border: 1px solid rgba(0,0,0,0.05); margin-top: 10px; }
+        .dropdown-content::-webkit-scrollbar { width: 5px; }
+        .dropdown-content::-webkit-scrollbar-thumb { background: #ccc; border-radius: 5px; }
+        .dropdown-content::before { content: ""; position: absolute; top: -15px; left: 0; width: 100%; height: 20px; background: transparent; }
+        .dropdown-content a { color: #333; padding: 12px 20px; text-decoration: none; display: block; font-size: 0.95rem; transition: 0.2s; border-bottom: 1px solid #f5f5f5; }
+        .dropdown-content a:last-child { border-bottom: none; }
+        .dropdown-content a:hover { background-color: var(--bg-gradient-2); color: var(--primary-color); padding-left: 25px; }
+        .dropdown:hover .dropdown-content { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .nav-actions { display: flex; align-items: center; gap: 15px; }
+        .search-box { position: relative; background: #f1f2f6; border-radius: 30px; padding: 5px 15px; display: flex; align-items: center; border: 2px solid transparent; transition: 0.3s; }
+        .search-box:focus-within { border-color: var(--primary-color); background: #fff; }
+        .search-box input { border: none; background: transparent; outline: none; padding: 5px; width: 150px; color: #333; font-size: 0.9rem; }
+        .search-box i { color: #aaa; }
+        .icon-btn { font-size: 1.2rem; color: #555; cursor: pointer; position: relative; transition: 0.3s; }
+        .icon-btn:hover { color: var(--primary-color); transform: scale(1.1); }
+        .cart-badge { position: absolute; top: -8px; right: -8px; background: var(--accent-pink); color: white; font-size: 0.7rem; width: 18px; height: 18px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: bold; }
+        .btn-login { background: var(--primary-color); color: white; border: none; padding: 8px 20px; border-radius: 20px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 10px rgba(0, 168, 255, 0.3); text-decoration: none; display: inline-block; }
+        .btn-login:hover { background: var(--primary-dark); transform: translateY(-2px); }
+        .user-menu { display: flex; align-items: center; gap: 10px; font-weight: bold; color: var(--primary-dark); cursor: pointer; }
+
+        /* --- LOGIN PAGE STYLES (NEW: Password Toggle + Role) --- */
+        .login-container { max-width: 450px; margin: 50px auto; background: #fff; padding: 40px; border-radius: 20px; box-shadow: 0 15px 30px rgba(0,0,0,0.1); text-align: center; }
+        .login-tabs { display: flex; justify-content: center; gap: 20px; margin-bottom: 30px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        .tab-btn { font-size: 1.2rem; font-weight: bold; color: #999; cursor: pointer; padding-bottom: 5px; border-bottom: 3px solid transparent; transition: 0.3s; }
+        .tab-btn.active { color: var(--primary-color); border-color: var(--primary-color); }
+        .auth-form { display: none; text-align: left; }
+        .auth-form.active { display: block; animation: fadeIn 0.5s; }
+        .auth-btn { width: 100%; padding: 12px; background: var(--primary-color); color: white; border: none; border-radius: 30px; font-weight: bold; cursor: pointer; font-size: 1rem; margin-top: 10px; transition: 0.3s; }
+        .auth-btn:hover { background: var(--primary-dark); transform: translateY(-2px); }
+
+        /* Style cho ô nhập mật khẩu có nút mắt */
+        .password-wrapper { position: relative; width: 100%; }
+        .password-wrapper input { width: 100%; padding-right: 40px; } /* Chừa chỗ cho icon */
+        .toggle-password-btn {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #aaa;
+            font-size: 1rem;
+            z-index: 2;
+        }
+        .toggle-password-btn:hover { color: var(--primary-color); }
+
+        /* Style cho Role Selection */
+        .role-select { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #ddd; background: #f9f9f9; outline: none; font-size: 1rem; cursor: pointer; }
+        .role-select:focus { border-color: var(--primary-color); background: #fff; }
+
+        /* --- HERO SECTION --- */
+        .hero { text-align: center; padding: 60px 20px 40px; }
+        .hero h1 { font-size: 3rem; color: var(--primary-color); text-shadow: 3px 3px 0px #fff; margin-bottom: 10px; }
+        .hero p { background: #fff; display: inline-block; padding: 5px 20px; border-radius: 20px; color: #666; font-weight: 600; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+
+        /* --- MAIN CONTAINER & GRID --- */
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        h2 { border-left: 8px solid var(--accent-yellow); padding-left: 20px; margin: 30px 0; text-transform: uppercase; color: var(--primary-color); font-weight: 800; }
+        
+        .game-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
+        .game-card { background: var(--card-bg); border-radius: 20px; overflow: hidden; transition: all 0.3s; box-shadow: 0 10px 25px rgba(0, 168, 255, 0.15); position: relative; border: 2px solid transparent; display: flex; flex-direction: column; }
+        .game-card:hover { transform: translateY(-10px); border-color: var(--accent-yellow); }
+        .price-tag { position: absolute; top: 15px; right: 15px; background: var(--accent-pink); color: #fff; padding: 5px 12px; border-radius: 20px; font-weight: bold; font-size: 0.85rem; z-index: 2; }
+        .price-tag.free { background: var(--primary-color); }
+        .price-tag.owned { background: var(--success-color); }
+        .game-thumb { width: 100%; height: 180px; overflow: hidden; }
+        .game-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s; }
+        .game-card:hover .game-thumb img { transform: scale(1.05); }
+        .game-info { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
+        .game-title { font-size: 1.3rem; color: var(--primary-color); margin-bottom: 5px; font-weight: 700; }
+        .game-desc { font-size: 0.9rem; color: #666; margin-bottom: 15px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .bank-info-display { background: #f0f9ff; padding: 10px; margin-top: 10px; border-radius: 8px; font-size: 0.85rem; color: #555; border-left: 3px solid var(--primary-color); display: none; margin-bottom: 10px;}
+        .show-bank { display: block; }
+        .card-actions { margin-top: auto; display: flex; gap: 10px; width: 100%; }
+        .btn-play { flex: 2; padding: 10px; background: var(--accent-yellow); color: #2c3e50; border: none; border-radius: 30px; font-weight: 800; cursor: pointer; transition: 0.2s; box-shadow: 0 3px 0 #e1b12c; text-align: center; }
+        .btn-play:hover { background: #fcd567; transform: translateY(-2px); }
+        .btn-play:active { transform: translateY(2px); box-shadow: none; }
+        .btn-secondary { flex: 1; padding: 10px; background: #fff; color: var(--primary-color); border: 2px solid var(--primary-color); border-radius: 30px; font-weight: bold; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; text-align: center; }
+        .btn-secondary:hover { background: var(--primary-color); color: white; }
+        .btn-secondary.added { background: #ddd; color: #666; border-color: #ddd; cursor: not-allowed; }
+        .btn-reset { background-color: #ff7675; color: white; border: none; padding: 10px 20px; border-radius: 30px; font-weight: bold; cursor: pointer; margin-top: 15px; transition: 0.3s; }
+        .btn-reset:hover { background-color: #d63031; transform: translateY(-2px); }
+
+        /* --- FORM UPLOAD --- */
+        .upload-section { background: #fff; padding: 40px; border-radius: 20px; margin-top: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .form-row { display: flex; gap: 20px; margin-bottom: 20px; }
+        .form-col { flex: 1; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; color: var(--primary-color); font-weight: 700; font-size: 1rem; }
+        input, textarea, select { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #ddd; background: #f9f9f9; outline: none; transition: 0.3s; }
+        input:focus, textarea:focus, select:focus { border-color: var(--primary-color); background: #fff; box-shadow: 0 0 5px rgba(0, 168, 255, 0.2); }
+        .upload-header { text-align: center; margin-bottom: 30px; }
+        .upload-header h1 { color: var(--primary-color); font-size: 2.5rem; }
+        .required-mark { color: red; font-weight: bold; }
+
+        /* --- FOOTER --- */
+        footer { text-align: center; padding: 40px; margin-top: 60px; color: #fff; background: var(--primary-color); font-weight: bold; }
+
+        /* --- DETAIL PAGE --- */
+        .detail-header { text-align: left; padding-top: 20px; margin-bottom: 30px; }
+        .detail-header h1 { font-size: 3rem; color: var(--text-color); text-shadow: none; margin-bottom: 5px; }
+        .detail-header p { background: var(--card-bg); padding: 5px 10px; border-radius: 10px; color: #555; font-weight: 600; display: inline-block; }
+        .detail-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; align-items: start; }
+        .video-player { width: 100%; height: 450px; background: #000; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.2); position: relative; }
+        .video-player iframe { width: 100%; height: 100%; border: none; }
+        .game-specs { background: var(--card-bg); padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .game-specs h3 { color: var(--primary-dark); margin-bottom: 15px; border-bottom: 3px solid var(--accent-yellow); padding-bottom: 5px; }
+        .spec-item { margin-bottom: 10px; font-size: 0.95rem; }
+        .spec-item strong { color: var(--text-color); display: inline-block; width: 110px; }
+        
+        /* --- RATING --- */
+        .rating-box { background: #fff; margin-top: 20px; padding: 20px; border-radius: 15px; text-align: center; border: 2px dashed #eee; }
+        .rating-title { font-weight: bold; margin-bottom: 10px; color: #555; }
+        .stars-container { display: flex; justify-content: center; gap: 10px; font-size: 2rem; cursor: pointer; }
+        .star-icon { color: #ccc; transition: 0.2s; }
+        .star-icon:hover, .star-icon.active { color: #f1c40f; transform: scale(1.2); }
+        .user-rated-msg { margin-top: 10px; color: var(--success-color); font-weight: bold; font-size: 0.9rem; }
+        .review-input-area { margin-top: 15px; text-align: left; display: none; } 
+        .review-input-area textarea { width: 100%; height: 80px; margin-bottom: 10px; border: 1px solid #ddd; padding: 10px; border-radius: 5px; }
+        .btn-submit-review { background: var(--primary-color); color: white; border: none; padding: 5px 15px; border-radius: 15px; cursor: pointer; font-weight: bold; }
+        .login-to-rate { font-size: 0.9rem; color: #888; font-style: italic; margin-top: 10px; }
+        .top-reviews-section { margin-top: 20px; background: #f9f9f9; padding: 15px; border-radius: 10px; border: 1px solid #eee; }
+        .top-reviews-title { font-size: 1rem; font-weight: bold; color: var(--primary-dark); margin-bottom: 10px; border-bottom: 2px solid #ddd; padding-bottom: 5px;}
+        .review-item { background: #fff; padding: 10px; border-radius: 8px; margin-bottom: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .review-header { display: flex; justify-content: space-between; font-size: 0.85rem; color: #666; margin-bottom: 5px; }
+        .review-user { font-weight: bold; color: var(--primary-color); }
+        .review-stars { color: #f1c40f; }
+        .review-content { font-size: 0.95rem; color: #333; }
+
+        /* --- COMMUNITY --- */
+        .community-layout { display: grid; grid-template-columns: 1fr 350px; gap: 20px; align-items: start; }
+        .community-feed { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .comm-card { background: #fff; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-left: 5px solid var(--primary-color); transition: 0.3s; }
+        .comm-card:hover { transform: translateY(-5px); }
+        .comm-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+        .comm-user { display: flex; align-items: center; gap: 10px; font-weight: bold; color: #333; }
+        .comm-avatar { width: 40px; height: 40px; background: #ddd; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.2rem; background: linear-gradient(45deg, var(--primary-color), var(--accent-pink)); }
+        .comm-game-name { font-size: 0.85rem; color: #888; margin-top: 5px; display: block; font-style: italic; }
+        .comm-content { font-size: 1rem; color: #444; margin: 15px 0; line-height: 1.5; background: #f9f9f9; padding: 10px; border-radius: 8px; }
+        .comm-footer { display: flex; justify-content: space-between; font-size: 0.8rem; color: #aaa; }
+
+        /* --- CHAT --- */
+        .chat-box { background: #fff; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); overflow: hidden; display: flex; flex-direction: column; height: 600px; position: sticky; top: 100px; }
+        .chat-header { background: var(--primary-color); color: white; padding: 15px; font-weight: bold; display: flex; align-items: center; justify-content: space-between; }
+        .chat-messages { flex: 1; padding: 15px; overflow-y: auto; background: #f1f2f6; display: flex; flex-direction: column; gap: 10px; }
+        .message { display: flex; flex-direction: column; max-width: 85%; }
+        .message.self { align-self: flex-end; align-items: flex-end; }
+        .message-bubble { padding: 8px 12px; border-radius: 15px; font-size: 0.9rem; position: relative; }
+        .message.other .message-bubble { background: #fff; border-bottom-left-radius: 2px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .message.self .message-bubble { background: var(--primary-color); color: white; border-bottom-right-radius: 2px; box-shadow: 0 2px 5px rgba(0, 168, 255, 0.3); }
+        .message-user { font-size: 0.75rem; color: #777; margin-bottom: 2px; font-weight: bold; }
+        .message.self .message-user { display: none; }
+        .chat-input-area { padding: 15px; background: #fff; border-top: 1px solid #eee; display: flex; gap: 10px; }
+        .chat-input { flex: 1; border: 1px solid #ddd; border-radius: 20px; padding: 8px 15px; outline: none; }
+        .chat-send-btn { background: var(--primary-color); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
+        .chat-send-btn:hover { background: var(--primary-dark); }
+        .chat-login-req { text-align: center; color: #888; font-size: 0.85rem; padding: 10px; font-style: italic; background: #f9f9f9; }
+
+        /* --- DISCOVER --- */
+        .news-container { max-width: 900px; margin: 0 auto; }
+        .news-card { background: #fff; border-radius: 15px; padding: 20px; margin-bottom: 20px; display: flex; gap: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; border-left: 5px solid transparent; align-items: flex-start; }
+        .news-card:hover { transform: translateX(10px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+        .news-icon { width: 60px; height: 60px; background: #eee; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; color: #555; }
+        .news-content { flex: 1; }
+        .news-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .news-title { font-size: 1.2rem; font-weight: bold; color: var(--primary-dark); margin: 0; }
+        .news-tag { padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; color: white; display: inline-block; text-transform: uppercase; }
+        .news-desc { color: #555; font-size: 0.95rem; margin-bottom: 10px; }
+        .news-date { font-size: 0.8rem; color: #999; display: flex; align-items: center; gap: 5px; }
+        .type-game { border-color: var(--success-color); } .tag-game { background: var(--success-color); } .icon-game { background: #e8f8f5; color: var(--success-color); }
+        .type-event { border-color: var(--accent-yellow); } .tag-event { background: var(--accent-yellow); color: #333; } .icon-event { background: #fef9e7; color: #f1c40f; }
+        .type-update { border-color: var(--primary-color); } .tag-update { background: var(--primary-color); } .icon-update { background: #eaf2f8; color: var(--primary-color); }
+        .type-user { border-color: var(--accent-pink); } .tag-user { background: var(--accent-pink); } .icon-user { background: #fdedec; color: var(--accent-pink); }
+
+        /* --- CÁC PHẦN CSS CŨ GIỮ NGUYÊN --- */
+        .story-section { margin-top: 30px; }
+        .story-box { background: var(--card-bg); padding: 25px; border-radius: 15px; margin-top: 15px; color: #333; line-height: 1.6; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .gameplay-box { background: var(--card-bg); padding: 25px; border-radius: 15px; margin-top: 15px; color: #333; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .win-loss-list { list-style: none; padding-left: 0; margin-top: 15px; }
+        .win-loss-list li { margin-bottom: 10px; display: flex; align-items: flex-start; gap: 10px; }
+        .purchase-note { background: #fff3cd; color: #856404; padding: 15px; border-radius: 10px; margin-top: 20px; border: 1px solid #ffeeba; display: flex; align-items: center; gap: 10px; }
+        .intro-box { background: linear-gradient(to right, #ffffff, #f0f9ff); padding: 25px; border-radius: 15px; margin-top: 25px; border: 1px solid #e1e1e1; border-left: 6px solid var(--primary-color); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .intro-box h2 { border-left: none; padding-left: 0; margin-top: 0; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; font-size: 1.5rem; }
+        .intro-content { font-size: 1.1rem; color: #444; font-weight: 500; }
+        .custom-list { margin-left: 20px; margin-bottom: 15px; }
+        .custom-list li { margin-bottom: 5px; list-style-type: disc; }
+        .content-paragraph { margin-bottom: 15px; }
+        .cart-section { margin-top: 20px; }
+        .cart-table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .cart-table th, .cart-table td { padding: 15px; text-align: left; border-bottom: 1px solid #eee; }
+        .cart-table th { background: var(--primary-color); color: white; }
+        .cart-item-img { width: 80px; height: 50px; object-fit: cover; border-radius: 5px; }
+        .cart-total { text-align: right; margin-top: 20px; font-size: 1.5rem; font-weight: bold; color: var(--text-color); }
+        .btn-remove { color: var(--accent-pink); background: none; border: none; cursor: pointer; font-size: 1.2rem; }
+        .btn-remove:hover { color: #d63031; }
+        .btn-checkout { display: block; width: 100%; max-width: 300px; margin: 30px 0 0 auto; background: var(--success-color); color: white; font-size: 1.2rem; padding: 15px; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4); transition: 0.3s; }
+        .btn-checkout:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(46, 204, 113, 0.6); }
+        .empty-cart-msg { text-align: center; padding: 50px; background: rgba(255,255,255,0.8); border-radius: 15px; }
+        .owned-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; margin-top: 20px; }
+        .owned-item { background: #fff; padding: 10px; border-radius: 10px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border-bottom: 3px solid var(--success-color); }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 900px) { 
+            .detail-grid { grid-template-columns: 1fr; } 
+            .video-player { height: 300px; } 
+            .community-layout { grid-template-columns: 1fr; } 
+            .chat-box { height: 400px; position: static; }
+        }
+        @media (max-width: 768px) {
+            .navbar { flex-direction: column; gap: 15px; padding: 15px; }
+            .nav-links { gap: 15px; font-size: 0.9rem; width: 100%; justify-content: center; }
+            .nav-actions { width: 100%; justify-content: space-between; }
+            .search-box input { width: 100%; }
+            .form-row { flex-direction: column; gap: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="animated-bg">
+        <div class="bg-item"><i class="fa-solid fa-gamepad"></i><span>GAME</span></div>
+        <div class="bg-item"><i class="fa-solid fa-code"></i><span>&lt;/&gt;</span></div>
+        <div class="bg-item"><i class="fa-solid fa-bug" style="color: #ff7675;"></i><span>BUG!</span></div>
+        <div class="bg-item tech-text"><span>010101</span></div>
+        <div class="bg-item"><i class="fa-solid fa-ghost"></i><span>AFK</span></div>
+        <div class="bg-item"><i class="fa-solid fa-microchip"></i><span>CPU 100%</span></div>
+        <div class="bg-item tech-text"><span>NULL</span></div>
+        <div class="bg-item"><i class="fa-solid fa-rocket"></i><span>LAUNCH</span></div>
+        <div class="bg-item"><i class="fa-solid fa-robot"></i><span>AI?</span></div>
+        <div class="bg-item"><i class="fa-solid fa-trophy" style="color: #f1c40f;"></i><span>WIN</span></div>
+        <div class="bg-item tech-text"><span>404</span></div>
+    </div>
+    <div id="app-container">
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Nhóm TRÀN BỘ NHỚ.</p>
+    </footer>
+
+    <script>
+        // =======================================================
+        // CẤU HÌNH TÀI KHOẢN (ĐỂ SẴN 8 TÀI KHOẢN)
+        // =======================================================
+        const preDefinedUsers = [
+            { username: "mda1205", password: "184/59duyanh", role: "Developer" }, 
+            { username: "user2",   password: "123", role: "Gamer" },           
+            { username: "user3",   password: "123", role: "Gamer" },           
+            { username: "user4",   password: "123", role: "Gamer" },           
+            { username: "user5",   password: "123", role: "Gamer" },           
+            { username: "user6",   password: "123", role: "Gamer" },           
+            { username: "user7",   password: "123", role: "Gamer" },           
+            { username: "user8",   password: "123", role: "Gamer" }            
+        ];
+
+        function initSystemAccounts() {
+            let currentUsers = JSON.parse(localStorage.getItem('users') || '[]');
+            const checkUser = currentUsers.find(u => u.username === "mda1205");
+            if (!checkUser) {
+                const mergedUsers = [...currentUsers, ...preDefinedUsers];
+                const uniqueUsers = mergedUsers.filter((v,i,a)=>a.findIndex(t=>(t.username === v.username))===i);
+                localStorage.setItem('users', JSON.stringify(uniqueUsers));
+            }
+        }
+
+        // =======================================================
+        // DỮ LIỆU TÁC GIẢ 
+        // =======================================================
+        const developerProfiles = {
+            "Võ Minh Triết": "https://sites.google.com/view/hcmus-vminhtrit/trang-ch%E1%BB%A7",
+            "Võ Ngọc Bảo Trân": "https://barotrun.github.io/profile/?fbclid=IwY2xjawOlDs9leHRuA2FlbQIxMABicmlkETEwc042cVdZalg1OFAweFhKc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHhHaFw6Zcgq9wQ-X7JR3uuN3-Zjy2je3An7_SopplkJHX1uA_YE9N0OVHs7O_aem_2bpyjOY098EJnc04Y2QNZw#home",
+            "Nguyễn Lê Chí Tường": "https://chituong217.github.io/Gioithieubanthan_Project_NMCNTT/?fbclid=IwY2xjawOlD_FleHRuA2FlbQIxMABicmlkETEwc042cVdZalg1OFAweFhKc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHl645m2zXWdkLc_hPBoFXvIKKL1vhzO_1lLQ8AUDtziyX3Di7aAXnsUqTa8N_aem_kKNRXmCTeCGS1ARRJU_YEA",
+            "Võ Nguyễn Công Trí": "https://sites.google.com/view/portfolio-congtri25ctt6/?fbclid=IwY2xjawOmMe5leHRuA2FlbQIxMABicmlkETFZbWVOZnd6enNyejBKc1Izc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHqzHuEWuHSbSDnRvykors0ty-1BxsCq_k9o8PJeDSPx8BJSr0PAmYiTqkqsE_aem_-ZBV7le05ZMn4vSJdxcn0Qn",
+            "Đỗ Duy Trường": "https://miofeiyan.github.io/doduytruonghcmus/?fbclid=IwY2xjawOlDypleHRuA2FlbQIxMABicmlkETEwc042cVdZalg1OFAweFhKc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHsy3cxuOHAJKDzbqeGS97AbZklk8Q45Lsx6wf6K-eNKtBDhvuO-xCwV--WPY_aem_kIrYfx1KeCtXqUT7TETLSg",
+            "Đoàn Hoàng Việt": "https://vhoanghviet.github.io/ThongTinCaNhan/?fbclid=IwY2xjawOmMhZleHRuA2FlbQIxMABicmlkETFZbWVOZnd6enNyejBKc1Izc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHvHNmf69uEdNfARQhMxwtAou5fJ4Rb7-a3sDka6T62_Gx29Wr32LUZ5cHHjB_aem_XKff2MUyN4nzTmq9pQ2JFw#"
+        };
+
+        // =======================================================
+        // DỮ LIỆU GAME VÀ ĐÁNH GIÁ (DATA)
+        // =======================================================
+        const initialGames = [
+            // ... (Giữ nguyên danh sách 12 game của bạn ở đây) ...
+            { 
+                id: 1, 
+                name: "Magician vs. Goblin", 
+                desc: "Đại chiến ảo thuật gia và quái vật Goblin. Game nhập vai hành động.", 
+                intro: `Bạn có thể sống sót khỏi bầy Goblin không?
+                
+                Magician vs Goblin là game hành động sống còn nhịp độ nhanh, nơi bạn vào vai một Pháp Sư trẻ bị bao vây bởi lũ Goblin hung hãn. Bạn chỉ có một mình — nhưng sở hữu ma thuật mạnh mẽ. Mỗi giây là một trận chiến sinh tồn khi bạn phải vừa né, vừa bắn phép, vừa cố gắng duy trì mạng sống giữa số lượng Goblin tăng dần theo thời gian.
+                
+                Các quyết định của bạn đều quan trọng !!!
+                
+                Liệu bạn có thể trụ đến cuối trận, hay sẽ bị đàn Goblin nuốt chửng giữa chiến trường?`,
+                price: 50000, 
+                bankInfo: "999999 - Techcombank - VO MINH TRIET", 
+                img: "GameImage/game1.png", 
+                genre: "2D Action, Top-down Shooter, Survival Combat", 
+                players: "Single", 
+                developer: "Võ Minh Triết", 
+                release: "07/11/2025", 
+                videoUrl: "https://www.youtube.com/embed/kS1iZw9P5O0",
+                downloadUrl: "https://vominhtriet.itch.io/blackmagician-vs-goblin", 
+                story: `Ý tưởng cốt lõi:
+                
+                + Tiêu diệt càng nhiều Goblin càng tốt.
+                + Sống càng lâu càng tốt.
+                + Cơ chế chơi nhanh, trực quan, mang tính phản xạ cao.
+                + Toàn bộ hành động thực hiện trực tiếp trong gameplay không cần menu phức tạp.
+
+                Cốt truyện:
+                
+                Bạn là một Pháp Sư học việc đang thực tập tại vùng rừng ma thuật. Trong lúc thiền luyện, một cánh cổng quái vật đột ngột mở ra, giải phóng Goblin từ chiều không gian khác.
+                
+                Nhiệm vụ của bạn phải trực tiếp cầm cự và tiêu diệt nhiều goblin nhất có thể để chờ viện binh đến !`,
+                gameplay: `Di chuyển: nút di chuyển hoặc chuột 
+                Ngắm: theo hướng chuột.
+                Bắn phép: Nhấn/giữ chuột trái → bắn Spell.`,
+                winCondition: `Không có điều kiện thắng cố định. Bạn càng sống lâu → càng “thắng”.`,
+                lossCondition: "Game Over ngay lập tức khi: Player HP = 0 (bị Goblin tấn công quá nhiều)."
+            },
+            { 
+                id: 2, 
+                name: "Sinh Viên sinh tồn", 
+                desc: "Sống sót qua 30 ngày cùng những biến cố bất ngờ thời Sinh viên.", 
+                intro: `Chào mừng bạn đến với chiến trường khốc liệt nhất: Đại Học! Không có súng đạn, kẻ thù của bạn là 'Deadline', 'Mì tôm' và 'Hết tiền'.
+                Bạn có thể TRỤ tới ngày cuối cùng được không?
+                
+                Survival Sinh Viên là game mô phỏng quản lý tài nguyên căng thẳng, nơi bạn vào vai sinh viên năm nhất cố gắng sống sót qua 30 ngày đầu tiên với một khoản trợ cấp eo hẹp.
+                
+                Mỗi ngày là một thử thách: Cân bằng giữa việc ăn uống, học tập và kiểm soát Stress! Mọi lựa chọn đều quan trọng. Bạn sẽ ăn mì gói hay mạo hiểm mua cơm bụi? Dành tiền sửa xe hay bỏ học để ngủ bù?
+                
+                ⚠️ Cẩn thận: Chỉ số Tiền, Sức khỏe, Độ no, hoặc Stress vượt ngưỡng sẽ dẫn đến Game Over ngay lập tức!
+                
+                Liệu bạn có thể chiến thắng định mệnh, hay sẽ phải "bỏ học về quê" trước Ngày 30? Chơi ngay và tìm câu trả lời!`,
+                price: 0, 
+                bankInfo: "", 
+                img: "GameImage/game2.png", 
+                genre: "2D Simulator, Resource management, Visual / Text-driven", 
+                players: "Single", 
+                developer: "Võ Ngọc Bảo Trân", 
+                release: "08/11/2025", 
+                videoUrl: "https://www.youtube.com/embed/7rkcFUS7tNI",
+                downloadUrl: "https://barotrun.itch.io/sinhvien-sinhton", 
+                story: `Ý tưởng cốt lõi của trò chơi là mô phỏng lại cuộc chiến sinh tồn đô thị của một sinh viên năm nhất tại Việt Nam. Người chơi phải sống sót qua 30 ngày với ngân sách hạn hẹp, liên tục quản lý và cân bằng 4 chỉ số sinh mệnh: Tiền, Sức khỏe, Độ no, và Stress. 
+
+                Cốt truyện:
+                
+                Bối cảnh game tập trung vào những địa điểm quen thuộc (phòng trọ, quán cơm bình dân, giảng đường), nơi người chơi đối mặt với các sự kiện ngẫu nhiên mang tính may rủi cao (deadline gấp, hư xe, trúng thưởng). Toàn bộ câu chuyện được truyền tải qua các lựa chọn dựa trên văn bản.
+                
+                Mục tiêu là đạt đến Ngày 30 mà không để bất kỳ 3 chỉ số Tiền, Sức khỏe, Độ no (<=0) hoặc Stress (>=100).`,
+                gameplay: "Trò chơi diễn ra theo lượt, với mỗi lượt là một ngày. Người chơi điều khiển hoàn toàn bằng chuột, đưa ra quyết định thông qua các Nút Lựa Chọn đi kèm với mỗi sự kiện ngẫu nhiên hoặc cố định xuất hiện hàng ngày. Sau khi đưa ra quyết định, các chỉ số cốt lõi (Tiền, Sức khỏe, Độ no, Stress) sẽ thay đổi. Nhiệm vụ của bạn là quản lý và giữ 4 chỉ số này nằm trong giới hạn cho phép (tối thiểu 0, tối đa 100) cho đến khi hoàn thành Ngày 30.",
+                winCondition: "Sống sót qua 30 ngày.",
+                lossCondition: `Game Over sẽ xảy ra ngay lập tức nếu: Tiền <= 0 (Phá sản), Sức khỏe <= 0 (Kiệt sức), Độ no <= 0 (Chết đói), hoặc Stress >= 100 (Bỏ học về quê).`
+            },
+            { 
+                id: 3, 
+                name: "Anya's Neo Dodger", 
+                desc: "Né tránh bài tập Vi Tích Phân trong thế giới Cyberpunk cùng ANYA.", 
+                intro: "Sinh tồn qua cơn ác mộng Vi Tích Phân trong thế giới Retro-Cyberpunk cùng ANYA!",
+                price: 0, 
+                bankInfo: "", 
+                img: "GameImage/game3.png", 
+                genre: "Arcade Survival, Endless, 8-bit", 
+                players: "Single", 
+                developer: "Nguyễn Lê Chí Tường", 
+                release: "09/11/2025", 
+                videoUrl: "https://www.youtube.com/embed/xqmehhKTZZI",
+                downloadUrl: "https://chituong217.itch.io/anyas-neo-dodger", 
+                story: `Ý tưởng: 
+                
+                Do sinh viên 25CTT6 HCMUS đang đối mặt với kỳ thi Vi Tích Phân căng thẳng, một học sinh bí ẩn trong lớp đã xây dựng game này để giúp các bạn cùng lớp và bản thân giải stress sau những giờ học cày try-hard Vi Tích Phân. 
+                
+                Game là nơi chuyển hóa áp lực thành một thử thách giải trí tốc độ cao.
+                
+                Cốt truyện:
+                
+                Anya vốn là một cô bé ngây thơ, cute phô mai que, đến từ thế giới anime. Một ngày đẹp trời, BÙM! Anya bị chuyển sinh thẳng vào thế giới đời thường và trở thành một tân sinh viên Khoa học Tự nhiên tại HCMUS.
+                
+                Cuộc sống tưởng chừng êm đẹp cho đến khi cô gặp Kẻ Phản Diện Vi Tích Phân. Áp lực học tập, deadline dí đã biến tâm trí cô thành một bãi chiến trường.
+                
+                Mỗi đêm, Anya phải bước vào cơn ác mộng: Trong không gian Retro-Cyberpunk của tiềm thức, những cuốn sách Vi Tich Phân liên tục rơi xuống Ziczac với tốc độ nhanh dần, muốn "đè bẹp" cô. Mục tiêu duy nhất: Sống sót!`,
+                gameplay: "Dùng Phím Mũi Tên Trái/Phải để di chuyển Anya né tránh những cuốn sách Vi Tích Phân.",
+                winCondition: "Sống sót và vượt qua được kỳ thi Vi Tích Phân ngoài đời thực! =))",
+                lossCondition: "Va chạm 3 lần với sách Vi Tích Phân và bị kiến thức đè bẹp sẽ GAME OVER."
+            },
+            { 
+                id: 4, 
+                name: "ERROR RUN", 
+                desc: "Chạy trốn màn hình xanh chết chóc gồm BUG và ERROR.", 
+                intro: `HÃY TRÁNH NÉ TẤT CẢ CÁC BUG - ERROR ĐỂ MANG VỀ ĐIỂM SỐ CAO NHẤT CHO MÔN CƠ SỞ LẬP TRÌNH CỦA BẠN !!!
+
+                Liệu bạn có thể phá vỡ kỷ lục và trở thành "Thánh DEADLINE"?`,
+                price: 20000, 
+                bankInfo: "777777 - ACB - VO NGUYEN CONG TRI", 
+                img: "GameImage/game4.png", 
+                genre: "Endless Runner, Arcade, Flappy-style", 
+                players: "Single", 
+                developer: "Võ Nguyễn Công Trí", 
+                release: "10/11/2025", 
+                videoUrl: "https://www.youtube.com/embed/6AuqZ9ZINVQ",
+                downloadUrl: "https://congtri25ctt6.itch.io/error-run", 
+                story: `Ý tưởng: 
+                
+                Với bối cảnh gần gũi và hài hước về cuộc sống của sinh viên CNTT, game không chỉ mang lại những phút giây giải trí (và ức chế!) mà còn là một sự đồng cảm sâu sắc với những ai đã từng "thức đêm chạy deadline".
+                
+                Hãy chuẩn bị tinh thần, giữ chặt phím Space và xem bạn có thể sống sót bao lâu trong thế giới code đầy lỗi này!
+                
+                Cốt truyện: 
+                
+                Vào lúc 23h58 đêm hạn chót, sau cú nhấn "Build & Run" định mệnh, chàng sinh viên Trí của FIT@HCMUS bất ngờ bị hút vào thế giới mã lệnh bởi lỗi "404 - Hope Not Found" và hóa thân thành một nhân vật 8-bit nhỏ bé.
+                
+                Để thoát khỏi cơn ác mộng này và nộp bài kịp giờ, cậu phải liên tục "spam" phím Space, chật vật lượn lách qua những khe hở tử thần được tạo bởi cặp ngoặc thiếu, dấu chấm phẩy đi lạc và các vòng lặp vô tận. 
+                
+                Cuộc đua giờ đây không chỉ là sinh tồn mà còn là hành trình cảm tử tìm đường đến cánh cổng Moodle thần thánh để "Commit code" thành công, bởi chỉ một cú va chạm nhỏ vào lỗi (Bug), Trí sẽ đối mặt với án tử đáng sợ nhất đời sinh viên: trượt môn và đóng tiền học lại!`,
+                gameplay: `Trên PC/Laptop: Nhấn phím Spacebar HOẶC click Chuột trái để làm nhân vật bay lên.
+                
+                Trên Mobile/Tablet: Chạm vào bất kỳ đâu trên màn hình để bay lên.`,
+                winCondition: `Không có đích đến, sống càng lâu càng tốt bằng cách điều khiển nhân vật bay qua các khe hở giữa các chướng ngại vật. 
+                
+                Mỗi cặp ống lỗi vượt qua sẽ cho bạn 1 điểm.`,
+                lossCondition: `Tuyệt đối không được chạm vào:
+                
+                + Các khối lỗi màu đỏ ("ERROR 404", "CSLT-MAT").
+                + Giới hạn trên cùng (trần nhà) của màn hình.
+                + Giới hạn dưới cùng (sàn nhà) của màn hình.
+                
+                Va chạm vào bất cứ thứ gì kể trên đồng nghĩa với GAME OVER.`
+            },
+            { 
+                id: 5, 
+                name: "Naruto Adventure", 
+                desc: "Nhiệm vụ Ninja cấp S cùng Kakashi(?) và Naruto.", 
+                intro: `Tựa game này là một trải nghiệm hành động platformer 2D Side-Scrolling mang phong cách Arcade, hoàn hảo cho một người chơi.
+                
+                Mục tiêu của game là cho phép người chơi chọn lựa giữa các huyền thoại: Kakashi, Naruto,… và tham gia vào một cuộc chiến tốc độ cao chống lại Sound Ninja, sử dụng các tuyệt kỹ như Sharingan, Chidori, Rasengan và Kage Bunshin để bảo vệ Konoha khỏi hiểm họa.`,
+                price: 0, 
+                bankInfo: "", 
+                img: "GameImage/game5.png", 
+                genre: "Adventure, Fighting", 
+                players: "Single", 
+                developer: "Đỗ Duy Trường", 
+                release: "11/11/2025", 
+                videoUrl: "https://www.youtube.com/embed/4XScOKO0Y40",
+                downloadUrl: "https://truonghhaz.itch.io/naruto-adventure", 
+                story: `Ý tưởng trung tâm của game là mang lại trải nghiệm chiến đấu linh hoạt và cá nhân hóa. Người chơi đối diện với lựa chọn định hình lối chơi của mình:
+                
+                + Kakashi: Phù hợp với lối chơi chiến lược, đòi hỏi sự tính toán thời điểm chính xác khi sử dụng Sharingan.
+                + Naruto: Phù hợp với lối chơi cường độ cao, tấn công trực diện, gây sát thương lớn và diện rộng bằng Rasengan.
+
+                Game là nơi kiểm tra khả năng làm chủ tốc độ phản xạ và bộ kỹ năng độc đáo của người chơi trên những chiến trường khốc liệt.
+                
+                Cốt truyện: 
+                
+                Bảo vệ Làng Lá: Sau cái chết của Hokage Đệ Tam, Làng rơi vào tình trạng bất ổn, tạo cơ hội cho thế lực lính đánh thuê tàn bạo là Ninja Làng Âm Thanh xâm nhập. Bạn được giao nhiệm vụ mật: Lựa chọn Anh hùng Kakashi Hatake hoặc Naruto Uzumaki để thực hiện nhiệm vụ tiêu diệt chúng.`,
+                gameplay: `Di chuyển: Dùng Phím Mũi Tên Trái/Phải hoặc A/D.
+                Nhảy: Dùng Phím Mũi Tên Lên hoặc W.
+                Tấn công cơ bản: Phím J (Đấm) và K (Đá).
+                Tuyệt Kỹ Đặc Trưng: Phím L (Chidori nếu là Kakashi, Rasengan nếu là Naruto).
+                Siêu Tuyệt Kỹ: Phím U (Sharingan nếu là Kakashi, Kage Bunshin nếu là Naruto).`,
+                winCondition: `Thắng Màn : Bạn chiến thắng một màn chơi khi tiêu diệt được tất cả các đơn vị Sound Ninja trên bản đồ. Màn hình "STAGE CLEAR!" sẽ xuất hiện, cho phép bạn chuyển tiếp sang Level tiếp theo.
+                
+                Hoàn Thành Game: Khi bạn hoàn thành Level cuối cùng, màn hình "GAME COMPLETE!" sẽ xuất hiện.`,
+                lossCondition: `Game kết thúc và màn hình "GAME OVER" sẽ xuất hiện nếu:
+                
+                + Máu Về 0: Thanh máu của nhân vật chính cạn kiệt sau khi nhận sát thương từ kẻ địch.
+                + Rơi Vực: Nhân vật rơi khỏi giới hạn màn hình chơi.`
+            },
+            { 
+                id: 6, 
+                name: "Dạo Phố CHILL", 
+                desc: "Lái xe thư giãn cùng nhạc Lofi trong thế giới siêu thực.", 
+                intro: `Gác lại mọi âu lo, bật nhạc lên và tận hưởng. 'Dạo Phố CHILL' không có thắng thua, không có kẻ địch, chỉ có bạn và chiếc xe lướt đi trong màn đêm êm dịu. Một liều thuốc tinh thần hoàn hảo sau những giờ làm việc căng thẳng.`,
+                price: 100000, 
+                bankInfo: "111111 - Vietcombank - DOAN HOANG VIET", 
+                img: "GameImage/game6.png", 
+                genre: "Simulation / Hangout", 
+                players: "Single", 
+                developer: "Đoàn Hoàng Việt", 
+                release: "12/10/2025", 
+                videoUrl: "https://www.youtube.com/embed/jNlELPjMwOQ",
+                downloadUrl: "https://www.roblox.com/games/13217277322/Dao-Pho-Chill", 
+                story: `Ý tưởng:
+                
+                Không có kẻ thù, không áp lực. Chỉ có bạn, chiếc xe và âm nhạc trong thành phố về đêm.
+                "Khám phá, chill, ngắm cảnh và trò chuyện."
+                CHÀO MỪNG ĐẾN VỚI THẾ GIỚI “KHÁC BIỆT” 
+                Bước vào thế giới Open World rộng lớn, nơi bạn thoát khỏi deadline và áp lực. Tự tay cầm lái những chiếc siêu xe, lượn lờ dưới ánh đèn Neon thành phố và bật Mic "tám" chuyện cùng hội bạn. Đây là không gian Slow Living dành riêng cho Gen Z.
+
+                Cốt truyện:
+
+                Trong một thế giới nơi con người đang dần đánh mất khả năng mơ mộng vì guồng quay hối hả của cuộc sống hiện đại, bạn vào vai một lữ khách vô danh trở về góc phố hoài niệm mang tên 'Phố nhỏ'. 
+                
+                Đây là nơi duy nhất trên thế giới mà thời gian dường như bỏ quên, luôn dừng lại ở khoảnh khắc nhập nhoạng tối êm đềm với cơn mưa bụi lất phất không bao giờ dứt. 
+                
+                Bạn không có thanh máu, không có kẻ thù, và cũng chẳng bị hối thúc bởi thời gian; suy nghĩ duy nhất của bạn là rảo bước thật chậm trên những con đường lát đá phủ rêu, lắng nghe tiếng mưa rơi tí tách trên chiếc ô trong suốt và tiếng nhạc Jazz du dương phát ra từ những ngọn đèn đường hiu hắt. 
+                
+                Trên hành trình vô định ấy, bạn sẽ đi tìm lại những 'mảnh vỡ ánh sáng' đang trôi nổi—đó là hiện thân của những kỷ niệm hạnh phúc nhỏ bé mà cư dân thành phố đã vô tình đánh rơi và lãng quên: một lá thư tình chưa bao giờ gửi, chiếc vé xem phim của mối tình đầu, hay đơn giản là mùi hương của tiệm bánh mì nướng năm xưa. 
+                
+                Mỗi bước chân của bạn không chỉ là sự di chuyển, mà là hành trình thắp sáng lại từng góc phố u tối, ghép lại những mảnh ký ức vụn vỡ để kể lên một câu chuyện cảm động, sâu sắc về sự chữa lành và nhắc nhở người chơi trân trọng những điều bình dị nhất mà mình đang có.`,
+                gameplay: `⌨️ Di chuyển: W, A, S, D hoặc Mũi tên.
+                👀 Quan sát: Chuột xoay 360 độ.
+                🚗 Menu điện thoại: Nhấn nút M trên màn hình.`,
+                winCondition: "Không có, game chỉ để thư giãn.",
+                lossCondition: "Khi tắt game =))"
+            },
+            { 
+                id: 7, name: "Elden Ring", desc: "Siêu phẩm hành động nhập vai thế giới mở từ FromSoftware.", 
+                intro: "Đứng lên, hỡi Kẻ bị vấy bẩn (Tarnished), và để ân sủng dẫn lối bạn chạm tay vào chiếc nhẫn Elden Ring.", price: 999000, bankInfo: "STEAM - STORE", 
+                img: "https://placehold.co/600x400?text=Elden+Ring", genre: "Action RPG, Open World, Soulslike", players: "Single, Multiplayer", developer: "FromSoftware Inc.", release: "25/02/2022", videoUrl: "https://www.youtube.com/embed/E3Huy2cdih0", downloadUrl: "https://store.steampowered.com/app/1245620/ELDEN_RING/", 
+                story: `Vùng đất Lands Between từng rực rỡ dưới sự cai trị của Nữ hoàng Marika Đấng Vĩnh Hằng. Nhưng chiếc nhẫn Elden Ring đã vỡ vụn... Những đứa con á thần của Marika tranh giành các mảnh vỡ (Great Runes), gây ra cuộc chiến tranh tàn khốc mang tên The Shattering. 
+                
+                Bạn là một Tarnished (Kẻ bị hắt hủi), trở về từ cõi chết để băng qua màn sương mù, thu thập các mảnh vỡ, diện kiến Marika và trở thành Elden Lord mới.`, 
+                gameplay: "Khám phá thế giới mở rộng lớn, chiến đấu với những con trùm khổng lồ, xây dựng nhân vật với hàng trăm loại vũ khí và phép thuật.", winCondition: "Đánh bại Elden Beast và chọn kết thúc của bạn.", lossCondition: "You Died (Chết và mất Runes)." 
+            },
+            { 
+                id: 8, name: "Hollow Knight", desc: "Kiệt tác Metroidvania vẽ tay đầy nghệ thuật và thử thách.", 
+                intro: "Khám phá vương quốc côn trùng Hallownest bị lãng quên và giải mã những bí ẩn cổ xưa.", price: 165000, bankInfo: "STEAM - STORE", 
+                img: "https://placehold.co/600x400?text=Hollow+Knight", genre: "Metroidvania, Action, Indie", players: "Single", developer: "Team Cherry", release: "24/02/2017", videoUrl: "https://www.youtube.com/embed/UAO2urG23S4", downloadUrl: "https://store.steampowered.com/app/367520/Hollow_Knight/", 
+                story: `Bên dưới thị trấn Dirtmouth điêu tàn là vương quốc côn trùng Hallownest cổ đại đã sụp đổ. Một bệnh dịch kỳ lạ (The Infection) đang biến cư dân thành những xác sống điên loạn. 
+                
+                Bạn là một Hiệp sĩ nhỏ bé, vô danh, mang theo thanh Nail cùn, đi sâu vào lòng đất để khám phá bí mật về Vua Nhợt Nhạt (Pale King) và phong ấn nguồn gốc của bệnh dịch trước khi nó nuốt chửng tất cả.`, 
+                gameplay: "Di chuyển khéo léo (nhảy, lướt, bám tường), chiến đấu bằng kiếm (Nail) và sử dụng bùa chú (Charms) để tăng sức mạnh.", winCondition: "Đánh bại The Radiance hoặc The Hollow Knight.", lossCondition: "Hết mặt nạ (Máu) và quay lại ghế đá gần nhất (mất Geo)." 
+            },
+            { 
+                id: 9, name: "Hay Day", desc: "Game nông trại vui vẻ số 1 trên di động. Xây dựng trang trại trong mơ của bạn.", 
+                intro: "Chào mừng đến với nông trại tuyệt vời nhất trên di động! Làm quen với đất đai, chăm sóc mùa màng và trao đổi hàng hóa với bạn bè và hàng xóm.", price: 0, bankInfo: "SUPERCELL", 
+                img: "https://placehold.co/600x400?text=Hay+Day", genre: "Simulation, Farming, Casual", players: "Single, Multiplayer (Neighborhood)", developer: "Supercell", release: "21/06/2012", videoUrl: "https://www.youtube.com/embed/H5tO9y_5tS4", downloadUrl: "https://supercell.com/en/games/hayday/", 
+                story: `Bạn nhận được một bức thư từ người chú Greg thân thiết. Ông ấy đã lớn tuổi và không thể quán xuyến nổi nông trại cũ của gia đình nữa, vì vậy ông muốn trao lại quyền thừa kế và quản lý cho bạn. 
+                
+                Nông trại hiện tại khá hoang sơ và bừa bộn, nhưng với sự chăm chỉ và óc sáng tạo, bạn hoàn toàn có thể biến nó thành một thiên đường nông nghiệp trù phú nhất thung lũng. 
+                
+                Cốt truyện không chỉ dừng lại ở việc trồng cây, mà là hành trình kết nối cộng đồng: buôn bán với các nhân vật thăm viếng, hoàn thành đơn hàng xe tải, tàu thủy, phục vụ khách du lịch tại Thị Trấn và tham gia các cuộc đua Derby kịch tính cùng hội nông dân (Neighborhood).`, 
+                gameplay: "Thao tác chạm và vuốt đơn giản để gieo hạt, thu hoạch, cho thú ăn. Xây dựng các máy sản xuất (lò nướng, máy ép đường,...) để tạo ra sản phẩm và bán lấy tiền vàng.", winCondition: "Không có kết thúc. Mục tiêu là mở rộng trang trại, lên cấp và đạt các thành tựu.", lossCondition: "Không có. Đây là game thư giãn, bạn không thể thua." 
+            },
+            { 
+                id: 10, name: "God of War Ragnarök", desc: "Hành trình sử thi của Kratos và Atreus qua 9 cõi Bắc Âu.", 
+                intro: "Fimbulwinter đang đến gần. Kratos và Atreus phải quyết định số phận của họ trước khi Ragnarök xảy ra.", price: 1200000, bankInfo: "SONY - STEAM", 
+                img: "https://placehold.co/600x400?text=God+of+War", genre: "Action-Adventure, Hack and Slash", players: "Single", developer: "Santa Monica Studio", release: "09/11/2022", videoUrl: "https://www.youtube.com/embed/EE-4GvjKcfs", downloadUrl: "https://store.steampowered.com/app/2322010/God_of_War_Ragnark/", 
+                story: `Fimbulwinter (Mùa đông khắc nghiệt) đã bao trùm 9 cõi, báo hiệu ngày tận thế Ragnarök đang đến gần. Kratos và Atreus phải hành trình qua từng thế giới để tìm kiếm câu trả lời trước khi các vị thần Asgard (Odin, Thor) phát động chiến tranh. 
+                
+                Đây không chỉ là cuộc chiến sinh tồn, mà là câu chuyện về sự trưởng thành, lòng tin và sự buông bỏ giữa hai cha con Chiến Thần.`, 
+                gameplay: "Chiến đấu bạo lực với Rìu Leviathan và Dao Blades of Chaos. Giải đố và khám phá cốt truyện sâu sắc.", winCondition: "Hoàn thành cốt truyện chính và đánh bại Odin.", lossCondition: "Hết máu trong combat." 
+            },
+            { 
+                id: 11, name: "League of Legends", desc: "Đấu trường trận chiến trực tuyến nhiều người chơi (MOBA) số 1 thế giới.", 
+                intro: "Chọn vị tướng của bạn và lập đội để phá hủy nhà chính đối phương (Nexus).", price: 0, bankInfo: "RIOT GAMES", 
+                img: "https://placehold.co/600x400?text=League+of+Legends", genre: "MOBA, Strategy", players: "Multiplayer (5v5)", developer: "Riot Games", release: "27/10/2009", videoUrl: "https://www.youtube.com/embed/mDYqT0_9VR4", downloadUrl: "https://signup.leagueoflegends.com/", 
+                story: `Trong thế giới Runeterra đầy ma thuật và xung đột, các anh hùng (Champions) từ những vùng đất đối nghịch như Demacia công lý, Noxus tàn bạo, hay Ionia huyền bí... tập hợp lại tại Summoner's Rift. 
+                
+                Mỗi trận chiến là một cuộc đấu trí căng thẳng để phá hủy Nexus đối phương. Cốt truyện được mở rộng qua từng vị tướng với những mối thù truyền kiếp và lý tưởng riêng.`, 
+                gameplay: "Điều khiển tướng, farm lính, mua trang bị và phối hợp đồng đội giao tranh tổng.", winCondition: "Phá hủy nhà chính (Nexus) của địch.", lossCondition: "Nhà chính mình bị phá hủy hoặc đầu hàng (FF 15)." 
+            },
+            { 
+                id: 12, name: "Minecraft", desc: "Thế giới của những khối vuông kỳ diệu. Giới hạn là trí tưởng tượng của bạn.", 
+                intro: "Xây dựng mọi thứ, từ ngôi nhà đơn sơ đến lâu đài vĩ đại nhất.", price: 750000, bankInfo: "MICROSOFT", 
+                img: "https://placehold.co/600x400?text=Minecraft", genre: "Sandbox, Survival", players: "Single, Multiplayer", developer: "Mojang Studios", release: "18/11/2011", videoUrl: "https://www.youtube.com/embed/MmB9b5njVbA", downloadUrl: "https://www.minecraft.net/", 
+                story: `Không có kịch bản định sẵn, bạn tỉnh dậy giữa một thế giới hoang sơ rộng lớn. Bạn có thể chọn cuộc sống bình yên: làm ruộng, chăn nuôi, xây nhà. 
+                
+                Hoặc dấn thân vào nguy hiểm: chế tạo vũ khí, xuống địa ngục (Nether), tìm kiếm Stronghold và tiêu diệt Rồng Ender để giải phóng thế giới The End. Cốt truyện chính là hành trình sáng tạo của riêng bạn.`, 
+                gameplay: "Chế độ Sinh tồn (kiếm ăn, đánh quái) hoặc Sáng tạo (bất tử, full nguyên liệu).", winCondition: "Đánh bại rồng Ender (tuỳ chọn).", lossCondition: "Hết máu và rơi đồ (Survival)." 
+            }
+        ];
+
+        // --- DỮ LIỆU TIN TỨC / THÔNG BÁO MỚI (CHO MỤC KHÁM PHÁ) ---
+        const initialNews = [
+            { type: 'event', title: "🏆 Giải đấu: Đua top ERROR RUN", desc: "Tham gia ngay để nhận phần thưởng trị giá 500k. Ai sẽ là người né bug giỏi nhất?", date: "Vừa xong", icon: "fa-trophy" },
+            { type: 'game', title: "Game mới: Magician vs. Goblin", desc: "Tựa game hành động sinh tồn cực cuốn đã chính thức lên kệ. Tải ngay!", date: "2 giờ trước", icon: "fa-gamepad" },
+            { type: 'update', title: "Cập nhật: Sinh Viên sinh tồn", desc: "Bổ sung thêm bản đồ KTX Khu B và sự kiện 'Mùa thi cử'.", date: "1 ngày trước", icon: "fa-code-branch" },
+            { type: 'user', title: "Chào mừng thành viên thứ 1000", desc: "Cộng đồng TBN Studio chính thức cán mốc 1000 người dùng. Cảm ơn các bạn!", date: "3 ngày trước", icon: "fa-users" },
+            { type: 'game', title: "Sắp ra mắt: Dự án bí mật X", desc: "Một tựa game kinh dị thuần Việt đang được phát triển bởi nhóm sinh viên K21.", date: "5 ngày trước", icon: "fa-bullhorn" },
+            { type: 'event', title: "Workshop: Làm game không khó", desc: "Chia sẻ kinh nghiệm làm game Indie từ con số 0. Đăng ký vé miễn phí.", date: "1 tuần trước", icon: "fa-calendar-check" }
+        ];
+
+        // --- HÀM QUẢN LÝ TIN TỨC (NEWS SYSTEM) ---
+        function initSystemNews() {
+            if (!localStorage.getItem('news')) {
+                localStorage.setItem('news', JSON.stringify(initialNews));
+            }
+        }
+
+        function getNews() {
+            return JSON.parse(localStorage.getItem('news') || '[]');
+        }
+
+        function addNews(newsItem) {
+            let news = getNews();
+            news.unshift(newsItem); // Thêm tin mới lên đầu
+            localStorage.setItem('news', JSON.stringify(news));
+        }
+
+        // --- HÀM KHỞI TẠO REVIEW MẪU (Để cộng đồng không bị trống) ---
+        const initialReviews = [
+            { gameId: 1, username: "ProGamer99", rating: 5, comment: "Game khó nhưng cực cuốn, đánh boss phê!", date: "20/12/2025" },
+            { gameId: 1, username: "NoobMaster", rating: 4, comment: "Cần giảm độ khó một chút ở màn 3.", date: "19/12/2025" },
+            { gameId: 7, username: "SoulsFan", rating: 5, comment: "Siêu phẩm 10/10, GOTY không bàn cãi.", date: "15/12/2025" },
+            { gameId: 2, username: "SinhVienNam4", rating: 5, comment: "Game quá chân thực, chơi mà thấy bóng dáng mình trong đó :))", date: "18/12/2025" }
+        ];
+
+        function initSystemReviews() {
+            if (!localStorage.getItem('reviews')) {
+                localStorage.setItem('reviews', JSON.stringify(initialReviews));
+            }
+        }
+
+        function getReviews() {
+            return JSON.parse(localStorage.getItem('reviews') || '[]');
+        }
+
+        function saveReview(reviewObj) {
+            let reviews = getReviews();
+            reviews.unshift(reviewObj); // Thêm vào đầu danh sách
+            localStorage.setItem('reviews', JSON.stringify(reviews));
+        }
+
+        // --- HỆ THỐNG CHAT (CHAT SYSTEM) - NEW ---
+        const initialChatMessages = [
+            { id: 1, username: "System", message: "Chào mừng đến với phòng chat chung TBN Studio!", type: "other" },
+            { id: 2, username: "ProGamer99", message: "Có ai đang chơi Elden Ring không? Co-op boss Malenia với!", type: "other" },
+            { id: 3, username: "SinhVienNam4", message: "Tui đang bận cày game Sinh viên sinh tồn rồi bác ơi :))", type: "other" }
+        ];
+
+        function initSystemChat() {
+            if (!localStorage.getItem('chatMessages')) {
+                localStorage.setItem('chatMessages', JSON.stringify(initialChatMessages));
+            }
+        }
+
+        function getChatMessages() {
+            return JSON.parse(localStorage.getItem('chatMessages') || '[]');
+        }
+
+        function saveChatMessage(msg) {
+            let msgs = getChatMessages();
+            msgs.push(msg);
+            localStorage.setItem('chatMessages', JSON.stringify(msgs));
+        }
+
+        // --- CÁC HÀM XỬ LÝ GAME (LOCAL STORAGE) ---
+        function getStoredGames() {
+            const stored = localStorage.getItem('myCustomGames');
+            return stored ? JSON.parse(stored) : [];
+        }
+
+        function saveCustomGame(newGame) {
+            const currentStored = getStoredGames();
+            currentStored.push(newGame);
+            localStorage.setItem('myCustomGames', JSON.stringify(currentStored));
+        }
+
+        let currentGames = [...initialGames, ...getStoredGames()];
+        const appContainer = document.getElementById('app-container');
+        const formatter = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' });
+
+        // --- HỆ THỐNG GIỎ HÀNG ---
+        function getCart() { return JSON.parse(localStorage.getItem('cart') || '[]'); }
+        function saveCart(cart) { localStorage.setItem('cart', JSON.stringify(cart)); updateCartBadge(); }
+        
+        function addToCart(gameId) {
+            let cart = getCart();
+            let library = getLibrary();
+            if (library.includes(gameId)) { alert("Bạn đã sở hữu game này rồi!"); return; }
+            if (!cart.includes(gameId)) {
+                cart.push(gameId);
+                saveCart(cart);
+                alert("Đã thêm vào giỏ hàng!");
+            } else {
+                alert("Game này đã có trong giỏ hàng!");
+            }
+            if (!getQueryParam('view') && !getQueryParam('game')) {
+                const gameGrid = document.getElementById('gameGrid');
+                if (gameGrid) renderGames(currentGames, gameGrid);
+            }
+        }
+        
+        function removeFromCart(gameId) {
+            let cart = getCart();
+            cart = cart.filter(id => id !== gameId);
+            saveCart(cart);
+            renderCartPage();
+        }
+        
+        function getLibrary() { return JSON.parse(localStorage.getItem('library') || '[]'); }
+        function saveLibrary(library) { localStorage.setItem('library', JSON.stringify(library)); }
+
+        function resetLibrary() {
+            if(confirm("Bạn có chắc muốn XÓA TOÀN BỘ dữ liệu (Game đã mua + Game đã đăng + Đánh giá)?")) {
+                localStorage.removeItem('library');
+                localStorage.removeItem('cart');
+                localStorage.removeItem('myCustomGames');
+                localStorage.removeItem('reviews'); 
+                localStorage.removeItem('news'); 
+                localStorage.removeItem('chatMessages'); // Reset chat
+                alert("Đã reset dữ liệu! Về trang chủ...");
+                window.location.href = window.location.pathname; 
+            }
+        }
+
+        function updateCartBadge() {
+            const badge = document.querySelector('.cart-badge');
+            if (badge) {
+                const count = getCart().length;
+                badge.textContent = count;
+                badge.style.display = count > 0 ? 'flex' : 'none';
+            }
+        }
+
+        function processCheckout() {
+            const cart = getCart();
+            if (cart.length === 0) {
+                alert("Giỏ hàng đang trống! Hãy thêm game vào trước khi thanh toán.");
+                return;
+            }
+            const allGames = [...initialGames, ...getStoredGames()];
+            const cartItemsFull = allGames.filter(g => cart.includes(g.id));
+            const total = cartItemsFull.reduce((sum, item) => sum + item.price, 0);
+            const totalFormatted = formatter.format(total);
+
+            if (confirm(`Xác nhận thanh toán ${cart.length} game?\nTổng cộng: ${totalFormatted}`)) {
+                let library = getLibrary();
+                cart.forEach(id => {
+                    if (!library.includes(id)) library.push(id);
+                });
+                saveLibrary(library);
+                saveCart([]);
+                alert("Thanh toán thành công! Cảm ơn bạn đã ủng hộ TBN Studio.");
+                renderCartPage();
+                updateCartBadge();
+            }
+        }
+
+        // --- HELPER FORMAT TEXT ---
+        function formatGameText(text) {
+            if (!text) return "";
+            let formatted = text
+                .replace(/Ý tưởng cốt lõi/g, "<strong>Ý tưởng cốt lõi</strong>")
+                .replace(/Ý tưởng trung tâm/g, "<strong>Ý tưởng trung tâm</strong>")
+                .replace(/Ý tưởng:/g, "<strong>Ý tưởng:</strong>")
+                .replace(/Cốt truyện:/g, "<strong>Cốt truyện:</strong>")
+                .replace(/Cốt truyện(?![^<]*>)/g, "<strong>Cốt truyện</strong>"); 
+
+            const paragraphs = formatted.split(/\n\s*\n/);
+            let html = '';
+            
+            paragraphs.forEach(para => {
+                if (para.trim().includes('+')) {
+                    const lines = para.split('\n');
+                    let inList = false;
+                    lines.forEach(line => {
+                        let cleanLine = line.trim();
+                        if (cleanLine.startsWith('+')) {
+                            if (!inList) { html += '<ul class="custom-list">'; inList = true; }
+                            html += `<li>${cleanLine.substring(1).trim()}</li>`;
+                        } else {
+                            if (inList) { html += '</ul>'; inList = false; }
+                            if (cleanLine.length > 0) { html += `<div class="content-paragraph">${line}</div>`; }
+                        }
+                    });
+                    if (inList) html += '</ul>';
+                } else {
+                    if (para.trim().length > 0) {
+                        html += `<div class="content-paragraph">${para.replace(/\n/g, '<br>')}</div>`;
+                    }
+                }
+            });
+            return html;
+        }
+
+        // --- DROPDOWN & FILTER ---
+        function getAllGenres() {
+            let allGenres = [];
+            currentGames.forEach(game => {
+                let genres = game.genre.split(/[,\/]/).map(g => g.trim());
+                allGenres.push(...genres);
+            });
+            return [...new Set(allGenres)].sort();
+        }
+
+        function renderGenreDropdown() {
+            const dropdown = document.getElementById('genreDropdown');
+            if (!dropdown) return;
+            const genres = getAllGenres();
+            let html = `<a href="#" onclick="filterByGenre('')">⭐ Tất cả</a>`;
+            genres.forEach(g => {
+                html += `<a href="#" onclick="filterByGenre('${g}')">${g}</a>`;
+            });
+            dropdown.innerHTML = html;
+        }
+
+        function filterByGenre(genre) {
+            const searchInput = document.getElementById('searchInput');
+            if(searchInput) {
+                searchInput.value = genre;
+                searchInput.dispatchEvent(new Event('input'));
+                document.getElementById('gallery-title').scrollIntoView({behavior: "smooth"});
+            }
+        }
+
+        // --- AUTHENTICATION ---
+        function getUsers() { return JSON.parse(localStorage.getItem('users') || '[]'); }
+        function saveUsers(users) { localStorage.setItem('users', JSON.stringify(users)); }
+        function getCurrentUser() { return JSON.parse(localStorage.getItem('currentUser')); }
+        
+        function registerUser(username, password, role) {
+            let users = getUsers();
+            
+            // 1. Kiểm tra Username trùng
+            if (users.find(u => u.username === username)) {
+                alert("Tên đăng nhập đã tồn tại!");
+                return false;
+            }
+
+            // 2. Kiểm tra độ phức tạp của Password
+            if (password.length < 8) {
+                alert("Mật khẩu phải có tối thiểu 8 ký tự!");
+                return false;
+            }
+            if (!/[A-Z]/.test(password)) {
+                alert("Mật khẩu phải chứa ít nhất một chữ viết hoa!");
+                return false;
+            }
+
+            // 3. Kiểm tra Password trùng với các tài khoản trước đó
+            const isPasswordDuplicate = users.some(u => u.password === password);
+            if (isPasswordDuplicate) {
+                alert("Mật khẩu này đã được sử dụng bởi một tài khoản khác. Vui lòng chọn mật khẩu khác để bảo mật!");
+                return false;
+            }
+
+            // Đăng ký thành công
+            users.push({ username, password, role });
+            saveUsers(users);
+
+            // 4. Tạo Tin Tức Mới (Dynamic News) về người dùng mới
+            const newMemberNews = {
+                type: 'user',
+                title: `Chào mừng thành viên mới: ${username}`,
+                desc: `Một ${role === 'Gamer' ? 'Game thủ' : 'Nhà phát triển'} vừa gia nhập TBN Studio! Chào mừng ${username}.`,
+                date: "Vừa xong",
+                icon: "fa-user-plus"
+            };
+            addNews(newMemberNews);
+
+            alert("Đăng ký thành công! Bạn có thể đăng nhập ngay.");
+            return true;
+        }
+
+        function loginUser(username, password) {
+            let users = getUsers();
+            const user = users.find(u => u.username === username && u.password === password);
+            if (user) {
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                alert("Đăng nhập thành công!");
+                window.location.href = window.location.pathname;
+                return true;
+            } else {
+                alert("Sai tên đăng nhập hoặc mật khẩu!");
+                return false;
+            }
+        }
+
+        function logoutUser() {
+            localStorage.removeItem('currentUser');
+            window.location.href = window.location.pathname;
+        }
+
+        function getNavbar() {
+            const user = getCurrentUser();
+            const authButton = user 
+                ? `<div class="user-menu" onclick="logoutUser()">
+                     <i class="fa-solid fa-user-circle"></i> Xin chào, ${user.username} (${user.role || 'Gamer'}) (Đăng xuất)
+                   </div>`
+                : `<a class="btn-login" href="${window.location.pathname}?view=login">Đăng nhập</a>`;
+
+            return `
+                <nav class="navbar">
+                    <a class="logo" href="about.html">
+                        <i class="fa-solid fa-gamepad"></i> TBN STUDIO
+                    </a>
+                    <div class="nav-links">
+                        <a href="${window.location.pathname}">Trang chủ</a>
+                        <a href="#" onclick="goToDiscoverPage()">Khám phá</a>
+                        <div class="dropdown">
+                            <a href="#">Thể loại <i class="fa-solid fa-caret-down" style="font-size: 0.8rem;"></i></a>
+                            <div class="dropdown-content" id="genreDropdown"></div>
+                        </div>
+                        <a href="#" onclick="goToCommunityPage()">Cộng đồng</a>
+                        <a href="#" onclick="goToUploadPage()" style="color:var(--primary-color);font-weight:bold;">
+                            <i class="fa-solid fa-upload"></i> Đăng tải game
+                        </a>
+                    </div>
+                    <div class="nav-actions">
+                        <div class="search-box">
+                            <input type="text" id="searchInput" placeholder="Tìm game...">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </div>
+                        <div class="icon-btn" onclick="openCartInNewTab()" title="Xem giỏ hàng">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            <span class="cart-badge" style="display:none">0</span>
+                        </div>
+                        ${authButton}
+                    </div>
+                </nav>
+            `;
+        }
+
+        // --- NEW: Password Toggle Function ---
+        function togglePassword(inputId, iconId) {
+            const input = document.getElementById(inputId);
+            const icon = document.getElementById(iconId);
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                input.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        }
+
+        // --- NAVIGATION FUNCTIONS ---
+        function openCartInNewTab() { window.open(`${window.location.pathname}?view=cart`, '_blank'); }
+        function goToCartView() { window.location.href = `${window.location.pathname}?view=cart`; }
+        function openGameDetail(gameId) { window.open(`${window.location.pathname}?game=${gameId}`, '_blank'); }
+        function goToUploadPage() { window.location.href = `${window.location.pathname}?view=upload`; }
+        function goToCommunityPage() { window.location.href = `${window.location.pathname}?view=community`; }
+        function goToDiscoverPage() { window.location.href = `${window.location.pathname}?view=discover`; } 
+        function getQueryParam(param) { const urlParams = new URLSearchParams(window.location.search); return urlParams.get(param); }
+
+        // --- RENDER PAGES ---
+        
+        // LOGIN PAGE (UPDATED)
+        function renderLoginPage() {
+            appContainer.innerHTML = `
+                ${getNavbar()}
+                <div class="container">
+                    <div class="login-container">
+                        <div class="login-tabs">
+                            <div class="tab-btn active" onclick="switchTab('login')">Đăng nhập</div>
+                            <div class="tab-btn" onclick="switchTab('register')">Đăng ký</div>
+                        </div>
+
+                        <div id="loginForm" class="auth-form active">
+                            <div class="form-group">
+                                <label>Tên đăng nhập:</label>
+                                <input type="text" id="loginUser" placeholder="Nhập tên đăng nhập...">
+                            </div>
+                            <div class="form-group">
+                                <label>Mật khẩu:</label>
+                                <div class="password-wrapper">
+                                    <input type="password" id="loginPass" placeholder="Nhập mật khẩu...">
+                                    <i class="fa-solid fa-eye toggle-password-btn" id="toggleLoginPass" onclick="togglePassword('loginPass', 'toggleLoginPass')"></i>
+                                </div>
+                            </div>
+                            <button class="auth-btn" onclick="handleLoginSubmit()">ĐĂNG NHẬP</button>
+                        </div>
+
+                        <div id="registerForm" class="auth-form">
+                            <div class="form-group">
+                                <label>Tên đăng nhập mới:</label>
+                                <input type="text" id="regUser" placeholder="Chọn tên đăng nhập...">
+                            </div>
+                            <div class="form-group">
+                                <label>Mật khẩu:</label>
+                                <div class="password-wrapper">
+                                    <input type="password" id="regPass" placeholder="Nhập mật khẩu...">
+                                    <i class="fa-solid fa-eye toggle-password-btn" id="toggleRegPass" onclick="togglePassword('regPass', 'toggleRegPass')"></i>
+                                </div>
+                                <p style="font-size:0.8rem; color:#666; margin-top:5px; font-style:italic;">
+                                    * Yêu cầu: Tối thiểu 8 ký tự, có chữ Hoa, không trùng mật khẩu cũ.
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <label>Vai trò (Role) <span class="required-mark">*</span>:</label>
+                                <select id="regRole" class="role-select">
+                                    <option value="Gamer">🎮 Gamer (Người chơi)</option>
+                                    <option value="Developer">👨‍💻 Developer (Nhà phát triển)</option>
+                                </select>
+                            </div>
+                            <button class="auth-btn" onclick="handleRegisterSubmit()">ĐĂNG KÝ</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            updateCartBadge();
+            renderGenreDropdown(); 
+        }
+
+        // HOME PAGE
+        function renderHomePage() {
+            appContainer.innerHTML = `
+                ${getNavbar()}
+                <div class="hero">
+                    <h1>TRÀN BỘ NHỚ</h1>
+                    <p>✨ Hội chợ Game Indie - Nơi ý tưởng thành hiện thực ✨</p>
+                </div>
+                <div class="container">
+                    <h2 id="gallery-title">🔥 Game Đề Xuất</h2>
+                    <div class="game-grid" id="gameGrid"></div>
+                </div>
+            `;
+            
+            const gameGrid = document.getElementById('gameGrid');
+            const searchInput = document.getElementById('searchInput');
+
+            renderGames(currentGames, gameGrid);
+            updateCartBadge();
+            renderGenreDropdown(); 
+            
+            if(searchInput) {
+                searchInput.addEventListener('input', function(e) {
+                    const keyword = e.target.value.toLowerCase();
+                    const filteredGames = currentGames.filter(game => 
+                        game.name.toLowerCase().includes(keyword) || 
+                        game.genre.toLowerCase().includes(keyword)
+                    );
+                    renderGames(filteredGames, gameGrid);
+                });
+            }
+        }
+
+        // DISCOVER PAGE
+        function renderDiscoverPage() {
+            let newsHtml = '';
+            
+            const currentNews = getNews();
+            
+            currentNews.forEach(item => {
+                let typeClass = `type-${item.type}`;
+                let tagClass = `tag-${item.type}`;
+                let iconClass = `icon-${item.type}`;
+                let typeName = "";
+
+                switch(item.type) {
+                    case 'game': typeName = "Game Mới"; break;
+                    case 'event': typeName = "Sự kiện"; break;
+                    case 'update': typeName = "Cập nhật"; break;
+                    case 'user': typeName = "Cộng đồng"; break;
+                }
+
+                newsHtml += `
+                    <div class="news-card ${typeClass}">
+                        <div class="news-icon ${iconClass}">
+                            <i class="fa-solid ${item.icon}"></i>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <h3 class="news-title">${item.title}</h3>
+                                <div class="news-date"><i class="fa-regular fa-clock"></i> ${item.date}</div>
+                            </div>
+                            <span class="news-tag ${tagClass}">${typeName}</span>
+                            <p class="news-desc">${item.desc}</p>
+                        </div>
+                    </div>
+                `;
+            });
+
+            appContainer.innerHTML = `
+                ${getNavbar()}
+                <div class="container">
+                    <div class="hero" style="padding: 20px;">
+                        <h1 style="font-size:2.5rem;">KHÁM PHÁ & TIN TỨC</h1>
+                        <p>Cập nhật những thông tin nóng hổi nhất từ thế giới Game Indie</p>
+                    </div>
+                    <div class="news-container">
+                        ${newsHtml}
+                    </div>
+                </div>
+            `;
+            updateCartBadge();
+            renderGenreDropdown();
+        }
+
+        // COMMUNITY PAGE (UPDATED WITH CHAT)
+        function renderCommunityPage() {
+            const allReviews = getReviews();
+            const currentUser = getCurrentUser();
+            let communityHtml = '';
+            
+            // Render Reviews Feed
+            if (allReviews.length === 0) {
+                communityHtml = '<p style="text-align:center; font-size:1.2rem; color:#666;">Chưa có bài thảo luận nào. Hãy là người đầu tiên đánh giá game!</p>';
+            } else {
+                communityHtml = `<div class="community-feed">`;
+                allReviews.forEach(r => {
+                    const game = currentGames.find(g => g.id == r.gameId);
+                    const gameName = game ? game.name : "Game không xác định";
+                    let stars = '';
+                    for(let i=1; i<=5; i++) {
+                        stars += `<i class="fa-solid fa-star" style="color:${i<=r.rating ? '#f1c40f' : '#ccc'}"></i>`;
+                    }
+                    const avatarChar = r.username.charAt(0).toUpperCase();
+
+                    communityHtml += `
+                        <div class="comm-card">
+                            <div class="comm-header">
+                                <div class="comm-user">
+                                    <div class="comm-avatar">${avatarChar}</div>
+                                    <div>
+                                        <span>${r.username}</span>
+                                        <a href="${window.location.pathname}?game=${r.gameId}" class="comm-game-name">đã đánh giá <strong>${gameName}</strong></a>
+                                    </div>
+                                </div>
+                                <div style="font-size:0.9rem;">${stars}</div>
+                            </div>
+                            <div class="comm-content">
+                                "${r.comment}"
+                            </div>
+                            <div class="comm-footer">
+                                <span><i class="fa-regular fa-clock"></i> ${r.date}</span>
+                                <span style="color:var(--primary-color); cursor:pointer;">Thích <i class="fa-regular fa-thumbs-up"></i></span>
+                            </div>
+                        </div>
+                    `;
+                });
+                communityHtml += `</div>`;
+            }
+
+            // Render Chat Messages
+            const messages = getChatMessages();
+            let messagesHtml = '';
+            messages.forEach(msg => {
+                const isSelf = currentUser && msg.username === currentUser.username;
+                const msgClass = isSelf ? 'self' : 'other';
+                messagesHtml += `
+                    <div class="message ${msgClass}">
+                        <div class="message-user">${msg.username}</div>
+                        <div class="message-bubble">${msg.message}</div>
+                    </div>
+                `;
+            });
+
+            // Chat Input HTML
+            const chatInputHtml = currentUser 
+                ? `
+                    <input type="text" id="chatInput" class="chat-input" placeholder="Nhập tin nhắn..." onkeypress="if(event.key === 'Enter') sendChatMessage()">
+                    <button class="chat-send-btn" onclick="sendChatMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+                  `
+                : `<div class="chat-login-req"><a href="${window.location.pathname}?view=login">Đăng nhập</a> để tham gia trò chuyện.</div>`;
+
+            appContainer.innerHTML = `
+                ${getNavbar()}
+                <div class="container">
+                    <div class="hero" style="padding: 20px;">
+                        <h1 style="font-size:2.5rem;">CỘNG ĐỒNG GAME THỦ</h1>
+                        <p>Chia sẻ, đánh giá và thảo luận về những tựa game bạn yêu thích</p>
+                    </div>
+                    
+                    <div class="community-layout">
+                        <div>
+                            <h3 style="margin-bottom:15px; color:var(--primary-color);"><i class="fa-solid fa-comments"></i> Đánh giá gần đây</h3>
+                            ${communityHtml}
+                        </div>
+
+                        <div class="chat-box">
+                            <div class="chat-header">
+                                <span><i class="fa-solid fa-earth-asia"></i> Kênh Chat Thế Giới</span>
+                            </div>
+                            <div class="chat-messages" id="chatMessageList">
+                                ${messagesHtml}
+                            </div>
+                            <div class="chat-input-area">
+                                ${chatInputHtml}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Auto scroll to bottom of chat
+            const chatList = document.getElementById('chatMessageList');
+            if(chatList) chatList.scrollTop = chatList.scrollHeight;
+
+            updateCartBadge();
+            renderGenreDropdown();
+        }
+
+        function sendChatMessage() {
+            const user = getCurrentUser();
+            if (!user) return; // Should be handled by UI check, but double check here.
+
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (message) {
+                const newMessage = {
+                    id: Date.now(),
+                    username: user.username,
+                    message: message,
+                    type: 'user'
+                };
+                saveChatMessage(newMessage);
+                input.value = '';
+                renderCommunityPage(); // Re-render to show new message
+            }
+        }
+
+        // UPLOAD PAGE
+        function renderUploadPage() {
+            appContainer.innerHTML = `
+                ${getNavbar()}
+                <div class="container">
+                    <div class="upload-section">
+                        <div class="upload-header">
+                            <h1><i class="fa-solid fa-cloud-arrow-up"></i> Đăng tải Game Mới</h1>
+                            <p>Chia sẻ sự sáng tạo của bạn với cộng đồng</p>
+                        </div>
+                        <form id="uploadFormContent">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label>Tên Game <span class="required-mark">*</span>:</label>
+                                    <input type="text" id="gName" required placeholder="Nhập tên game...">
+                                </div>
+                                <div class="form-col">
+                                    <label>Giá (VNĐ) <span class="required-mark">*</span>:</label>
+                                    <input type="number" id="gPrice" placeholder="Nhập 0 nếu Miễn phí">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label>Số người chơi <span class="required-mark">*</span>:</label>
+                                    <input type="text" id="gPlayers" required placeholder="VD: Single, Multiplayer...">
+                                </div>
+                                <div class="form-col">
+                                    <label>Thể loại <span class="required-mark">*</span>:</label>
+                                    <input type="text" id="gGenre" required placeholder="VD: Action, RPG...">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label>Người phát triển <span class="required-mark">*</span>:</label>
+                                    <input type="text" id="gDev" required placeholder="Tên tác giả...">
+                                </div>
+                                <div class="form-col">
+                                    <label>Thông tin Bank (Để nhận tiền):</label>
+                                    <input type="text" id="gBank" placeholder="STK - Ngân hàng - Tên chủ thẻ">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Giới thiệu ngắn (Intro) <span class="required-mark">*</span>:</label>
+                                <textarea id="gIntro" rows="3" required placeholder="Đoạn giới thiệu ngắn gọn..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Ý tưởng và Cốt truyện <span class="required-mark">*</span>:</label>
+                                <textarea id="gStory" rows="5" required placeholder="Mô tả chi tiết..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Cách chơi (Gameplay) <span class="required-mark">*</span>:</label>
+                                <textarea id="gGameplay" rows="3" required placeholder="Hướng dẫn..."></textarea>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label>Điều kiện Thắng <span class="required-mark">*</span>:</label>
+                                    <input type="text" id="gWin" required placeholder="...">
+                                </div>
+                                <div class="form-col">
+                                    <label>Điều kiện Thua <span class="required-mark">*</span>:</label>
+                                    <input type="text" id="gLoss" required placeholder="...">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label>Thumbnail (Ảnh bìa) <span class="required-mark">*</span>:</label>
+                                    <input type="file" id="gImage" accept="image/*" required>
+                                </div>
+                                <div class="form-col">
+                                    <label>Link Game (Thay cho upload file):</label>
+                                    <input type="text" id="gLink" placeholder="Link Itch.io...">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-play" style="width: 250px; margin: 30px auto 0; display: block; font-size: 1.2rem;">
+                                <i class="fa-solid fa-paper-plane"></i> ĐĂNG NGAY
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            `;
+            document.getElementById('uploadFormContent').addEventListener('submit', handleGameUpload);
+            document.title = "Đăng tải Game | TBN Studio";
+            updateCartBadge();
+        }
+
+        function handleGameUpload(e) {
+            e.preventDefault();
+            const name = document.getElementById('gName').value;
+            const price = parseInt(document.getElementById('gPrice').value) || 0;
+            const players = document.getElementById('gPlayers').value;
+            const genre = document.getElementById('gGenre').value;
+            const developer = document.getElementById('gDev').value;
+            const bank = document.getElementById('gBank').value;
+            const intro = document.getElementById('gIntro').value;
+            const story = document.getElementById('gStory').value;
+            const gameplay = document.getElementById('gGameplay').value;
+            const winCondition = document.getElementById('gWin').value;
+            const lossCondition = document.getElementById('gLoss').value;
+            const linkGame = document.getElementById('gLink').value || "#"; 
+            const fileInput = document.getElementById('gImage');
+            
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const newGame = {
+                        id: Date.now(), 
+                        name: name, desc: intro, intro: intro, story: story, gameplay: gameplay,
+                        winCondition: winCondition, lossCondition: lossCondition, price: price, 
+                        bankInfo: bank, img: e.target.result, genre: genre, players: players, 
+                        developer: developer, release: new Date().toLocaleDateString('vi-VN'), 
+                        videoUrl: "https://www.youtube.com/embed/n4yK54iF55g?autoplay=1&mute=1", 
+                        downloadUrl: linkGame 
+                    };
+                    currentGames.unshift(newGame);
+                    saveCustomGame(newGame);
+                    alert("Đăng tải game thành công!");
+                    window.location.href = window.location.pathname; 
+                }
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        }
+
+        function renderGames(games, gridElement) {
+            gridElement.innerHTML = "";
+            const cart = getCart();
+            const library = getLibrary();
+
+            if(games.length === 0) {
+                gridElement.innerHTML = "<p style='text-align:center; color:#666; grid-column: 1/-1;'>Không tìm thấy game nào...</p>";
+                return;
+            }
+            games.forEach(game => {
+                const isFree = game.price == 0;
+                const isOwned = library.includes(game.id);
+                const isInCart = cart.includes(game.id);
+
+                let priceDisplay = isFree ? "FREE" : formatter.format(game.price);
+                let priceClass = isFree ? "free" : "";
+                if (isOwned) { priceDisplay = "OWNED"; priceClass = "owned"; }
+                const bankDisplayClass = (!isFree && game.bankInfo) ? "show-bank" : "";
+
+                let buttonHtml = '';
+                if (isOwned) {
+                       buttonHtml = `
+                        <div class="card-actions">
+                             <button onclick="openGameDetail(${game.id})" class="btn-secondary" style="flex:1;">Chi tiết</button>
+                             <button onclick="goToCartView()" class="btn-play" style="flex:1; background:var(--success-color); color:white;">Đã sở hữu</button>
+                        </div>`;
+                } else if (isFree) {
+                       buttonHtml = `
+                        <div class="card-actions">
+                            <button onclick="openGameDetail(${game.id})" class="btn-play">CHƠI NGAY</button>
+                        </div>`;
+                } else {
+                    buttonHtml = `
+                        <div class="card-actions">
+                             <button onclick="openGameDetail(${game.id})" class="btn-play">MUA NGAY</button>
+                             <button onclick="addToCart(${game.id})" class="btn-secondary ${isInCart ? 'added' : ''}" title="${isInCart ? 'Đã trong giỏ' : 'Thêm vào giỏ'}">
+                                <i class="fa-solid ${isInCart ? 'fa-check' : 'fa-cart-plus'}"></i>
+                             </button>
+                        </div>`;
+                }
+
+                const card = document.createElement('div');
+                card.className = 'game-card';
+                card.innerHTML = `
+                    <div class="price-tag ${priceClass}">${priceDisplay}</div>
+                    <div class="game-thumb"><img src="${game.img}" alt="${game.name}"></div>
+                    <div class="game-info">
+                        <h3 class="game-title">${game.name}</h3>
+                        <p class="game-desc">${game.desc}</p>
+                        <div class="bank-info-display ${bankDisplayClass}">💳 CK: ${game.bankInfo}</div>
+                        ${buttonHtml}
+                    </div>
+                `;
+                gridElement.appendChild(card);
+            });
+        }
+
+        // CART PAGE
+        function renderCartPage() {
+            const cartIds = getCart();
+            const libraryIds = getLibrary();
+            const allGames = [...initialGames, ...getStoredGames()];
+            const cartItemsFull = allGames.filter(g => cartIds.includes(g.id));
+            const ownedItemsFull = allGames.filter(g => libraryIds.includes(g.id));
+
+            const total = cartItemsFull.reduce((sum, item) => sum + item.price, 0);
+
+            let cartHtml = '';
+            if (cartItemsFull.length === 0) {
+                cartHtml = '<div class="empty-cart-msg"><h3>Giỏ hàng trống!</h3><p>Hãy quay lại trang chủ để tìm thêm game hay nhé.</p></div>';
+            } else {
+                cartHtml = `
+                    <table class="cart-table">
+                        <thead><tr><th>Game</th><th>Giá</th><th>Hành động</th></tr></thead>
+                        <tbody>
+                            ${cartItemsFull.map(item => `
+                                <tr>
+                                    <td style="display:flex; gap:15px; align-items:center;">
+                                        <img src="${item.img}" class="cart-item-img"><strong>${item.name}</strong>
+                                    </td>
+                                    <td>${formatter.format(item.price)}</td>
+                                    <td><button class="btn-remove" onclick="removeFromCart(${item.id})"><i class="fa-solid fa-trash"></i></button></td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                    <div class="cart-total">Tổng cộng: ${formatter.format(total)}</div>
+                    <div style="background: #fff3cd; padding: 15px; margin-top: 20px; border-radius: 10px; border: 1px solid #ffeeba;">
+                         <strong><i class="fa-solid fa-circle-info"></i> Thông tin thanh toán:</strong><br>
+                         Các game trong giỏ sẽ được thanh toán qua chuyển khoản. Vui lòng nhấn nút bên dưới để xác nhận đã chuyển khoản và nhận game.
+                    </div>
+                    <button class="btn-checkout" onclick="processCheckout()"><i class="fa-regular fa-credit-card"></i> THANH TOÁN NGAY</button>
+                `;
+            }
+
+            let ownedHtml = '';
+            if (ownedItemsFull.length > 0) {
+                ownedHtml = `
+                    <h2 style="margin-top:50px; border-color: var(--success-color);">Thư viện Game đã sở hữu</h2>
+                    <div class="owned-list">
+                        ${ownedItemsFull.map(item => `
+                            <div class="owned-item">
+                                <img src="${item.img}" style="width:100%; height:100px; object-fit:cover; border-radius:5px; margin-bottom:10px;">
+                                <h4>${item.name}</h4>
+                                <a href="${window.location.pathname}?game=${item.id}" style="display:block; margin-top:5px; text-decoration:none; color:var(--primary-color); font-weight:bold;">Tải / Chơi</a>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
+            appContainer.innerHTML = `
+                ${getNavbar()}
+                <div class="container cart-section">
+                    <h1><i class="fa-solid fa-cart-shopping"></i> Giỏ hàng của bạn</h1>
+                    ${cartHtml}
+                    ${ownedHtml}
+                    <div style="margin-top: 50px; border-top: 1px solid #ccc; padding-top: 20px; text-align: center;">
+                        <p style="color: #666; font-style: italic;">Muốn thử nghiệm lại từ đầu?</p>
+                        <button class="btn-reset" onclick="resetLibrary()"><i class="fa-solid fa-rotate-right"></i> Reset trạng thái</button>
+                    </div>
+                </div>
+            `;
+            document.title = "Giỏ hàng | TBN Studio";
+            updateCartBadge();
+            renderGenreDropdown();
+        }
+
+        // --- HÀM XỬ LÝ ĐÁNH GIÁ (LOGIC MỚI) ---
+        let currentSelectedRating = 0; // Lưu tạm số sao người dùng đang chọn
+
+        function selectRating(stars) {
+            const user = getCurrentUser();
+            if (!user) {
+                alert("Vui lòng đăng nhập để đánh giá!");
+                window.location.href = `${window.location.pathname}?view=login`;
+                return;
+            }
+            currentSelectedRating = stars;
+            
+            // Highlight các ngôi sao
+            const allStars = document.querySelectorAll('.star-icon-input');
+            allStars.forEach((s, index) => {
+                if (index < stars) s.classList.add('active');
+                else s.classList.remove('active');
+            });
+
+            // Hiện ô nhập comment
+            document.getElementById('reviewInputArea').style.display = 'block';
+        }
+
+        function submitReview(gameId) {
+            const user = getCurrentUser();
+            if (!user) return;
+            
+            const comment = document.getElementById('reviewComment').value;
+            if (comment.trim() === "") {
+                alert("Hãy nhập một vài dòng nhận xét về game nhé!");
+                return;
+            }
+
+            const newReview = {
+                gameId: gameId,
+                username: user.username,
+                rating: currentSelectedRating,
+                comment: comment,
+                date: new Date().toLocaleDateString('vi-VN') + " " + new Date().toLocaleTimeString('vi-VN')
+            };
+
+            saveReview(newReview);
+            alert("Cảm ơn bạn đã đánh giá!");
+            
+            // Reload lại trang chi tiết để hiện review mới
+            const selectedGame = currentGames.find(g => g.id == gameId);
+            renderDetailPage(selectedGame);
+        }
+
+        // DETAIL PAGE
+        function renderDetailPage(game) {
+            const library = getLibrary();
+            const isOwned = library.includes(game.id);
+            const isFree = game.price == 0;
+            const priceDisplay = isFree ? "FREE" : formatter.format(game.price);
+
+            const storyText = formatGameText(game.story || "Đang cập nhật...");
+            const gameplayText = formatGameText(game.gameplay || "Sử dụng bàn phím và chuột.");
+            const winText = formatGameText(game.winCondition || "Hoàn thành mục tiêu.");
+            const lossText = formatGameText(game.lossCondition || "Hết mạng.");
+            const introText = formatGameText(game.intro || game.desc);
+            
+            const downloadLink = game.downloadUrl || "#";
+            const downloadAction = `window.open('${downloadLink}', '_blank')`;
+            const user = getCurrentUser();
+
+            // Lấy 3 review tốt nhất/mới nhất của game này
+            const allReviews = getReviews();
+            const gameReviews = allReviews.filter(r => r.gameId == game.id);
+            // Sắp xếp: Ưu tiên nội dung dài (chi tiết) và rating cao
+            gameReviews.sort((a, b) => (b.comment.length + b.rating*10) - (a.comment.length + a.rating*10));
+            const top3Reviews = gameReviews.slice(0, 3);
+
+            // Tạo HTML cho phần Input đánh giá
+            let ratingInputHtml = '';
+            for(let i=1; i<=5; i++) {
+                ratingInputHtml += `<i class="fa-solid fa-star star-icon star-icon-input" onclick="selectRating(${i})"></i>`;
+            }
+
+            // Tạo HTML cho danh sách 3 Review
+            let topReviewsHtml = '';
+            if (top3Reviews.length > 0) {
+                top3Reviews.forEach(r => {
+                    let stars = '';
+                    for(let i=1; i<=5; i++) {
+                        stars += `<i class="fa-solid fa-star" style="font-size:0.8rem; color:${i<=r.rating ? '#f1c40f' : '#ccc'}"></i>`;
+                    }
+                    topReviewsHtml += `
+                        <div class="review-item">
+                            <div class="review-header">
+                                <span class="review-user">${r.username}</span>
+                                <span class="review-stars">${stars}</span>
+                            </div>
+                            <div class="review-content">"${r.comment}"</div>
+                            <div style="font-size:0.75rem; color:#aaa; margin-top:5px; text-align:right;">${r.date}</div>
+                        </div>
+                    `;
+                });
+            } else {
+                topReviewsHtml = `<p style="font-style:italic; color:#888;">Chưa có đánh giá nào. Hãy là người đầu tiên!</p>`;
+            }
+
+            let mainButtonHtml = '';
+            if (isOwned || isFree) {
+                mainButtonHtml = `
+                    <button onclick="${downloadAction}" 
+                            class="btn-play" style="width: 250px; margin-top: 20px; background: var(--primary-color); color: white; box-shadow: 0 4px 0 var(--primary-dark);">
+                        <i class="fa-solid fa-download"></i> TẢI VÀ CHƠI NGAY
+                    </button>`;
+            } else {
+                mainButtonHtml = `
+                    <button onclick="addToCart(${game.id}); goToCartView();" 
+                            class="btn-play" style="width: 250px; margin-top: 20px; background: var(--accent-pink); color: white; box-shadow: 0 4px 0 #d63031;">
+                        <i class="fa-solid fa-cart-plus"></i> MUA VÀ TẢI (${priceDisplay})
+                    </button>
+                    <p style="margin-top:10px; font-size:0.9rem; color:#666;">*Game sẽ được thêm vào giỏ và chuyển đến trang thanh toán.</p>`;
+            }
+
+            // === UPDATE HERE: Link to Developer Profile ===
+            const devUrl = developerProfiles[game.developer];
+            const developerHtml = devUrl
+                ? `<a href="${devUrl}" target="_blank" style="color: var(--primary-color); text-decoration: underline;" title="Xem hồ sơ tác giả">${game.developer}</a>`
+                : game.developer;
+
+            appContainer.innerHTML = `
+                ${getNavbar()}
+                <div class="container">
+                    <div class="detail-header">
+                        <h1>${game.name}</h1>
+                        <p>Tác giả: ${developerHtml}</p>
+                        ${mainButtonHtml}
+                    </div>
+                    <div class="detail-grid">
+                        <div class="main-content">
+                            <div class="video-player">
+                                <iframe src="${game.videoUrl}" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                            </div>
+                            <div class="intro-box">
+                                <h2><i class="fa-regular fa-star" style="color: var(--accent-yellow);"></i> Giới thiệu chung</h2>
+                                <div class="intro-content">${introText}</div>
+                            </div>
+                            <div class="story-section">
+                                <h2 style="border-left: 8px solid var(--accent-pink);">📖 Cốt truyện & Ý tưởng</h2>
+                                <div class="story-box">${storyText}</div>
+                                <h2 style="margin-top: 30px;">🎮 Hướng dẫn chơi</h2>
+                                <div class="gameplay-box">
+                                    <strong>Cách điều khiển:</strong> ${gameplayText}
+                                    <ul class="win-loss-list">
+                                        <li><i class="fa-solid fa-trophy" style="color: gold;"></i> <div style="flex:1;"><strong>Thắng:</strong> ${winText}</div></li>
+                                        <li><i class="fa-solid fa-skull" style="color: #ff7675;"></i> <div style="flex:1;"><strong>Thua:</strong> ${lossText}</div></li>
+                                    </ul>
+                                </div>
+                                ${!isFree ? `<div class="purchase-note"><i class="fa-solid fa-triangle-exclamation"></i><div><strong>Lưu ý:</strong> Chuyển khoản <strong>${priceDisplay}</strong> đến: <strong>${game.bankInfo}</strong>.</div></div>` : ''}
+                            </div>
+                        </div>
+                        <div class="game-specs">
+                            <h3>🔍 Thông số kỹ thuật</h3>
+                            <div class="spec-item"><strong>Thể loại:</strong> <span>${game.genre}</span></div>
+                            <div class="spec-item"><strong>Số người chơi:</strong> <span>${game.players}</span></div>
+                            <div class="spec-item"><strong>Phát triển bởi:</strong> <span>${developerHtml}</span></div>
+                            <div class="spec-item"><strong>Ngày đăng tải:</strong> <span>${game.release}</span></div>
+                            <div class="spec-item"><strong>Giá tiền:</strong> <span style="color: var(--accent-pink); font-weight:bold;">${priceDisplay}</span></div>
+                            
+                            <div class="rating-box">
+                                <div class="rating-title">Đánh giá & Nhận xét:</div>
+                                <div class="stars-container">${ratingInputHtml}</div>
+                                
+                                ${user ? `
+                                    <div id="reviewInputArea" class="review-input-area">
+                                        <textarea id="reviewComment" placeholder="Chia sẻ cảm nghĩ của bạn về game này..."></textarea>
+                                        <button class="btn-submit-review" onclick="submitReview(${game.id})">Gửi nhận xét</button>
+                                    </div>
+                                ` : `
+                                    <p class="login-to-rate"><a href="${window.location.pathname}?view=login">Đăng nhập</a> để viết nhận xét.</p>
+                                `}
+                            </div>
+
+                            <div class="top-reviews-section">
+                                <div class="top-reviews-title">🏆 Top Đánh giá nổi bật</div>
+                                ${topReviewsHtml}
+                                <div style="text-align:center; margin-top:10px;">
+                                    <a href="#" onclick="goToCommunityPage()" style="font-size:0.85rem; color:var(--primary-color);">Xem tất cả tại Cộng đồng &rarr;</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.title = `${game.name} - Chi tiết | TBN Studio`;
+            updateCartBadge();
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'));
+            if(tab === 'login') {
+                document.querySelectorAll('.tab-btn')[0].classList.add('active');
+                document.getElementById('loginForm').classList.add('active');
+            } else {
+                document.querySelectorAll('.tab-btn')[1].classList.add('active');
+                document.getElementById('registerForm').classList.add('active');
+            }
+        }
+
+        function handleRegisterSubmit() {
+            const u = document.getElementById('regUser').value;
+            const p = document.getElementById('regPass').value;
+            const r = document.getElementById('regRole').value;
+            if(u && p) registerUser(u, p, r);
             else alert("Vui lòng nhập đầy đủ thông tin!");
         }
 

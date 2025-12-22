@@ -28,9 +28,68 @@
             line-height: 1.6;
             overflow-x: hidden;
             min-height: 100vh;
+            /* Giữ màu nền gốc nhưng làm nền cho animation */
             background-color: #87CEEB;
             background: linear-gradient(180deg, var(--bg-gradient-1) 0%, var(--bg-gradient-2) 100%);
+            position: relative; /* Để animation absolute hoạt động */
         }
+
+        /* --- NEW: ANIMATED BACKGROUND STYLES --- */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1; /* Nằm dưới mọi nội dung */
+            pointer-events: none; /* Không chặn click chuột */
+        }
+
+        .bg-icon {
+            position: absolute;
+            bottom: -100px;
+            color: rgba(255, 255, 255, 0.25); /* Màu trắng mờ */
+            font-size: 2rem;
+            animation: floatUp linear infinite;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Thêm chút text vui vui đi kèm icon */
+        .bg-icon::after {
+            content: attr(data-text);
+            font-size: 0.6rem;
+            margin-top: 5px;
+            font-weight: bold;
+            font-family: 'Courier New', monospace; /* Font code */
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(0.8);
+                opacity: 0;
+            }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% {
+                transform: translateY(-120vh) rotate(360deg) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* Cấu hình từng icon bay (vị trí, tốc độ, delay khác nhau) */
+        .bg-icon:nth-child(1) { left: 5%; animation-duration: 15s; font-size: 3rem; animation-delay: 0s; }
+        .bg-icon:nth-child(2) { left: 15%; animation-duration: 25s; font-size: 2rem; animation-delay: 2s; }
+        .bg-icon:nth-child(3) { left: 25%; animation-duration: 18s; font-size: 4rem; animation-delay: 5s; }
+        .bg-icon:nth-child(4) { left: 40%; animation-duration: 22s; font-size: 2.5rem; animation-delay: 1s; }
+        .bg-icon:nth-child(5) { left: 55%; animation-duration: 30s; font-size: 3rem; animation-delay: 4s; }
+        .bg-icon:nth-child(6) { left: 70%; animation-duration: 20s; font-size: 2rem; animation-delay: 7s; }
+        .bg-icon:nth-child(7) { left: 85%; animation-duration: 28s; font-size: 5rem; animation-delay: 3s; }
+        .bg-icon:nth-child(8) { left: 95%; animation-duration: 35s; font-size: 2.5rem; animation-delay: 10s; }
+        .bg-icon:nth-child(9) { left: 30%; animation-duration: 24s; font-size: 1.5rem; animation-delay: 8s; }
+        .bg-icon:nth-child(10) { left: 60%; animation-duration: 19s; font-size: 3.5rem; animation-delay: 12s; }
 
         /* --- NAVBAR STYLES --- */
         .navbar {
@@ -363,6 +422,18 @@
 </head>
 <body>
 
+    <div class="animated-bg">
+        <div class="bg-icon" data-text="GAME"><i class="fa-solid fa-gamepad"></i></div>
+        <div class="bg-icon" data-text="CODE"><i class="fa-solid fa-code"></i></div>
+        <div class="bg-icon" data-text="BUG!"><i class="fa-solid fa-bug"></i></div>
+        <div class="bg-icon" data-text="PACMAN"><i class="fa-solid fa-ghost"></i></div>
+        <div class="bg-icon" data-text="TECH"><i class="fa-solid fa-microchip"></i></div>
+        <div class="bg-icon" data-text="SPACE"><i class="fa-brands fa-space-awesome"></i></div>
+        <div class="bg-icon" data-text="ROCKET"><i class="fa-solid fa-rocket"></i></div>
+        <div class="bg-icon" data-text="ROBOT"><i class="fa-solid fa-robot"></i></div>
+        <div class="bg-icon" data-text="PIXEL"><i class="fa-solid fa-square"></i></div>
+        <div class="bg-icon" data-text="WIN"><i class="fa-solid fa-trophy"></i></div>
+    </div>
     <div id="app-container">
     </div>
 
@@ -376,13 +447,13 @@
         // =======================================================
         const preDefinedUsers = [
             { username: "mda1205", password: "184/59duyanh" }, 
-            { username: "user2",   password: "123" },          
-            { username: "user3",   password: "123" },          
-            { username: "user4",   password: "123" },          
-            { username: "user5",   password: "123" },          
-            { username: "user6",   password: "123" },          
-            { username: "user7",   password: "123" },          
-            { username: "user8",   password: "123" }           
+            { username: "user2",   password: "123" },           
+            { username: "user3",   password: "123" },           
+            { username: "user4",   password: "123" },           
+            { username: "user5",   password: "123" },           
+            { username: "user6",   password: "123" },           
+            { username: "user7",   password: "123" },           
+            { username: "user8",   password: "123" }            
         ];
 
         function initSystemAccounts() {
@@ -1442,13 +1513,13 @@
 
                 let buttonHtml = '';
                 if (isOwned) {
-                      buttonHtml = `
+                       buttonHtml = `
                         <div class="card-actions">
                              <button onclick="openGameDetail(${game.id})" class="btn-secondary" style="flex:1;">Chi tiết</button>
                              <button onclick="goToCartView()" class="btn-play" style="flex:1; background:var(--success-color); color:white;">Đã sở hữu</button>
                         </div>`;
                 } else if (isFree) {
-                      buttonHtml = `
+                       buttonHtml = `
                         <div class="card-actions">
                             <button onclick="openGameDetail(${game.id})" class="btn-play">CHƠI NGAY</button>
                         </div>`;
@@ -1829,13 +1900,13 @@
             line-height: 1.6;
             overflow-x: hidden;
             min-height: 100vh;
-            /* Giữ màu nền gốc nhưng làm nền cho animation */
+            /* Giữ màu nền gốc */
             background-color: #87CEEB;
             background: linear-gradient(180deg, var(--bg-gradient-1) 0%, var(--bg-gradient-2) 100%);
-            position: relative; /* Để animation absolute hoạt động */
+            position: relative;
         }
 
-        /* --- NEW: ANIMATED BACKGROUND STYLES --- */
+        /* --- UPDATED: ANIMATED BACKGROUND STYLES (RÕ RÀNG HƠN - VUI NHỘN HƠN) --- */
         .animated-bg {
             position: fixed;
             top: 0;
@@ -1843,54 +1914,77 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            z-index: -1; /* Nằm dưới mọi nội dung */
-            pointer-events: none; /* Không chặn click chuột */
+            z-index: 0; /* Đặt dưới nội dung chính */
+            pointer-events: none;
         }
 
-        .bg-icon {
+        /* Đẩy nội dung chính lên trên background */
+        #app-container, nav, footer {
+            position: relative;
+            z-index: 1;
+        }
+
+        .bg-item {
             position: absolute;
-            bottom: -100px;
-            color: rgba(255, 255, 255, 0.25); /* Màu trắng mờ */
-            font-size: 2rem;
-            animation: floatUp linear infinite;
+            bottom: -150px; /* Bắt đầu từ dưới màn hình */
+            color: rgba(255, 255, 255, 0.4); /* Rõ hơn một chút */
+            font-weight: bold;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
+            text-shadow: 2px 2px 5px rgba(0, 168, 255, 0.2); /* Tạo bóng nhẹ kiểu Tech */
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
         }
 
-        /* Thêm chút text vui vui đi kèm icon */
-        .bg-icon::after {
-            content: attr(data-text);
-            font-size: 0.6rem;
-            margin-top: 5px;
-            font-weight: bold;
-            font-family: 'Courier New', monospace; /* Font code */
+        .bg-item i {
+            font-size: 2.5rem; /* Icon to hơn */
+            margin-bottom: 5px;
         }
 
-        @keyframes floatUp {
+        .bg-item span {
+            font-family: 'Courier New', Courier, monospace; /* Font kiểu code */
+            font-size: 0.9rem;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+
+        /* Animation: Bay lên + Lắc lư qua lại + Xoay */
+        @keyframes floatWobble {
             0% {
-                transform: translateY(0) rotate(0deg) scale(0.8);
+                transform: translateY(0) translateX(0) rotate(0deg);
                 opacity: 0;
             }
-            10% { opacity: 0.6; }
-            90% { opacity: 0.6; }
+            10% { opacity: 0.8; }
+            25% { transform: translateY(-30vh) translateX(30px) rotate(10deg); }
+            50% { transform: translateY(-60vh) translateX(-30px) rotate(-10deg); }
+            75% { transform: translateY(-90vh) translateX(30px) rotate(5deg); opacity: 0.8; }
             100% {
-                transform: translateY(-120vh) rotate(360deg) scale(1.2);
+                transform: translateY(-120vh) translateX(0) rotate(0deg);
                 opacity: 0;
             }
         }
 
-        /* Cấu hình từng icon bay (vị trí, tốc độ, delay khác nhau) */
-        .bg-icon:nth-child(1) { left: 5%; animation-duration: 15s; font-size: 3rem; animation-delay: 0s; }
-        .bg-icon:nth-child(2) { left: 15%; animation-duration: 25s; font-size: 2rem; animation-delay: 2s; }
-        .bg-icon:nth-child(3) { left: 25%; animation-duration: 18s; font-size: 4rem; animation-delay: 5s; }
-        .bg-icon:nth-child(4) { left: 40%; animation-duration: 22s; font-size: 2.5rem; animation-delay: 1s; }
-        .bg-icon:nth-child(5) { left: 55%; animation-duration: 30s; font-size: 3rem; animation-delay: 4s; }
-        .bg-icon:nth-child(6) { left: 70%; animation-duration: 20s; font-size: 2rem; animation-delay: 7s; }
-        .bg-icon:nth-child(7) { left: 85%; animation-duration: 28s; font-size: 5rem; animation-delay: 3s; }
-        .bg-icon:nth-child(8) { left: 95%; animation-duration: 35s; font-size: 2.5rem; animation-delay: 10s; }
-        .bg-icon:nth-child(9) { left: 30%; animation-duration: 24s; font-size: 1.5rem; animation-delay: 8s; }
-        .bg-icon:nth-child(10) { left: 60%; animation-duration: 19s; font-size: 3.5rem; animation-delay: 12s; }
+        /* Cấu hình từng phần tử để bay lộn xộn, vui mắt */
+        .bg-item:nth-child(1) { left: 5%; animation-name: floatWobble; animation-duration: 18s; animation-delay: 0s; font-size: 1.2rem; }
+        .bg-item:nth-child(2) { left: 15%; animation-name: floatWobble; animation-duration: 25s; animation-delay: 5s; color: rgba(255,255,255,0.3); } /* Mờ hơn chút */
+        .bg-item:nth-child(3) { left: 25%; animation-name: floatWobble; animation-duration: 15s; animation-delay: 2s; transform: scale(1.5); }
+        .bg-item:nth-child(4) { left: 35%; animation-name: floatWobble; animation-duration: 22s; animation-delay: 8s; }
+        .bg-item:nth-child(5) { left: 50%; animation-name: floatWobble; animation-duration: 30s; animation-delay: 1s; font-size: 1.5rem; }
+        .bg-item:nth-child(6) { left: 65%; animation-name: floatWobble; animation-duration: 19s; animation-delay: 6s; }
+        .bg-item:nth-child(7) { left: 75%; animation-name: floatWobble; animation-duration: 28s; animation-delay: 3s; transform: scale(0.8); }
+        .bg-item:nth-child(8) { left: 85%; animation-name: floatWobble; animation-duration: 24s; animation-delay: 9s; }
+        .bg-item:nth-child(9) { left: 95%; animation-name: floatWobble; animation-duration: 35s; animation-delay: 0s; }
+        .bg-item:nth-child(10) { left: 10%; animation-name: floatWobble; animation-duration: 20s; animation-delay: 12s; }
+        .bg-item:nth-child(11) { left: 60%; animation-name: floatWobble; animation-duration: 26s; animation-delay: 15s; color: rgba(255,255,255,0.5); }
+        
+        /* Hiệu ứng Glitch nhẹ cho chữ TECH */
+        .tech-text {
+            color: rgba(200, 240, 255, 0.6) !important;
+            font-weight: 900;
+        }
 
         /* --- NAVBAR STYLES --- */
         .navbar {
@@ -2224,16 +2318,47 @@
 <body>
 
     <div class="animated-bg">
-        <div class="bg-icon" data-text="GAME"><i class="fa-solid fa-gamepad"></i></div>
-        <div class="bg-icon" data-text="CODE"><i class="fa-solid fa-code"></i></div>
-        <div class="bg-icon" data-text="BUG!"><i class="fa-solid fa-bug"></i></div>
-        <div class="bg-icon" data-text="PACMAN"><i class="fa-solid fa-ghost"></i></div>
-        <div class="bg-icon" data-text="TECH"><i class="fa-solid fa-microchip"></i></div>
-        <div class="bg-icon" data-text="SPACE"><i class="fa-brands fa-space-awesome"></i></div>
-        <div class="bg-icon" data-text="ROCKET"><i class="fa-solid fa-rocket"></i></div>
-        <div class="bg-icon" data-text="ROBOT"><i class="fa-solid fa-robot"></i></div>
-        <div class="bg-icon" data-text="PIXEL"><i class="fa-solid fa-square"></i></div>
-        <div class="bg-icon" data-text="WIN"><i class="fa-solid fa-trophy"></i></div>
+        <div class="bg-item">
+            <i class="fa-solid fa-gamepad"></i>
+            <span>GAME</span>
+        </div>
+        <div class="bg-item">
+            <i class="fa-solid fa-code"></i>
+            <span>&lt;/&gt;</span>
+        </div>
+        <div class="bg-item">
+            <i class="fa-solid fa-bug" style="color: #ff7675;"></i>
+            <span>BUG!</span>
+        </div>
+        <div class="bg-item tech-text">
+            <span>010101</span>
+        </div>
+        <div class="bg-item">
+            <i class="fa-solid fa-ghost"></i>
+            <span>AFK</span>
+        </div>
+        <div class="bg-item">
+            <i class="fa-solid fa-microchip"></i>
+            <span>CPU 100%</span>
+        </div>
+        <div class="bg-item tech-text">
+            <span>NULL</span>
+        </div>
+        <div class="bg-item">
+            <i class="fa-solid fa-rocket"></i>
+            <span>LAUNCH</span>
+        </div>
+        <div class="bg-item">
+            <i class="fa-solid fa-robot"></i>
+            <span>AI?</span>
+        </div>
+        <div class="bg-item">
+            <i class="fa-solid fa-trophy" style="color: #f1c40f;"></i>
+            <span>WIN</span>
+        </div>
+        <div class="bg-item tech-text">
+            <span>404</span>
+        </div>
     </div>
     <div id="app-container">
     </div>

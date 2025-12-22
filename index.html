@@ -1861,7 +1861,7 @@
     <title>TRÀN BỘ NHỚ - Game Marketplace</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* --- CSS GỐC --- */
+        /* --- CSS GIỮ NGUYÊN 100% CÁC PHẦN CŨ --- */
         :root {
             --bg-gradient-1: #87CEEB; 
             --bg-gradient-2: #E0F7FA; 
@@ -1888,7 +1888,7 @@
             position: relative;
         }
 
-        /* --- ANIMATED BACKGROUND (Vui nhộn & Công nghệ) --- */
+        /* --- ANIMATED BACKGROUND STYLES --- */
         .animated-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 0; pointer-events: none;
         }
@@ -1927,14 +1927,12 @@
         .bg-item:nth-child(11) { left: 60%; animation-name: floatWobble; animation-duration: 26s; animation-delay: 15s; color: rgba(255,255,255,0.5); }
         .tech-text { color: rgba(200, 240, 255, 0.6) !important; font-weight: 900; }
 
-        /* --- NAVBAR STYLES (NEW: Active State) --- */
+        /* --- NAVBAR STYLES (Active State) --- */
         .navbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; background: var(--nav-bg); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-bottom: 1px solid rgba(255,255,255,0.5); }
         .logo { font-size: 1.5rem; font-weight: 900; color: var(--primary-color); text-transform: uppercase; letter-spacing: 1px; text-decoration: none; display: flex; align-items: center; gap: 10px; }
         .logo i { color: var(--accent-yellow); font-size: 1.8rem; }
         .nav-links { display: flex; gap: 25px; font-weight: 600; align-items: center; }
         .nav-links a { text-decoration: none; color: #555; transition: 0.3s; position: relative; font-size: 1rem; cursor: pointer; padding: 5px 0; }
-        
-        /* Active State CSS */
         .nav-links a:hover, .nav-links a.active { color: var(--primary-color); }
         .nav-links a::after { content: ''; position: absolute; width: 0; height: 3px; bottom: 0; left: 0; background: var(--accent-yellow); transition: width 0.3s; border-radius: 2px; }
         .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
@@ -1971,7 +1969,6 @@
         .auth-form.active { display: block; animation: fadeIn 0.5s; }
         .auth-btn { width: 100%; padding: 12px; background: var(--primary-color); color: white; border: none; border-radius: 30px; font-weight: bold; cursor: pointer; font-size: 1rem; margin-top: 10px; transition: 0.3s; }
         .auth-btn:hover { background: var(--primary-dark); transform: translateY(-2px); }
-        
         .password-wrapper { position: relative; width: 100%; }
         .password-wrapper input { width: 100%; padding-right: 40px; }
         .toggle-password-btn { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #aaa; font-size: 1rem; z-index: 2; }
@@ -2066,7 +2063,7 @@
         .comm-content { font-size: 1rem; color: #444; margin: 15px 0; line-height: 1.5; background: #f9f9f9; padding: 10px; border-radius: 8px; }
         .comm-footer { display: flex; justify-content: space-between; font-size: 0.8rem; color: #aaa; }
         
-        /* --- NEW: Liked by Devs --- */
+        /* --- LIKED BY DEVS --- */
         .liked-by-devs {
             display: block; margin-top: 5px; font-size: 0.8rem; color: #666; background: #fff8e1; padding: 5px; border-radius: 5px; border: 1px dashed #f1c40f;
         }
@@ -2205,7 +2202,7 @@
             let currentUsers = JSON.parse(localStorage.getItem('users') || '[]');
             const mdaIndex = currentUsers.findIndex(u => u.username === "mda1205");
             if (mdaIndex !== -1) {
-                currentUsers[mdaIndex].role = "Developer"; // Ensure role
+                currentUsers[mdaIndex].role = "Developer";
                 localStorage.setItem('users', JSON.stringify(currentUsers));
             } else {
                 const mergedUsers = [...currentUsers, ...preDefinedUsers];
@@ -2517,19 +2514,34 @@
             }
         ];
 
-        // --- DỮ LIỆU TIN TỨC ---
+        // --- DỮ LIỆU TIN TỨC / THÔNG BÁO MỚI (CHO MỤC KHÁM PHÁ) ---
         const initialNews = [
-            { type: 'event', title: "🏆 Giải đấu: Đua top ERROR RUN", desc: "Tham gia ngay để nhận phần thưởng trị giá 500k.", date: "Vừa xong", icon: "fa-trophy" },
-            { type: 'game', title: "Game mới: Magician vs. Goblin", desc: "Tựa game hành động sinh tồn cực cuốn đã chính thức lên kệ.", date: "2 giờ trước", icon: "fa-gamepad" },
-            { type: 'update', title: "Cập nhật: Sinh Viên sinh tồn", desc: "Bổ sung thêm bản đồ KTX Khu B.", date: "1 ngày trước", icon: "fa-code-branch" }
+            { type: 'event', title: "🏆 Giải đấu: Đua top ERROR RUN", desc: "Tham gia ngay để nhận phần thưởng trị giá 500k. Ai sẽ là người né bug giỏi nhất?", date: "Vừa xong", icon: "fa-trophy" },
+            { type: 'game', title: "Game mới: Magician vs. Goblin", desc: "Tựa game hành động sinh tồn cực cuốn đã chính thức lên kệ. Tải ngay!", date: "2 giờ trước", icon: "fa-gamepad" },
+            { type: 'update', title: "Cập nhật: Sinh Viên sinh tồn", desc: "Bổ sung thêm bản đồ KTX Khu B và sự kiện 'Mùa thi cử'.", date: "1 ngày trước", icon: "fa-code-branch" },
+            { type: 'user', title: "Chào mừng thành viên thứ 1000", desc: "Cộng đồng TBN Studio chính thức cán mốc 1000 người dùng. Cảm ơn các bạn!", date: "3 ngày trước", icon: "fa-users" },
+            { type: 'game', title: "Sắp ra mắt: Dự án bí mật X", desc: "Một tựa game kinh dị thuần Việt đang được phát triển bởi nhóm sinh viên K21.", date: "5 ngày trước", icon: "fa-bullhorn" },
+            { type: 'event', title: "Workshop: Làm game không khó", desc: "Chia sẻ kinh nghiệm làm game Indie từ con số 0. Đăng ký vé miễn phí.", date: "1 tuần trước", icon: "fa-calendar-check" }
         ];
 
-        // --- HỆ THỐNG DỮ LIỆU ---
-        function initSystemNews() { if (!localStorage.getItem('news')) localStorage.setItem('news', JSON.stringify(initialNews)); }
-        function getNews() { return JSON.parse(localStorage.getItem('news') || '[]'); }
-        function addNews(newsItem) { let news = getNews(); news.unshift(newsItem); localStorage.setItem('news', JSON.stringify(news)); }
+        // --- HÀM QUẢN LÝ TIN TỨC (NEWS SYSTEM) ---
+        function initSystemNews() {
+            if (!localStorage.getItem('news')) {
+                localStorage.setItem('news', JSON.stringify(initialNews));
+            }
+        }
 
-        // --- REVIEW SYSTEM (UPDATED WITH LIKES) ---
+        function getNews() {
+            return JSON.parse(localStorage.getItem('news') || '[]');
+        }
+
+        function addNews(newsItem) {
+            let news = getNews();
+            news.unshift(newsItem); // Thêm tin mới lên đầu
+            localStorage.setItem('news', JSON.stringify(news));
+        }
+
+        // --- HÀM KHỞI TẠO REVIEW MẪU (Để cộng đồng không bị trống) ---
         const initialReviews = [
             { gameId: 1, username: "ProGamer99", rating: 5, comment: "Game khó nhưng cực cuốn, đánh boss phê!", date: "20/12/2025", likes: 10, likedByDevs: [] },
             { gameId: 1, username: "NoobMaster", rating: 4, comment: "Cần giảm độ khó một chút ở màn 3.", date: "19/12/2025", likes: 2, likedByDevs: [] },
@@ -2542,112 +2554,290 @@
                 localStorage.setItem('reviews', JSON.stringify(initialReviews));
             }
         }
+
         function getReviews() {
             let reviews = JSON.parse(localStorage.getItem('reviews') || '[]');
+            // Đảm bảo dữ liệu cũ tương thích với tính năng mới
             return reviews.map(r => ({
                 ...r,
                 likes: r.likes || 0,
                 likedByDevs: r.likedByDevs || []
             }));
         }
+
         function saveReview(reviewObj) {
             let reviews = getReviews();
+            // Khởi tạo các trường mới cho review
             reviewObj.likes = 0;
             reviewObj.likedByDevs = [];
-            reviews.unshift(reviewObj);
+            reviews.unshift(reviewObj); // Thêm vào đầu danh sách
             localStorage.setItem('reviews', JSON.stringify(reviews));
         }
 
-        // --- CHAT SYSTEM ---
+        // --- HỆ THỐNG CHAT (CHAT SYSTEM) - NEW ---
         const initialChatMessages = [
             { id: 1, username: "System", message: "Chào mừng đến với phòng chat chung TBN Studio!", type: "other" },
             { id: 2, username: "ProGamer99", message: "Có ai đang chơi Elden Ring không? Co-op boss Malenia với!", type: "other" },
             { id: 3, username: "SinhVienNam4", message: "Tui đang bận cày game Sinh viên sinh tồn rồi bác ơi :))", type: "other" }
         ];
-        function initSystemChat() { if (!localStorage.getItem('chatMessages')) localStorage.setItem('chatMessages', JSON.stringify(initialChatMessages)); }
-        function getChatMessages() { return JSON.parse(localStorage.getItem('chatMessages') || '[]'); }
-        function saveChatMessage(msg) { let msgs = getChatMessages(); msgs.push(msg); localStorage.setItem('chatMessages', JSON.stringify(msgs)); }
 
-        // --- GAME STORAGE ---
-        function getStoredGames() { const stored = localStorage.getItem('myCustomGames'); return stored ? JSON.parse(stored) : []; }
-        function saveCustomGame(newGame) { const currentStored = getStoredGames(); currentStored.push(newGame); localStorage.setItem('myCustomGames', JSON.stringify(currentStored)); }
+        function initSystemChat() {
+            if (!localStorage.getItem('chatMessages')) {
+                localStorage.setItem('chatMessages', JSON.stringify(initialChatMessages));
+            }
+        }
+
+        function getChatMessages() {
+            return JSON.parse(localStorage.getItem('chatMessages') || '[]');
+        }
+
+        function saveChatMessage(msg) {
+            let msgs = getChatMessages();
+            msgs.push(msg);
+            localStorage.setItem('chatMessages', JSON.stringify(msgs));
+        }
+
+        // --- CÁC HÀM XỬ LÝ GAME (LOCAL STORAGE) ---
+        function getStoredGames() {
+            const stored = localStorage.getItem('myCustomGames');
+            return stored ? JSON.parse(stored) : [];
+        }
+
+        function saveCustomGame(newGame) {
+            const currentStored = getStoredGames();
+            currentStored.push(newGame);
+            localStorage.setItem('myCustomGames', JSON.stringify(currentStored));
+        }
 
         let currentGames = [...initialGames, ...getStoredGames()];
         const appContainer = document.getElementById('app-container');
         const formatter = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' });
 
-        // --- CART & LIBRARY ---
+        // --- HỆ THỐNG GIỎ HÀNG ---
         function getCart() { return JSON.parse(localStorage.getItem('cart') || '[]'); }
         function saveCart(cart) { localStorage.setItem('cart', JSON.stringify(cart)); updateCartBadge(); }
-        function getLibrary() { return JSON.parse(localStorage.getItem('library') || '[]'); }
-        function saveLibrary(library) { localStorage.setItem('library', JSON.stringify(library)); }
         
         function addToCart(gameId) {
-            let cart = getCart(); let library = getLibrary();
+            let cart = getCart();
+            let library = getLibrary();
             if (library.includes(gameId)) { alert("Bạn đã sở hữu game này rồi!"); return; }
-            if (!cart.includes(gameId)) { cart.push(gameId); saveCart(cart); alert("Đã thêm vào giỏ hàng!"); } 
-            else { alert("Game này đã có trong giỏ hàng!"); }
+            if (!cart.includes(gameId)) {
+                cart.push(gameId);
+                saveCart(cart);
+                alert("Đã thêm vào giỏ hàng!");
+            } else {
+                alert("Game này đã có trong giỏ hàng!");
+            }
+            if (!getQueryParam('view') && !getQueryParam('game')) {
+                const gameGrid = document.getElementById('gameGrid');
+                if (gameGrid) renderGames(currentGames, gameGrid);
+            }
         }
-        function removeFromCart(gameId) { let cart = getCart(); cart = cart.filter(id => id !== gameId); saveCart(cart); renderCartPage(); }
-        function resetLibrary() { if(confirm("Xóa toàn bộ dữ liệu?")) { localStorage.clear(); location.reload(); } }
-        function updateCartBadge() { 
-            const badge = document.querySelector('.cart-badge'); 
-            if (badge) { const count = getCart().length; badge.textContent = count; badge.style.display = count > 0 ? 'flex' : 'none'; } 
+        
+        function removeFromCart(gameId) {
+            let cart = getCart();
+            cart = cart.filter(id => id !== gameId);
+            saveCart(cart);
+            renderCartPage();
         }
-        function processCheckout() {
-            const cart = getCart();
-            if (cart.length === 0) { alert("Giỏ hàng trống!"); return; }
-            if (confirm("Thanh toán?")) {
-                let library = getLibrary();
-                cart.forEach(id => { if (!library.includes(id)) library.push(id); });
-                saveLibrary(library); saveCart([]); alert("Thanh toán thành công!"); renderCartPage();
+        
+        function getLibrary() { return JSON.parse(localStorage.getItem('library') || '[]'); }
+        function saveLibrary(library) { localStorage.setItem('library', JSON.stringify(library)); }
+
+        function resetLibrary() {
+            if(confirm("Bạn có chắc muốn XÓA TOÀN BỘ dữ liệu (Game đã mua + Game đã đăng + Đánh giá)?")) {
+                localStorage.removeItem('library');
+                localStorage.removeItem('cart');
+                localStorage.removeItem('myCustomGames');
+                localStorage.removeItem('reviews'); 
+                localStorage.removeItem('news'); 
+                localStorage.removeItem('chatMessages'); // Reset chat
+                alert("Đã reset dữ liệu! Về trang chủ...");
+                window.location.href = window.location.pathname; 
             }
         }
 
-        // --- HELPERS ---
-        function formatGameText(text) { return text ? `<p>${text.replace(/\n/g, '<br>')}</p>` : ""; }
-        function getAllGenres() { return [...new Set(currentGames.flatMap(g => g.genre.split(',').map(s => s.trim())))].sort(); }
+        function updateCartBadge() {
+            const badge = document.querySelector('.cart-badge');
+            if (badge) {
+                const count = getCart().length;
+                badge.textContent = count;
+                badge.style.display = count > 0 ? 'flex' : 'none';
+            }
+        }
+
+        function processCheckout() {
+            const cart = getCart();
+            if (cart.length === 0) {
+                alert("Giỏ hàng đang trống! Hãy thêm game vào trước khi thanh toán.");
+                return;
+            }
+            const allGames = [...initialGames, ...getStoredGames()];
+            const cartItemsFull = allGames.filter(g => cart.includes(g.id));
+            const total = cartItemsFull.reduce((sum, item) => sum + item.price, 0);
+            const totalFormatted = formatter.format(total);
+
+            if (confirm(`Xác nhận thanh toán ${cart.length} game?\nTổng cộng: ${totalFormatted}`)) {
+                let library = getLibrary();
+                cart.forEach(id => {
+                    if (!library.includes(id)) library.push(id);
+                });
+                saveLibrary(library);
+                saveCart([]);
+                alert("Thanh toán thành công! Cảm ơn bạn đã ủng hộ TBN Studio.");
+                renderCartPage();
+                updateCartBadge();
+            }
+        }
+
+        // --- HELPER FORMAT TEXT ---
+        function formatGameText(text) {
+            if (!text) return "";
+            let formatted = text
+                .replace(/Ý tưởng cốt lõi/g, "<strong>Ý tưởng cốt lõi</strong>")
+                .replace(/Ý tưởng trung tâm/g, "<strong>Ý tưởng trung tâm</strong>")
+                .replace(/Ý tưởng:/g, "<strong>Ý tưởng:</strong>")
+                .replace(/Cốt truyện:/g, "<strong>Cốt truyện:</strong>")
+                .replace(/Cốt truyện(?![^<]*>)/g, "<strong>Cốt truyện</strong>"); 
+
+            const paragraphs = formatted.split(/\n\s*\n/);
+            let html = '';
+            
+            paragraphs.forEach(para => {
+                if (para.trim().includes('+')) {
+                    const lines = para.split('\n');
+                    let inList = false;
+                    lines.forEach(line => {
+                        let cleanLine = line.trim();
+                        if (cleanLine.startsWith('+')) {
+                            if (!inList) { html += '<ul class="custom-list">'; inList = true; }
+                            html += `<li>${cleanLine.substring(1).trim()}</li>`;
+                        } else {
+                            if (inList) { html += '</ul>'; inList = false; }
+                            if (cleanLine.length > 0) { html += `<div class="content-paragraph">${line}</div>`; }
+                        }
+                    });
+                    if (inList) html += '</ul>';
+                } else {
+                    if (para.trim().length > 0) {
+                        html += `<div class="content-paragraph">${para.replace(/\n/g, '<br>')}</div>`;
+                    }
+                }
+            });
+            return html;
+        }
+
+        // --- DROPDOWN & FILTER ---
+        function getAllGenres() {
+            let allGenres = [];
+            currentGames.forEach(game => {
+                let genres = game.genre.split(/[,\/]/).map(g => g.trim());
+                allGenres.push(...genres);
+            });
+            return [...new Set(allGenres)].sort();
+        }
+
         function renderGenreDropdown() {
             const dropdown = document.getElementById('genreDropdown');
             if (!dropdown) return;
+            const genres = getAllGenres();
             let html = `<a href="#" onclick="filterByGenre('')">⭐ Tất cả</a>`;
-            getAllGenres().forEach(g => html += `<a href="#" onclick="filterByGenre('${g}')">${g}</a>`);
+            genres.forEach(g => {
+                html += `<a href="#" onclick="filterByGenre('${g}')">${g}</a>`;
+            });
             dropdown.innerHTML = html;
         }
+
         function filterByGenre(genre) {
             const searchInput = document.getElementById('searchInput');
-            if(searchInput) { searchInput.value = genre; searchInput.dispatchEvent(new Event('input')); document.getElementById('gallery-title').scrollIntoView({behavior: "smooth"}); }
+            if(searchInput) {
+                searchInput.value = genre;
+                searchInput.dispatchEvent(new Event('input'));
+                document.getElementById('gallery-title').scrollIntoView({behavior: "smooth"});
+            }
         }
 
-        // --- AUTH ---
+        // --- AUTHENTICATION ---
         function getUsers() { return JSON.parse(localStorage.getItem('users') || '[]'); }
         function saveUsers(users) { localStorage.setItem('users', JSON.stringify(users)); }
         function getCurrentUser() { return JSON.parse(localStorage.getItem('currentUser')); }
+        
         function registerUser(username, password, role) {
             let users = getUsers();
-            if (users.find(u => u.username === username)) { alert("Tên tồn tại!"); return false; }
-            if (password.length < 8 || !/[A-Z]/.test(password)) { alert("Mật khẩu yếu!"); return false; }
-            users.push({ username, password, role }); saveUsers(users);
-            addNews({ type: 'user', title: `Chào mừng ${username}`, desc: `Một ${role} mới vừa gia nhập!`, date: "Vừa xong", icon: "fa-user-plus" });
-            alert("Đăng ký thành công!"); return true;
+            
+            // 1. Kiểm tra Username trùng
+            if (users.find(u => u.username === username)) {
+                alert("Tên đăng nhập đã tồn tại!");
+                return false;
+            }
+
+            // 2. Kiểm tra độ phức tạp của Password
+            if (password.length < 8) {
+                alert("Mật khẩu phải có tối thiểu 8 ký tự!");
+                return false;
+            }
+            if (!/[A-Z]/.test(password)) {
+                alert("Mật khẩu phải chứa ít nhất một chữ viết hoa!");
+                return false;
+            }
+
+            // 3. Kiểm tra Password trùng với các tài khoản trước đó
+            const isPasswordDuplicate = users.some(u => u.password === password);
+            if (isPasswordDuplicate) {
+                alert("Mật khẩu này đã được sử dụng bởi một tài khoản khác. Vui lòng chọn mật khẩu khác để bảo mật!");
+                return false;
+            }
+
+            // Đăng ký thành công
+            users.push({ username, password, role });
+            saveUsers(users);
+
+            // 4. Tạo Tin Tức Mới (Dynamic News) về người dùng mới
+            const newMemberNews = {
+                type: 'user',
+                title: `Chào mừng thành viên mới: ${username}`,
+                desc: `Một ${role === 'Gamer' ? 'Game thủ' : 'Nhà phát triển'} vừa gia nhập TBN Studio! Chào mừng ${username}.`,
+                date: "Vừa xong",
+                icon: "fa-user-plus"
+            };
+            addNews(newMemberNews);
+
+            alert("Đăng ký thành công! Bạn có thể đăng nhập ngay.");
+            return true;
         }
+
         function loginUser(username, password) {
-            const user = getUsers().find(u => u.username === username && u.password === password);
-            if (user) { localStorage.setItem('currentUser', JSON.stringify(user)); alert("Thành công!"); window.location.href = window.location.pathname; return true; }
-            alert("Sai thông tin!"); return false;
+            let users = getUsers();
+            const user = users.find(u => u.username === username && u.password === password);
+            if (user) {
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                alert("Đăng nhập thành công!");
+                window.location.href = window.location.pathname;
+                return true;
+            } else {
+                alert("Sai tên đăng nhập hoặc mật khẩu!");
+                return false;
+            }
         }
-        function logoutUser() { localStorage.removeItem('currentUser'); window.location.href = window.location.pathname; }
-        
-        // --- NEW: Navbar with Active State ---
+
+        function logoutUser() {
+            localStorage.removeItem('currentUser');
+            window.location.href = window.location.pathname;
+        }
+
         function getNavbar(activeTab) {
             const user = getCurrentUser();
             const authButton = user 
-                ? `<div class="user-menu" onclick="logoutUser()"><i class="fa-solid fa-user-circle"></i> Xin chào, ${user.username} (${user.role || 'Gamer'})</div>`
+                ? `<div class="user-menu" onclick="logoutUser()">
+                     <i class="fa-solid fa-user-circle"></i> Xin chào, ${user.username} (${user.role || 'Gamer'}) (Đăng xuất)
+                   </div>`
                 : `<a class="btn-login" href="${window.location.pathname}?view=login">Đăng nhập</a>`;
 
             return `
                 <nav class="navbar">
-                    <a class="logo" href="about.html"><i class="fa-solid fa-gamepad"></i> TBN STUDIO</a>
+                    <a class="logo" href="about.html">
+                        <i class="fa-solid fa-gamepad"></i> TBN STUDIO
+                    </a>
                     <div class="nav-links">
                         <a href="${window.location.pathname}" class="${activeTab === 'home' ? 'active' : ''}">Trang chủ</a>
                         <a href="#" onclick="goToDiscoverPage()" class="${activeTab === 'discover' ? 'active' : ''}">Khám phá</a>
@@ -2656,32 +2846,48 @@
                             <div class="dropdown-content" id="genreDropdown"></div>
                         </div>
                         <a href="#" onclick="goToCommunityPage()" class="${activeTab === 'community' ? 'active' : ''}">Cộng đồng</a>
-                        <a href="#" onclick="goToUploadPage()" class="${activeTab === 'upload' ? 'active' : ''}" style="color:var(--primary-color);font-weight:bold;"><i class="fa-solid fa-upload"></i> Đăng tải game</a>
+                        <a href="#" onclick="goToUploadPage()" class="${activeTab === 'upload' ? 'active' : ''}" style="color:var(--primary-color);font-weight:bold;">
+                            <i class="fa-solid fa-upload"></i> Đăng tải game
+                        </a>
                     </div>
                     <div class="nav-actions">
-                        <div class="search-box"><input type="text" id="searchInput" placeholder="Tìm game..."><i class="fa-solid fa-magnifying-glass"></i></div>
-                        <div class="icon-btn" onclick="openCartInNewTab()"><i class="fa-solid fa-cart-shopping"></i><span class="cart-badge" style="display:none">0</span></div>
+                        <div class="search-box">
+                            <input type="text" id="searchInput" placeholder="Tìm game...">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </div>
+                        <div class="icon-btn" onclick="openCartInNewTab()" title="Xem giỏ hàng">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            <span class="cart-badge" style="display:none">0</span>
+                        </div>
                         ${authButton}
                     </div>
                 </nav>
             `;
         }
 
+        // --- NEW: Password Toggle Function ---
         function togglePassword(inputId, iconId) {
             const input = document.getElementById(inputId);
             const icon = document.getElementById(iconId);
-            if (input.type === "password") { input.type = "text"; icon.classList.replace("fa-eye", "fa-eye-slash"); } 
-            else { input.type = "password"; icon.classList.replace("fa-eye-slash", "fa-eye"); }
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                input.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
         }
 
-        // --- NAVIGATION ---
+        // --- NAVIGATION FUNCTIONS ---
         function openCartInNewTab() { window.open(`${window.location.pathname}?view=cart`, '_blank'); }
         function goToCartView() { window.location.href = `${window.location.pathname}?view=cart`; }
         function openGameDetail(gameId) { window.open(`${window.location.pathname}?game=${gameId}`, '_blank'); }
         function goToUploadPage() { window.location.href = `${window.location.pathname}?view=upload`; }
         function goToCommunityPage() { window.location.href = `${window.location.pathname}?view=community`; }
         function goToDiscoverPage() { window.location.href = `${window.location.pathname}?view=discover`; } 
-        function getQueryParam(param) { return new URLSearchParams(window.location.search).get(param); }
+        function getQueryParam(param) { const urlParams = new URLSearchParams(window.location.search); return urlParams.get(param); }
 
         // --- NEW: LIKE FUNCTION ---
         function handleLikeReview(index) {
@@ -2699,11 +2905,12 @@
             }
 
             localStorage.setItem('reviews', JSON.stringify(reviews));
-            renderCommunityPage(); 
+            renderCommunityPage(); // Re-render to show updates
         }
 
         // --- RENDER PAGES ---
         
+        // LOGIN PAGE (UPDATED)
         function renderLoginPage() {
             appContainer.innerHTML = `
                 ${getNavbar('login')}
@@ -2713,71 +2920,163 @@
                             <div class="tab-btn active" onclick="switchTab('login')">Đăng nhập</div>
                             <div class="tab-btn" onclick="switchTab('register')">Đăng ký</div>
                         </div>
+
                         <div id="loginForm" class="auth-form active">
-                            <div class="form-group"><label>Tên đăng nhập:</label><input type="text" id="loginUser"></div>
-                            <div class="form-group"><label>Mật khẩu:</label><div class="password-wrapper"><input type="password" id="loginPass"><i class="fa-solid fa-eye toggle-password-btn" id="toggleLoginPass" onclick="togglePassword('loginPass', 'toggleLoginPass')"></i></div></div>
+                            <div class="form-group">
+                                <label>Tên đăng nhập:</label>
+                                <input type="text" id="loginUser" placeholder="Nhập tên đăng nhập...">
+                            </div>
+                            <div class="form-group">
+                                <label>Mật khẩu:</label>
+                                <div class="password-wrapper">
+                                    <input type="password" id="loginPass" placeholder="Nhập mật khẩu...">
+                                    <i class="fa-solid fa-eye toggle-password-btn" id="toggleLoginPass" onclick="togglePassword('loginPass', 'toggleLoginPass')"></i>
+                                </div>
+                            </div>
                             <button class="auth-btn" onclick="handleLoginSubmit()">ĐĂNG NHẬP</button>
                         </div>
+
                         <div id="registerForm" class="auth-form">
-                            <div class="form-group"><label>Tên đăng nhập mới:</label><input type="text" id="regUser"></div>
-                            <div class="form-group"><label>Mật khẩu:</label><div class="password-wrapper"><input type="password" id="regPass"><i class="fa-solid fa-eye toggle-password-btn" id="toggleRegPass" onclick="togglePassword('regPass', 'toggleRegPass')"></i></div></div>
-                            <div class="form-group"><label>Vai trò:</label><select id="regRole" class="role-select"><option value="Gamer">🎮 Gamer</option><option value="Developer">👨‍💻 Developer</option></select></div>
+                            <div class="form-group">
+                                <label>Tên đăng nhập mới:</label>
+                                <input type="text" id="regUser" placeholder="Chọn tên đăng nhập...">
+                            </div>
+                            <div class="form-group">
+                                <label>Mật khẩu:</label>
+                                <div class="password-wrapper">
+                                    <input type="password" id="regPass" placeholder="Nhập mật khẩu...">
+                                    <i class="fa-solid fa-eye toggle-password-btn" id="toggleRegPass" onclick="togglePassword('regPass', 'toggleRegPass')"></i>
+                                </div>
+                                <p style="font-size:0.8rem; color:#666; margin-top:5px; font-style:italic;">
+                                    * Yêu cầu: Tối thiểu 8 ký tự, có chữ Hoa, không trùng mật khẩu cũ.
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <label>Vai trò (Role) <span class="required-mark">*</span>:</label>
+                                <select id="regRole" class="role-select">
+                                    <option value="Gamer">🎮 Gamer (Người chơi)</option>
+                                    <option value="Developer">👨‍💻 Developer (Nhà phát triển)</option>
+                                </select>
+                            </div>
                             <button class="auth-btn" onclick="handleRegisterSubmit()">ĐĂNG KÝ</button>
                         </div>
                     </div>
                 </div>
             `;
-            updateCartBadge(); renderGenreDropdown();
+            updateCartBadge();
+            renderGenreDropdown(); 
         }
 
+        // HOME PAGE
         function renderHomePage() {
             appContainer.innerHTML = `
                 ${getNavbar('home')}
-                <div class="hero"><h1>TRÀN BỘ NHỚ</h1><p>✨ Hội chợ Game Indie - Nơi ý tưởng thành hiện thực ✨</p></div>
-                <div class="container"><h2 id="gallery-title">🔥 Game Đề Xuất</h2><div class="game-grid" id="gameGrid"></div></div>
+                <div class="hero">
+                    <h1>TRÀN BỘ NHỚ</h1>
+                    <p>✨ Hội chợ Game Indie - Nơi ý tưởng thành hiện thực ✨</p>
+                </div>
+                <div class="container">
+                    <h2 id="gallery-title">🔥 Game Đề Xuất</h2>
+                    <div class="game-grid" id="gameGrid"></div>
+                </div>
             `;
+            
             const gameGrid = document.getElementById('gameGrid');
             const searchInput = document.getElementById('searchInput');
+
             renderGames(currentGames, gameGrid);
-            updateCartBadge(); renderGenreDropdown();
+            updateCartBadge();
+            renderGenreDropdown(); 
+            
             if(searchInput) {
                 searchInput.addEventListener('input', function(e) {
-                    const k = e.target.value.toLowerCase();
-                    renderGames(currentGames.filter(g => g.name.toLowerCase().includes(k) || g.genre.toLowerCase().includes(k)), gameGrid);
+                    const keyword = e.target.value.toLowerCase();
+                    const filteredGames = currentGames.filter(game => 
+                        game.name.toLowerCase().includes(keyword) || 
+                        game.genre.toLowerCase().includes(keyword)
+                    );
+                    renderGames(filteredGames, gameGrid);
                 });
             }
         }
 
+        // DISCOVER PAGE
         function renderDiscoverPage() {
             let newsHtml = '';
-            getNews().forEach(item => {
-                let typeClass = `type-${item.type}`, iconClass = `icon-${item.type}`, tagClass = `tag-${item.type}`;
-                newsHtml += `<div class="news-card ${typeClass}"><div class="news-icon ${iconClass}"><i class="fa-solid ${item.icon}"></i></div><div class="news-content"><div class="news-header"><h3 class="news-title">${item.title}</h3><div class="news-date">${item.date}</div></div><span class="news-tag ${tagClass}">${item.type.toUpperCase()}</span><p class="news-desc">${item.desc}</p></div></div>`;
+            
+            const currentNews = getNews();
+            
+            currentNews.forEach(item => {
+                let typeClass = `type-${item.type}`;
+                let tagClass = `tag-${item.type}`;
+                let iconClass = `icon-${item.type}`;
+                let typeName = "";
+
+                switch(item.type) {
+                    case 'game': typeName = "Game Mới"; break;
+                    case 'event': typeName = "Sự kiện"; break;
+                    case 'update': typeName = "Cập nhật"; break;
+                    case 'user': typeName = "Cộng đồng"; break;
+                }
+
+                newsHtml += `
+                    <div class="news-card ${typeClass}">
+                        <div class="news-icon ${iconClass}">
+                            <i class="fa-solid ${item.icon}"></i>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <h3 class="news-title">${item.title}</h3>
+                                <div class="news-date"><i class="fa-regular fa-clock"></i> ${item.date}</div>
+                            </div>
+                            <span class="news-tag ${tagClass}">${typeName}</span>
+                            <p class="news-desc">${item.desc}</p>
+                        </div>
+                    </div>
+                `;
             });
+
             appContainer.innerHTML = `
                 ${getNavbar('discover')}
-                <div class="container"><div class="hero" style="padding: 20px;"><h1>KHÁM PHÁ & TIN TỨC</h1></div><div class="news-container">${newsHtml}</div></div>
+                <div class="container">
+                    <div class="hero" style="padding: 20px;">
+                        <h1 style="font-size:2.5rem;">KHÁM PHÁ & TIN TỨC</h1>
+                        <p>Cập nhật những thông tin nóng hổi nhất từ thế giới Game Indie</p>
+                    </div>
+                    <div class="news-container">
+                        ${newsHtml}
+                    </div>
+                </div>
             `;
-            updateCartBadge(); renderGenreDropdown();
+            updateCartBadge();
+            renderGenreDropdown();
         }
 
+        // COMMUNITY PAGE (UPDATED WITH CHAT & GOLD NAME)
         function renderCommunityPage() {
             const allReviews = getReviews();
             const currentUser = getCurrentUser();
             let communityHtml = '';
             
+            // Render Reviews Feed
             if (allReviews.length === 0) {
-                communityHtml = '<p style="text-align:center;">Chưa có bài thảo luận nào.</p>';
+                communityHtml = '<p style="text-align:center; font-size:1.2rem; color:#666;">Chưa có bài thảo luận nào. Hãy là người đầu tiên đánh giá game!</p>';
             } else {
                 communityHtml = `<div class="community-feed">`;
                 allReviews.forEach((r, index) => {
                     const game = currentGames.find(g => g.id == r.gameId);
-                    const gameName = game ? game.name : "Game ???";
-                    let stars = ''; for(let i=1; i<=5; i++) stars += `<i class="fa-solid fa-star" style="color:${i<=r.rating ? '#f1c40f' : '#ccc'}"></i>`;
+                    const gameName = game ? game.name : "Game không xác định";
+                    let stars = '';
+                    for(let i=1; i<=5; i++) {
+                        stars += `<i class="fa-solid fa-star" style="color:${i<=r.rating ? '#f1c40f' : '#ccc'}"></i>`;
+                    }
+                    const avatarChar = r.username.charAt(0).toUpperCase();
                     
+                    // Check if reviewer is developer
                     const isDev = isUserDeveloper(r.username);
                     const nameDisplay = isDev ? `<span class="dev-name">${r.username}</span>` : `<span>${r.username}</span>`;
 
+                    // Generate Liked by Devs HTML
                     let likedByHtml = '';
                     if (r.likedByDevs && r.likedByDevs.length > 0) {
                         const topDevs = r.likedByDevs.slice(0, 3);
@@ -2789,12 +3088,20 @@
                     communityHtml += `
                         <div class="comm-card">
                             <div class="comm-header">
-                                <div class="comm-user"><div class="comm-avatar">${r.username.charAt(0)}</div><div>${nameDisplay}<a href="#" class="comm-game-name">đã đánh giá <strong>${gameName}</strong></a></div></div>
-                                <div>${stars}</div>
+                                <div class="comm-user">
+                                    <div class="comm-avatar">${avatarChar}</div>
+                                    <div>
+                                        ${nameDisplay}
+                                        <a href="${window.location.pathname}?game=${r.gameId}" class="comm-game-name">đã đánh giá <strong>${gameName}</strong></a>
+                                    </div>
+                                </div>
+                                <div style="font-size:0.9rem;">${stars}</div>
                             </div>
-                            <div class="comm-content">"${r.comment}"</div>
+                            <div class="comm-content">
+                                "${r.comment}"
+                            </div>
                             <div class="comm-footer">
-                                <span>${r.date}</span>
+                                <span><i class="fa-regular fa-clock"></i> ${r.date}</span>
                                 <span style="color:var(--primary-color); cursor:pointer;" onclick="handleLikeReview(${index})">
                                     Thích <i class="fa-regular fa-thumbs-up"></i> (${r.likes || 0})
                                 </span>
@@ -2806,80 +3113,591 @@
                 communityHtml += `</div>`;
             }
 
+            // Render Chat Messages
             const messages = getChatMessages();
-            let messagesHtml = messages.map(msg => {
+            let messagesHtml = '';
+            messages.forEach(msg => {
                 const isSelf = currentUser && msg.username === currentUser.username;
+                const msgClass = isSelf ? 'self' : 'other';
+                
+                // Check if sender is developer
                 const isDev = isUserDeveloper(msg.username);
                 const nameDisplay = isDev ? `<span class="dev-name" style="font-size:0.75rem;">${msg.username}</span>` : `<div class="message-user">${msg.username}</div>`;
-                return `<div class="message ${isSelf?'self':'other'}">${!isSelf ? nameDisplay : ''}<div class="message-bubble">${msg.message}</div></div>`;
-            }).join('');
 
-            const chatInputHtml = currentUser ? `<input type="text" id="chatInput" class="chat-input" onkeypress="if(event.key==='Enter') sendChatMessage()"><button class="chat-send-btn" onclick="sendChatMessage()"><i class="fa-solid fa-paper-plane"></i></button>` : `<div class="chat-login-req"><a href="?view=login">Đăng nhập</a> để chat.</div>`;
+                messagesHtml += `
+                    <div class="message ${msgClass}">
+                        ${!isSelf ? nameDisplay : ''}
+                        <div class="message-bubble">${msg.message}</div>
+                    </div>
+                `;
+            });
+
+            // Chat Input HTML
+            const chatInputHtml = currentUser 
+                ? `
+                    <input type="text" id="chatInput" class="chat-input" placeholder="Nhập tin nhắn..." onkeypress="if(event.key === 'Enter') sendChatMessage()">
+                    <button class="chat-send-btn" onclick="sendChatMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+                  `
+                : `<div class="chat-login-req"><a href="${window.location.pathname}?view=login">Đăng nhập</a> để tham gia trò chuyện.</div>`;
 
             appContainer.innerHTML = `
                 ${getNavbar('community')}
-                <div class="container"><div class="hero" style="padding: 20px;"><h1>CỘNG ĐỒNG GAME THỦ</h1></div>
-                <div class="community-layout"><div><h3><i class="fa-solid fa-comments"></i> Đánh giá gần đây</h3>${communityHtml}</div>
-                <div class="chat-box"><div class="chat-header"><span>Kênh Chat</span></div><div class="chat-messages" id="chatMessageList">${messagesHtml}</div><div class="chat-input-area">${chatInputHtml}</div></div></div></div>
+                <div class="container">
+                    <div class="hero" style="padding: 20px;">
+                        <h1 style="font-size:2.5rem;">CỘNG ĐỒNG GAME THỦ</h1>
+                        <p>Chia sẻ, đánh giá và thảo luận về những tựa game bạn yêu thích</p>
+                    </div>
+                    
+                    <div class="community-layout">
+                        <div>
+                            <h3 style="margin-bottom:15px; color:var(--primary-color);"><i class="fa-solid fa-comments"></i> Đánh giá gần đây</h3>
+                            ${communityHtml}
+                        </div>
+
+                        <div class="chat-box">
+                            <div class="chat-header">
+                                <span><i class="fa-solid fa-earth-asia"></i> Kênh Chat Thế Giới</span>
+                            </div>
+                            <div class="chat-messages" id="chatMessageList">
+                                ${messagesHtml}
+                            </div>
+                            <div class="chat-input-area">
+                                ${chatInputHtml}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             `;
-            const chatList = document.getElementById('chatMessageList'); if(chatList) chatList.scrollTop = chatList.scrollHeight;
-            updateCartBadge(); renderGenreDropdown();
+            
+            // Auto scroll to bottom of chat
+            const chatList = document.getElementById('chatMessageList');
+            if(chatList) chatList.scrollTop = chatList.scrollHeight;
+
+            updateCartBadge();
+            renderGenreDropdown();
         }
 
+        function sendChatMessage() {
+            const user = getCurrentUser();
+            if (!user) return; // Should be handled by UI check, but double check here.
+
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (message) {
+                const newMessage = {
+                    id: Date.now(),
+                    username: user.username,
+                    message: message,
+                    type: 'user'
+                };
+                saveChatMessage(newMessage);
+                input.value = '';
+                renderCommunityPage(); // Re-render to show new message
+            }
+        }
+
+        // UPLOAD PAGE
         function renderUploadPage() {
             appContainer.innerHTML = `
                 ${getNavbar('upload')}
-                <div class="container"><div class="upload-section"><div class="upload-header"><h1>Đăng tải Game Mới</h1></div>
-                <form id="uploadFormContent">
-                    <div class="form-row"><div class="form-col"><label>Tên Game:</label><input type="text" id="gName" required></div><div class="form-col"><label>Giá:</label><input type="number" id="gPrice"></div></div>
-                    <div class="form-row"><div class="form-col"><label>Số người chơi:</label><input type="text" id="gPlayers" required></div><div class="form-col"><label>Thể loại:</label><input type="text" id="gGenre" required></div></div>
-                    <div class="form-row"><div class="form-col"><label>Developer:</label><input type="text" id="gDev" required></div><div class="form-col"><label>Bank:</label><input type="text" id="gBank"></div></div>
-                    <div class="form-group"><label>Intro:</label><textarea id="gIntro" rows="3"></textarea></div>
-                    <div class="form-group"><label>Cốt truyện:</label><textarea id="gStory" rows="3"></textarea></div>
-                    <div class="form-group"><label>Gameplay:</label><textarea id="gGameplay" rows="3"></textarea></div>
-                    <div class="form-row"><div class="form-col"><label>Thắng:</label><input type="text" id="gWin"></div><div class="form-col"><label>Thua:</label><input type="text" id="gLoss"></div></div>
-                    <div class="form-row"><div class="form-col"><label>Ảnh:</label><input type="file" id="gImage" required></div><div class="form-col"><label>Link:</label><input type="text" id="gLink"></div></div>
-                    <button type="submit" class="btn-play" style="width:250px; margin:30px auto; display:block;">ĐĂNG NGAY</button>
-                </form></div></div>
+                <div class="container">
+                    <div class="upload-section">
+                        <div class="upload-header">
+                            <h1><i class="fa-solid fa-cloud-arrow-up"></i> Đăng tải Game Mới</h1>
+                            <p>Chia sẻ sự sáng tạo của bạn với cộng đồng</p>
+                        </div>
+                        <form id="uploadFormContent">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label>Tên Game <span class="required-mark">*</span>:</label>
+                                    <input type="text" id="gName" required placeholder="Nhập tên game...">
+                                </div>
+                                <div class="form-col">
+                                    <label>Giá (VNĐ) <span class="required-mark">*</span>:</label>
+                                    <input type="number" id="gPrice" placeholder="Nhập 0 nếu Miễn phí">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label>Số người chơi <span class="required-mark">*</span>:</label>
+                                    <input type="text" id="gPlayers" required placeholder="VD: Single, Multiplayer...">
+                                </div>
+                                <div class="form-col">
+                                    <label>Thể loại <span class="required-mark">*</span>:</label>
+                                    <input type="text" id="gGenre" required placeholder="VD: Action, RPG...">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label>Người phát triển <span class="required-mark">*</span>:</label>
+                                    <input type="text" id="gDev" required placeholder="Tên tác giả...">
+                                </div>
+                                <div class="form-col">
+                                    <label>Thông tin Bank (Để nhận tiền):</label>
+                                    <input type="text" id="gBank" placeholder="STK - Ngân hàng - Tên chủ thẻ">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Giới thiệu ngắn (Intro) <span class="required-mark">*</span>:</label>
+                                <textarea id="gIntro" rows="3" required placeholder="Đoạn giới thiệu ngắn gọn..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Ý tưởng và Cốt truyện <span class="required-mark">*</span>:</label>
+                                <textarea id="gStory" rows="5" required placeholder="Mô tả chi tiết..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Cách chơi (Gameplay) <span class="required-mark">*</span>:</label>
+                                <textarea id="gGameplay" rows="3" required placeholder="Hướng dẫn..."></textarea>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label>Điều kiện Thắng <span class="required-mark">*</span>:</label>
+                                    <input type="text" id="gWin" required placeholder="...">
+                                </div>
+                                <div class="form-col">
+                                    <label>Điều kiện Thua <span class="required-mark">*</span>:</label>
+                                    <input type="text" id="gLoss" required placeholder="...">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label>Thumbnail (Ảnh bìa) <span class="required-mark">*</span>:</label>
+                                    <input type="file" id="gImage" accept="image/*" required>
+                                </div>
+                                <div class="form-col">
+                                    <label>Link Game (Thay cho upload file):</label>
+                                    <input type="text" id="gLink" placeholder="Link Itch.io...">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-play" style="width: 250px; margin: 30px auto 0; display: block; font-size: 1.2rem;">
+                                <i class="fa-solid fa-paper-plane"></i> ĐĂNG NGAY
+                            </button>
+                        </form>
+                    </div>
+                </div>
             `;
             document.getElementById('uploadFormContent').addEventListener('submit', handleGameUpload);
+            document.title = "Đăng tải Game | TBN Studio";
             updateCartBadge();
         }
 
+        function handleGameUpload(e) {
+            e.preventDefault();
+            const name = document.getElementById('gName').value;
+            const price = parseInt(document.getElementById('gPrice').value) || 0;
+            const players = document.getElementById('gPlayers').value;
+            const genre = document.getElementById('gGenre').value;
+            const developer = document.getElementById('gDev').value;
+            const bank = document.getElementById('gBank').value;
+            const intro = document.getElementById('gIntro').value;
+            const story = document.getElementById('gStory').value;
+            const gameplay = document.getElementById('gGameplay').value;
+            const winCondition = document.getElementById('gWin').value;
+            const lossCondition = document.getElementById('gLoss').value;
+            const linkGame = document.getElementById('gLink').value || "#"; 
+            const fileInput = document.getElementById('gImage');
+            
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const newGame = {
+                        id: Date.now(), 
+                        name: name, desc: intro, intro: intro, story: story, gameplay: gameplay,
+                        winCondition: winCondition, lossCondition: lossCondition, price: price, 
+                        bankInfo: bank, img: e.target.result, genre: genre, players: players, 
+                        developer: developer, release: new Date().toLocaleDateString('vi-VN'), 
+                        videoUrl: "https://www.youtube.com/embed/n4yK54iF55g?autoplay=1&mute=1", 
+                        downloadUrl: linkGame 
+                    };
+                    currentGames.unshift(newGame);
+                    saveCustomGame(newGame);
+                    alert("Đăng tải game thành công!");
+                    window.location.href = window.location.pathname; 
+                }
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        }
+
+        function renderGames(games, gridElement) {
+            gridElement.innerHTML = "";
+            const cart = getCart();
+            const library = getLibrary();
+
+            if(games.length === 0) {
+                gridElement.innerHTML = "<p style='text-align:center; color:#666; grid-column: 1/-1;'>Không tìm thấy game nào...</p>";
+                return;
+            }
+            games.forEach(game => {
+                const isFree = game.price == 0;
+                const isOwned = library.includes(game.id);
+                const isInCart = cart.includes(game.id);
+
+                let priceDisplay = isFree ? "FREE" : formatter.format(game.price);
+                let priceClass = isFree ? "free" : "";
+                if (isOwned) { priceDisplay = "OWNED"; priceClass = "owned"; }
+                const bankDisplayClass = (!isFree && game.bankInfo) ? "show-bank" : "";
+
+                let buttonHtml = '';
+                if (isOwned) {
+                       buttonHtml = `
+                        <div class="card-actions">
+                             <button onclick="openGameDetail(${game.id})" class="btn-secondary" style="flex:1;">Chi tiết</button>
+                             <button onclick="goToCartView()" class="btn-play" style="flex:1; background:var(--success-color); color:white;">Đã sở hữu</button>
+                        </div>`;
+                } else if (isFree) {
+                       buttonHtml = `
+                        <div class="card-actions">
+                            <button onclick="openGameDetail(${game.id})" class="btn-play">CHƠI NGAY</button>
+                        </div>`;
+                } else {
+                    buttonHtml = `
+                        <div class="card-actions">
+                             <button onclick="openGameDetail(${game.id})" class="btn-play">MUA NGAY</button>
+                             <button onclick="addToCart(${game.id})" class="btn-secondary ${isInCart ? 'added' : ''}" title="${isInCart ? 'Đã trong giỏ' : 'Thêm vào giỏ'}">
+                                <i class="fa-solid ${isInCart ? 'fa-check' : 'fa-cart-plus'}"></i>
+                             </button>
+                        </div>`;
+                }
+
+                const card = document.createElement('div');
+                card.className = 'game-card';
+                card.innerHTML = `
+                    <div class="price-tag ${priceClass}">${priceDisplay}</div>
+                    <div class="game-thumb"><img src="${game.img}" alt="${game.name}"></div>
+                    <div class="game-info">
+                        <h3 class="game-title">${game.name}</h3>
+                        <p class="game-desc">${game.desc}</p>
+                        <div class="bank-info-display ${bankDisplayClass}">💳 CK: ${game.bankInfo}</div>
+                        ${buttonHtml}
+                    </div>
+                `;
+                gridElement.appendChild(card);
+            });
+        }
+
+        // CART PAGE
         function renderCartPage() {
-             const cartIds = getCart(); const libraryIds = getLibrary(); const allGames = [...initialGames, ...getStoredGames()];
-             const cartItemsFull = allGames.filter(g => cartIds.includes(g.id)); const ownedItemsFull = allGames.filter(g => libraryIds.includes(g.id));
-             const total = cartItemsFull.reduce((s, i) => s + i.price, 0);
-             let cartHtml = cartItemsFull.length === 0 ? '<div class="empty-cart-msg"><h3>Trống!</h3></div>' : 
-                `<table class="cart-table"><thead><tr><th>Game</th><th>Giá</th><th>Xóa</th></tr></thead><tbody>${cartItemsFull.map(i => `<tr><td style="display:flex;align-items:center;gap:10px"><img src="${i.img}" class="cart-item-img">${i.name}</td><td>${formatter.format(i.price)}</td><td><button class="btn-remove" onclick="removeFromCart(${i.id})"><i class="fa-solid fa-trash"></i></button></td></tr>`).join('')}</tbody></table>
-                 <div class="cart-total">Tổng: ${formatter.format(total)}</div><div style="margin-top:20px;padding:10px;background:#fff3cd">CK trước khi nhận game.</div><button class="btn-checkout" onclick="processCheckout()">THANH TOÁN</button>`;
-             let ownedHtml = ownedItemsFull.length > 0 ? `<h2 style="margin-top:50px">Đã sở hữu</h2><div class="owned-list">${ownedItemsFull.map(i => `<div class="owned-item"><img src="${i.img}" style="width:100%;height:100px;object-fit:cover"><h4>${i.name}</h4><a href="?game=${i.id}" style="color:var(--primary-color)">Chơi</a></div>`).join('')}</div>` : '';
-             
-             appContainer.innerHTML = `${getNavbar('cart')}<div class="container cart-section"><h1>Giỏ hàng</h1>${cartHtml}${ownedHtml}<div style="margin-top:50px;text-align:center"><button class="btn-reset" onclick="resetLibrary()">Reset</button></div></div>`;
-             updateCartBadge();
+            const cartIds = getCart();
+            const libraryIds = getLibrary();
+            const allGames = [...initialGames, ...getStoredGames()];
+            const cartItemsFull = allGames.filter(g => cartIds.includes(g.id));
+            const ownedItemsFull = allGames.filter(g => libraryIds.includes(g.id));
+
+            const total = cartItemsFull.reduce((sum, item) => sum + item.price, 0);
+
+            let cartHtml = '';
+            if (cartItemsFull.length === 0) {
+                cartHtml = '<div class="empty-cart-msg"><h3>Giỏ hàng trống!</h3><p>Hãy quay lại trang chủ để tìm thêm game hay nhé.</p></div>';
+            } else {
+                cartHtml = `
+                    <table class="cart-table">
+                        <thead><tr><th>Game</th><th>Giá</th><th>Hành động</th></tr></thead>
+                        <tbody>
+                            ${cartItemsFull.map(item => `
+                                <tr>
+                                    <td style="display:flex; gap:15px; align-items:center;">
+                                        <img src="${item.img}" class="cart-item-img"><strong>${item.name}</strong>
+                                    </td>
+                                    <td>${formatter.format(item.price)}</td>
+                                    <td><button class="btn-remove" onclick="removeFromCart(${item.id})"><i class="fa-solid fa-trash"></i></button></td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                    <div class="cart-total">Tổng cộng: ${formatter.format(total)}</div>
+                    <div style="background: #fff3cd; padding: 15px; margin-top: 20px; border-radius: 10px; border: 1px solid #ffeeba;">
+                         <strong><i class="fa-solid fa-circle-info"></i> Thông tin thanh toán:</strong><br>
+                         Các game trong giỏ sẽ được thanh toán qua chuyển khoản. Vui lòng nhấn nút bên dưới để xác nhận đã chuyển khoản và nhận game.
+                    </div>
+                    <button class="btn-checkout" onclick="processCheckout()"><i class="fa-regular fa-credit-card"></i> THANH TOÁN NGAY</button>
+                `;
+            }
+
+            let ownedHtml = '';
+            if (ownedItemsFull.length > 0) {
+                ownedHtml = `
+                    <h2 style="margin-top:50px; border-color: var(--success-color);">Thư viện Game đã sở hữu</h2>
+                    <div class="owned-list">
+                        ${ownedItemsFull.map(item => `
+                            <div class="owned-item">
+                                <img src="${item.img}" style="width:100%; height:100px; object-fit:cover; border-radius:5px; margin-bottom:10px;">
+                                <h4>${item.name}</h4>
+                                <a href="${window.location.pathname}?game=${item.id}" style="display:block; margin-top:5px; text-decoration:none; color:var(--primary-color); font-weight:bold;">Tải / Chơi</a>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
+            appContainer.innerHTML = `
+                ${getNavbar('cart')}
+                <div class="container cart-section">
+                    <h1><i class="fa-solid fa-cart-shopping"></i> Giỏ hàng của bạn</h1>
+                    ${cartHtml}
+                    ${ownedHtml}
+                    <div style="margin-top: 50px; border-top: 1px solid #ccc; padding-top: 20px; text-align: center;">
+                        <p style="color: #666; font-style: italic;">Muốn thử nghiệm lại từ đầu?</p>
+                        <button class="btn-reset" onclick="resetLibrary()"><i class="fa-solid fa-rotate-right"></i> Reset trạng thái</button>
+                    </div>
+                </div>
+            `;
+            document.title = "Giỏ hàng | TBN Studio";
+            updateCartBadge();
+            renderGenreDropdown();
+        }
+
+        // --- HÀM XỬ LÝ ĐÁNH GIÁ (LOGIC MỚI) ---
+        let currentSelectedRating = 0; // Lưu tạm số sao người dùng đang chọn
+
+        function selectRating(stars) {
+            const user = getCurrentUser();
+            if (!user) {
+                alert("Vui lòng đăng nhập để đánh giá!");
+                window.location.href = `${window.location.pathname}?view=login`;
+                return;
+            }
+            currentSelectedRating = stars;
+            
+            // Highlight các ngôi sao
+            const allStars = document.querySelectorAll('.star-icon-input');
+            allStars.forEach((s, index) => {
+                if (index < stars) s.classList.add('active');
+                else s.classList.remove('active');
+            });
+
+            // Hiện ô nhập comment
+            document.getElementById('reviewInputArea').style.display = 'block';
+        }
+
+        function submitReview(gameId) {
+            const user = getCurrentUser();
+            if (!user) return;
+            
+            const comment = document.getElementById('reviewComment').value;
+            if (comment.trim() === "") {
+                alert("Hãy nhập một vài dòng nhận xét về game nhé!");
+                return;
+            }
+
+            const newReview = {
+                gameId: gameId,
+                username: user.username,
+                rating: currentSelectedRating,
+                comment: comment,
+                date: new Date().toLocaleDateString('vi-VN') + " " + new Date().toLocaleTimeString('vi-VN')
+            };
+
+            saveReview(newReview);
+            alert("Cảm ơn bạn đã đánh giá!");
+            
+            // Reload lại trang chi tiết để hiện review mới
+            const selectedGame = currentGames.find(g => g.id == gameId);
+            renderDetailPage(selectedGame);
+        }
+
+        // DETAIL PAGE
+        function renderDetailPage(game) {
+            const library = getLibrary();
+            const isOwned = library.includes(game.id);
+            const isFree = game.price == 0;
+            const priceDisplay = isFree ? "FREE" : formatter.format(game.price);
+
+            const storyText = formatGameText(game.story || "Đang cập nhật...");
+            const gameplayText = formatGameText(game.gameplay || "Sử dụng bàn phím và chuột.");
+            const winText = formatGameText(game.winCondition || "Hoàn thành mục tiêu.");
+            const lossText = formatGameText(game.lossCondition || "Hết mạng.");
+            const introText = formatGameText(game.intro || game.desc);
+            
+            const downloadLink = game.downloadUrl || "#";
+            const downloadAction = `window.open('${downloadLink}', '_blank')`;
+            const user = getCurrentUser();
+
+            // Lấy 3 review tốt nhất/mới nhất của game này
+            const allReviews = getReviews();
+            const gameReviews = allReviews.filter(r => r.gameId == game.id);
+            // Sắp xếp: Ưu tiên nội dung dài (chi tiết) và rating cao
+            gameReviews.sort((a, b) => (b.comment.length + b.rating*10) - (a.comment.length + a.rating*10));
+            const top3Reviews = gameReviews.slice(0, 3);
+
+            // Tạo HTML cho phần Input đánh giá
+            let ratingInputHtml = '';
+            for(let i=1; i<=5; i++) {
+                ratingInputHtml += `<i class="fa-solid fa-star star-icon star-icon-input" onclick="selectRating(${i})"></i>`;
+            }
+
+            // Tạo HTML cho danh sách 3 Review
+            let topReviewsHtml = '';
+            if (top3Reviews.length > 0) {
+                top3Reviews.forEach(r => {
+                    let stars = '';
+                    for(let i=1; i<=5; i++) {
+                        stars += `<i class="fa-solid fa-star" style="font-size:0.8rem; color:${i<=r.rating ? '#f1c40f' : '#ccc'}"></i>`;
+                    }
+                    
+                    // Check Developer Role in Detail Page
+                    const isDev = isUserDeveloper(r.username);
+                    const nameDisplay = isDev ? `<span class="dev-name">${r.username}</span>` : `<span class="review-user">${r.username}</span>`;
+
+                    topReviewsHtml += `
+                        <div class="review-item">
+                            <div class="review-header">
+                                ${nameDisplay}
+                                <span class="review-stars">${stars}</span>
+                            </div>
+                            <div class="review-content">"${r.comment}"</div>
+                            <div style="font-size:0.75rem; color:#aaa; margin-top:5px; text-align:right;">${r.date}</div>
+                        </div>
+                    `;
+                });
+            } else {
+                topReviewsHtml = `<p style="font-style:italic; color:#888;">Chưa có đánh giá nào. Hãy là người đầu tiên!</p>`;
+            }
+
+            let mainButtonHtml = '';
+            if (isOwned || isFree) {
+                mainButtonHtml = `
+                    <button onclick="${downloadAction}" 
+                            class="btn-play" style="width: 250px; margin-top: 20px; background: var(--primary-color); color: white; box-shadow: 0 4px 0 var(--primary-dark);">
+                        <i class="fa-solid fa-download"></i> TẢI VÀ CHƠI NGAY
+                    </button>`;
+            } else {
+                mainButtonHtml = `
+                    <button onclick="addToCart(${game.id}); goToCartView();" 
+                            class="btn-play" style="width: 250px; margin-top: 20px; background: var(--accent-pink); color: white; box-shadow: 0 4px 0 #d63031;">
+                        <i class="fa-solid fa-cart-plus"></i> MUA VÀ TẢI (${priceDisplay})
+                    </button>
+                    <p style="margin-top:10px; font-size:0.9rem; color:#666;">*Game sẽ được thêm vào giỏ và chuyển đến trang thanh toán.</p>`;
+            }
+
+            // === UPDATE HERE: Link to Developer Profile ===
+            const devUrl = developerProfiles[game.developer];
+            const developerHtml = devUrl
+                ? `<a href="${devUrl}" target="_blank" style="color: var(--primary-color); text-decoration: underline;" title="Xem hồ sơ tác giả">${game.developer}</a>`
+                : game.developer;
+
+            appContainer.innerHTML = `
+                ${getNavbar()}
+                <div class="container">
+                    <div class="detail-header">
+                        <h1>${game.name}</h1>
+                        <p>Tác giả: ${developerHtml}</p>
+                        ${mainButtonHtml}
+                    </div>
+                    <div class="detail-grid">
+                        <div class="main-content">
+                            <div class="video-player">
+                                <iframe src="${game.videoUrl}" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                            </div>
+                            <div class="intro-box">
+                                <h2><i class="fa-regular fa-star" style="color: var(--accent-yellow);"></i> Giới thiệu chung</h2>
+                                <div class="intro-content">${introText}</div>
+                            </div>
+                            <div class="story-section">
+                                <h2 style="border-left: 8px solid var(--accent-pink);">📖 Cốt truyện & Ý tưởng</h2>
+                                <div class="story-box">${storyText}</div>
+                                <h2 style="margin-top: 30px;">🎮 Hướng dẫn chơi</h2>
+                                <div class="gameplay-box">
+                                    <strong>Cách điều khiển:</strong> ${gameplayText}
+                                    <ul class="win-loss-list">
+                                        <li><i class="fa-solid fa-trophy" style="color: gold;"></i> <div style="flex:1;"><strong>Thắng:</strong> ${winText}</div></li>
+                                        <li><i class="fa-solid fa-skull" style="color: #ff7675;"></i> <div style="flex:1;"><strong>Thua:</strong> ${lossText}</div></li>
+                                    </ul>
+                                </div>
+                                ${!isFree ? `<div class="purchase-note"><i class="fa-solid fa-triangle-exclamation"></i><div><strong>Lưu ý:</strong> Chuyển khoản <strong>${priceDisplay}</strong> đến: <strong>${game.bankInfo}</strong>.</div></div>` : ''}
+                            </div>
+                        </div>
+                        <div class="game-specs">
+                            <h3>🔍 Thông số kỹ thuật</h3>
+                            <div class="spec-item"><strong>Thể loại:</strong> <span>${game.genre}</span></div>
+                            <div class="spec-item"><strong>Số người chơi:</strong> <span>${game.players}</span></div>
+                            <div class="spec-item"><strong>Phát triển bởi:</strong> <span>${developerHtml}</span></div>
+                            <div class="spec-item"><strong>Ngày đăng tải:</strong> <span>${game.release}</span></div>
+                            <div class="spec-item"><strong>Giá tiền:</strong> <span style="color: var(--accent-pink); font-weight:bold;">${priceDisplay}</span></div>
+                            
+                            <div class="rating-box">
+                                <div class="rating-title">Đánh giá & Nhận xét:</div>
+                                <div class="stars-container">${ratingInputHtml}</div>
+                                
+                                ${user ? `
+                                    <div id="reviewInputArea" class="review-input-area">
+                                        <textarea id="reviewComment" placeholder="Chia sẻ cảm nghĩ của bạn về game này..."></textarea>
+                                        <button class="btn-submit-review" onclick="submitReview(${game.id})">Gửi nhận xét</button>
+                                    </div>
+                                ` : `
+                                    <p class="login-to-rate"><a href="${window.location.pathname}?view=login">Đăng nhập</a> để viết nhận xét.</p>
+                                `}
+                            </div>
+
+                            <div class="top-reviews-section">
+                                <div class="top-reviews-title">🏆 Top Đánh giá nổi bật</div>
+                                ${topReviewsHtml}
+                                <div style="text-align:center; margin-top:10px;">
+                                    <a href="#" onclick="goToCommunityPage()" style="font-size:0.85rem; color:var(--primary-color);">Xem tất cả tại Cộng đồng &rarr;</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.title = `${game.name} - Chi tiết | TBN Studio`;
+            updateCartBadge();
         }
 
         function switchTab(tab) {
-            document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-            document.querySelectorAll('.auth-form').forEach(f=>f.classList.remove('active'));
-            if(tab==='login'){ document.querySelectorAll('.tab-btn')[0].classList.add('active'); document.getElementById('loginForm').classList.add('active'); }
-            else{ document.querySelectorAll('.tab-btn')[1].classList.add('active'); document.getElementById('registerForm').classList.add('active'); }
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'));
+            if(tab === 'login') {
+                document.querySelectorAll('.tab-btn')[0].classList.add('active');
+                document.getElementById('loginForm').classList.add('active');
+            } else {
+                document.querySelectorAll('.tab-btn')[1].classList.add('active');
+                document.getElementById('registerForm').classList.add('active');
+            }
         }
 
-        function handleRegisterSubmit() { const u=document.getElementById('regUser').value, p=document.getElementById('regPass').value, r=document.getElementById('regRole').value; if(u&&p) registerUser(u,p,r); else alert("Nhập đủ thông tin!"); }
-        function handleLoginSubmit() { const u=document.getElementById('loginUser').value, p=document.getElementById('loginPass').value; if(u&&p) loginUser(u,p); else alert("Nhập đủ thông tin!"); }
+        function handleRegisterSubmit() {
+            const u = document.getElementById('regUser').value;
+            const p = document.getElementById('regPass').value;
+            const r = document.getElementById('regRole').value;
+            if(u && p) registerUser(u, p, r);
+            else alert("Vui lòng nhập đầy đủ thông tin!");
+        }
+
+        function handleLoginSubmit() {
+            const u = document.getElementById('loginUser').value;
+            const p = document.getElementById('loginPass').value;
+            if(u && p) loginUser(u, p);
+            else alert("Vui lòng nhập đầy đủ thông tin!");
+        }
 
         // === MAIN INIT ===
         document.addEventListener('DOMContentLoaded', function() {
-            initSystemAccounts(); initSystemReviews(); initSystemNews(); initSystemChat();
-            const gameId = getQueryParam('game'); const view = getQueryParam('view');
-            if (view === 'cart') renderCartPage();
-            else if (view === 'upload') renderUploadPage();
-            else if (view === 'login') renderLoginPage();
-            else if (view === 'community') renderCommunityPage();
-            else if (view === 'discover') renderDiscoverPage();
-            else if (gameId) { const g = currentGames.find(x => x.id == gameId); g ? renderDetailPage(g) : (alert("K thấy game"), renderHomePage()); }
-            else renderHomePage();
+            initSystemAccounts(); 
+            initSystemReviews(); // Khởi tạo review mẫu
+            initSystemNews(); // Khởi tạo tin tức mẫu và hệ thống tin tức động
+            initSystemChat(); // Khởi tạo chat mẫu
+            
+            const gameId = getQueryParam('game');
+            const view = getQueryParam('view');
+
+            if (view === 'cart') {
+                renderCartPage();
+            } else if (view === 'upload') {
+                renderUploadPage();
+            } else if (view === 'login') {
+                renderLoginPage();
+            } else if (view === 'community') {
+                renderCommunityPage(); 
+            } else if (view === 'discover') {
+                renderDiscoverPage(); // Render trang khám phá
+            } else if (gameId) {
+                const selectedGame = currentGames.find(g => g.id == gameId);
+                selectedGame ? renderDetailPage(selectedGame) : (alert("Game không tồn tại!"), renderHomePage());
+            } else {
+                renderHomePage();
+            }
         });
     </script>
 </body>

@@ -856,7 +856,7 @@
 
             return `
                 <nav class="navbar">
-                    <a class="logo" href="${window.location.pathname}">
+                    <a class="logo" href="about.html">
                         <i class="fa-solid fa-gamepad"></i> TBN STUDIO
                     </a>
                     <div class="nav-links">
@@ -1789,6 +1789,35 @@
         .comm-content { font-size: 1rem; color: #444; margin: 15px 0; line-height: 1.5; background: #f9f9f9; padding: 10px; border-radius: 8px; }
         .comm-footer { display: flex; justify-content: space-between; font-size: 0.8rem; color: #aaa; }
 
+        /* --- DISCOVER PAGE STYLES (NEW) --- */
+        .news-container { max-width: 900px; margin: 0 auto; }
+        .news-card { background: #fff; border-radius: 15px; padding: 20px; margin-bottom: 20px; display: flex; gap: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; border-left: 5px solid transparent; align-items: flex-start; }
+        .news-card:hover { transform: translateX(10px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+        .news-icon { width: 60px; height: 60px; background: #eee; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; color: #555; }
+        .news-content { flex: 1; }
+        .news-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .news-title { font-size: 1.2rem; font-weight: bold; color: var(--primary-dark); margin: 0; }
+        .news-tag { padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; color: white; display: inline-block; text-transform: uppercase; }
+        .news-desc { color: #555; font-size: 0.95rem; margin-bottom: 10px; }
+        .news-date { font-size: 0.8rem; color: #999; display: flex; align-items: center; gap: 5px; }
+
+        /* News Type Colors */
+        .type-game { border-color: var(--success-color); } 
+        .tag-game { background: var(--success-color); }
+        .icon-game { background: #e8f8f5; color: var(--success-color); }
+
+        .type-event { border-color: var(--accent-yellow); } 
+        .tag-event { background: var(--accent-yellow); color: #333; }
+        .icon-event { background: #fef9e7; color: #f1c40f; }
+
+        .type-update { border-color: var(--primary-color); } 
+        .tag-update { background: var(--primary-color); }
+        .icon-update { background: #eaf2f8; color: var(--primary-color); }
+
+        .type-user { border-color: var(--accent-pink); } 
+        .tag-user { background: var(--accent-pink); }
+        .icon-user { background: #fdedec; color: var(--accent-pink); }
+
         /* --- CÁC PHẦN CSS CŨ GIỮ NGUYÊN --- */
         .story-section { margin-top: 30px; }
         .story-box { background: var(--card-bg); padding: 25px; border-radius: 15px; margin-top: 15px; color: #333; line-height: 1.6; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
@@ -2149,6 +2178,16 @@
             }
         ];
 
+        // --- DỮ LIỆU TIN TỨC / THÔNG BÁO MỚI (CHO MỤC KHÁM PHÁ) ---
+        const newsData = [
+            { type: 'event', title: "🏆 Giải đấu: Đua top ERROR RUN", desc: "Tham gia ngay để nhận phần thưởng trị giá 500k. Ai sẽ là người né bug giỏi nhất?", date: "Vừa xong", icon: "fa-trophy" },
+            { type: 'game', title: "Game mới: Magician vs. Goblin", desc: "Tựa game hành động sinh tồn cực cuốn đã chính thức lên kệ. Tải ngay!", date: "2 giờ trước", icon: "fa-gamepad" },
+            { type: 'update', title: "Cập nhật: Sinh Viên sinh tồn", desc: "Bổ sung thêm bản đồ KTX Khu B và sự kiện 'Mùa thi cử'.", date: "1 ngày trước", icon: "fa-code-branch" },
+            { type: 'user', title: "Chào mừng thành viên thứ 1000", desc: "Cộng đồng TBN Studio chính thức cán mốc 1000 người dùng. Cảm ơn các bạn!", date: "3 ngày trước", icon: "fa-users" },
+            { type: 'game', title: "Sắp ra mắt: Dự án bí mật X", desc: "Một tựa game kinh dị thuần Việt đang được phát triển bởi nhóm sinh viên K21.", date: "5 ngày trước", icon: "fa-bullhorn" },
+            { type: 'event', title: "Workshop: Làm game không khó", desc: "Chia sẻ kinh nghiệm làm game Indie từ con số 0. Đăng ký vé miễn phí.", date: "1 tuần trước", icon: "fa-calendar-check" }
+        ];
+
         // --- HÀM KHỞI TẠO REVIEW MẪU (Để cộng đồng không bị trống) ---
         const initialReviews = [
             { gameId: 1, username: "ProGamer99", rating: 5, comment: "Game khó nhưng cực cuốn, đánh boss phê!", date: "20/12/2025" },
@@ -2382,7 +2421,7 @@
                     </a>
                     <div class="nav-links">
                         <a href="${window.location.pathname}">Trang chủ</a>
-                        <a href="${window.location.pathname}#gallery-title">Khám phá</a>
+                        <a href="#" onclick="goToDiscoverPage()">Khám phá</a>
                         <div class="dropdown">
                             <a href="#">Thể loại <i class="fa-solid fa-caret-down" style="font-size: 0.8rem;"></i></a>
                             <div class="dropdown-content" id="genreDropdown"></div>
@@ -2413,6 +2452,7 @@
         function openGameDetail(gameId) { window.open(`${window.location.pathname}?game=${gameId}`, '_blank'); }
         function goToUploadPage() { window.location.href = `${window.location.pathname}?view=upload`; }
         function goToCommunityPage() { window.location.href = `${window.location.pathname}?view=community`; }
+        function goToDiscoverPage() { window.location.href = `${window.location.pathname}?view=discover`; } // Hàm mới cho trang Khám phá
         function getQueryParam(param) { const urlParams = new URLSearchParams(window.location.search); return urlParams.get(param); }
 
         // --- RENDER PAGES ---
@@ -2491,7 +2531,57 @@
             }
         }
 
-        // COMMUNITY PAGE (NEW)
+        // DISCOVER PAGE (NEW)
+        function renderDiscoverPage() {
+            let newsHtml = '';
+            
+            newsData.forEach(item => {
+                let typeClass = `type-${item.type}`;
+                let tagClass = `tag-${item.type}`;
+                let iconClass = `icon-${item.type}`;
+                let typeName = "";
+
+                switch(item.type) {
+                    case 'game': typeName = "Game Mới"; break;
+                    case 'event': typeName = "Sự kiện"; break;
+                    case 'update': typeName = "Cập nhật"; break;
+                    case 'user': typeName = "Cộng đồng"; break;
+                }
+
+                newsHtml += `
+                    <div class="news-card ${typeClass}">
+                        <div class="news-icon ${iconClass}">
+                            <i class="fa-solid ${item.icon}"></i>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <h3 class="news-title">${item.title}</h3>
+                                <div class="news-date"><i class="fa-regular fa-clock"></i> ${item.date}</div>
+                            </div>
+                            <span class="news-tag ${tagClass}">${typeName}</span>
+                            <p class="news-desc">${item.desc}</p>
+                        </div>
+                    </div>
+                `;
+            });
+
+            appContainer.innerHTML = `
+                ${getNavbar()}
+                <div class="container">
+                    <div class="hero" style="padding: 20px;">
+                        <h1 style="font-size:2.5rem;">KHÁM PHÁ & TIN TỨC</h1>
+                        <p>Cập nhật những thông tin nóng hổi nhất từ thế giới Game Indie</p>
+                    </div>
+                    <div class="news-container">
+                        ${newsHtml}
+                    </div>
+                </div>
+            `;
+            updateCartBadge();
+            renderGenreDropdown();
+        }
+
+        // COMMUNITY PAGE
         function renderCommunityPage() {
             const allReviews = getReviews();
             let communityHtml = '';
@@ -3028,7 +3118,9 @@
             } else if (view === 'login') {
                 renderLoginPage();
             } else if (view === 'community') {
-                renderCommunityPage(); // Render trang cộng đồng
+                renderCommunityPage(); 
+            } else if (view === 'discover') {
+                renderDiscoverPage(); // Render trang khám phá
             } else if (gameId) {
                 const selectedGame = currentGames.find(g => g.id == gameId);
                 selectedGame ? renderDetailPage(selectedGame) : (alert("Game không tồn tại!"), renderHomePage());

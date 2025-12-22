@@ -6,7 +6,7 @@
     <title>TRÀN BỘ NHỚ - Game Marketplace</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* --- CSS GIỮ NGUYÊN 100% --- */
+        /* --- CSS GIỮ NGUYÊN 100% CÁC PHẦN CŨ --- */
         :root {
             --bg-gradient-1: #87CEEB; 
             --bg-gradient-2: #E0F7FA; 
@@ -236,14 +236,39 @@
         .spec-item { margin-bottom: 10px; font-size: 0.95rem; }
         .spec-item strong { color: var(--text-color); display: inline-block; width: 110px; }
         
-        /* --- RATING STYLES --- */
+        /* --- RATING & REVIEW STYLES (UPDATED) --- */
         .rating-box { background: #fff; margin-top: 20px; padding: 20px; border-radius: 15px; text-align: center; border: 2px dashed #eee; }
         .rating-title { font-weight: bold; margin-bottom: 10px; color: #555; }
         .stars-container { display: flex; justify-content: center; gap: 10px; font-size: 2rem; cursor: pointer; }
         .star-icon { color: #ccc; transition: 0.2s; }
         .star-icon:hover, .star-icon.active { color: #f1c40f; transform: scale(1.2); }
         .user-rated-msg { margin-top: 10px; color: var(--success-color); font-weight: bold; font-size: 0.9rem; }
+        
+        .review-input-area { margin-top: 15px; text-align: left; display: none; } /* Mặc định ẩn nếu chưa login */
+        .review-input-area textarea { width: 100%; height: 80px; margin-bottom: 10px; border: 1px solid #ddd; padding: 10px; border-radius: 5px; }
+        .btn-submit-review { background: var(--primary-color); color: white; border: none; padding: 5px 15px; border-radius: 15px; cursor: pointer; font-weight: bold; }
+        .login-to-rate { font-size: 0.9rem; color: #888; font-style: italic; margin-top: 10px; }
 
+        .top-reviews-section { margin-top: 20px; background: #f9f9f9; padding: 15px; border-radius: 10px; border: 1px solid #eee; }
+        .top-reviews-title { font-size: 1rem; font-weight: bold; color: var(--primary-dark); margin-bottom: 10px; border-bottom: 2px solid #ddd; padding-bottom: 5px;}
+        .review-item { background: #fff; padding: 10px; border-radius: 8px; margin-bottom: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .review-header { display: flex; justify-content: space-between; font-size: 0.85rem; color: #666; margin-bottom: 5px; }
+        .review-user { font-weight: bold; color: var(--primary-color); }
+        .review-stars { color: #f1c40f; }
+        .review-content { font-size: 0.95rem; color: #333; }
+
+        /* --- COMMUNITY PAGE STYLES (NEW) --- */
+        .community-feed { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px; }
+        .comm-card { background: #fff; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-left: 5px solid var(--primary-color); transition: 0.3s; }
+        .comm-card:hover { transform: translateY(-5px); }
+        .comm-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+        .comm-user { display: flex; align-items: center; gap: 10px; font-weight: bold; color: #333; }
+        .comm-avatar { width: 40px; height: 40px; background: #ddd; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.2rem; background: linear-gradient(45deg, var(--primary-color), var(--accent-pink)); }
+        .comm-game-name { font-size: 0.85rem; color: #888; margin-top: 5px; display: block; font-style: italic; }
+        .comm-content { font-size: 1rem; color: #444; margin: 15px 0; line-height: 1.5; background: #f9f9f9; padding: 10px; border-radius: 8px; }
+        .comm-footer { display: flex; justify-content: space-between; font-size: 0.8rem; color: #aaa; }
+
+        /* --- CÁC PHẦN CSS CŨ GIỮ NGUYÊN --- */
         .story-section { margin-top: 30px; }
         .story-box { background: var(--card-bg); padding: 25px; border-radius: 15px; margin-top: 15px; color: #333; line-height: 1.6; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
         .gameplay-box { background: var(--card-bg); padding: 25px; border-radius: 15px; margin-top: 15px; color: #333; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
@@ -251,7 +276,6 @@
         .win-loss-list li { margin-bottom: 10px; display: flex; align-items: flex-start; gap: 10px; }
         .purchase-note { background: #fff3cd; color: #856404; padding: 15px; border-radius: 10px; margin-top: 20px; border: 1px solid #ffeeba; display: flex; align-items: center; gap: 10px; }
 
-        /* --- CSS CHO PHẦN GIỚI THIỆU --- */
         .intro-box { background: linear-gradient(to right, #ffffff, #f0f9ff); padding: 25px; border-radius: 15px; margin-top: 25px; border: 1px solid #e1e1e1; border-left: 6px solid var(--primary-color); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
         .intro-box h2 { border-left: none; padding-left: 0; margin-top: 0; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; font-size: 1.5rem; }
         .intro-content { font-size: 1.1rem; color: #444; font-weight: 500; }
@@ -259,7 +283,6 @@
         .custom-list li { margin-bottom: 5px; list-style-type: disc; }
         .content-paragraph { margin-bottom: 15px; }
 
-        /* --- CSS CHO TRANG GIỎ HÀNG --- */
         .cart-section { margin-top: 20px; }
         .cart-table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .cart-table th, .cart-table td { padding: 15px; text-align: left; border-bottom: 1px solid #eee; }
@@ -297,40 +320,33 @@
     <script>
         // =======================================================
         // CẤU HÌNH TÀI KHOẢN (ĐỂ SẴN 8 TÀI KHOẢN)
-        // Bạn có thể sửa trực tiếp username và password ở đây
         // =======================================================
         const preDefinedUsers = [
-            { username: "mda1205", password: "184/59duyanh" }, // Tài khoản 1 (Đã điền)
-            { username: "user2",   password: "123" },          // Tài khoản 2 (Sửa tại đây)
-            { username: "user3",   password: "123" },          // Tài khoản 3
-            { username: "user4",   password: "123" },          // Tài khoản 4
-            { username: "user5",   password: "123" },          // Tài khoản 5
-            { username: "user6",   password: "123" },          // Tài khoản 6
-            { username: "user7",   password: "123" },          // Tài khoản 7
-            { username: "user8",   password: "123" }           // Tài khoản 8
+            { username: "mda1205", password: "184/59duyanh" }, 
+            { username: "user2",   password: "123" },          
+            { username: "user3",   password: "123" },          
+            { username: "user4",   password: "123" },          
+            { username: "user5",   password: "123" },          
+            { username: "user6",   password: "123" },          
+            { username: "user7",   password: "123" },          
+            { username: "user8",   password: "123" }           
         ];
 
-        // Hàm tự động thêm tài khoản vào hệ thống
         function initSystemAccounts() {
             let currentUsers = JSON.parse(localStorage.getItem('users') || '[]');
-            
-            // Kiểm tra xem tài khoản 'mda1205' đã có chưa. Nếu chưa có (lần đầu chạy), thì thêm danh sách mẫu vào.
             const checkUser = currentUsers.find(u => u.username === "mda1205");
-            
             if (!checkUser) {
-                // Gộp danh sách hiện tại + danh sách mẫu
                 const mergedUsers = [...currentUsers, ...preDefinedUsers];
-                // Lọc trùng lặp (nếu có)
                 const uniqueUsers = mergedUsers.filter((v,i,a)=>a.findIndex(t=>(t.username === v.username))===i);
-                
                 localStorage.setItem('users', JSON.stringify(uniqueUsers));
-                console.log("Đã khởi tạo danh sách tài khoản mẫu thành công!");
             }
         }
 
-        // --- 1. DỮ LIỆU GAME (DATABASE) ---
+        // =======================================================
+        // DỮ LIỆU GAME VÀ ĐÁNH GIÁ (DATA)
+        // =======================================================
         const initialGames = [
-            // --- CÁC GAME GỐC (1-6) - ĐÃ KHÔI PHỤC NỘI DUNG GỐC ---
+            // ... (Giữ nguyên danh sách 12 game của bạn ở đây) ...
             { 
                 id: 1, 
                 name: "Magician vs. Goblin", 
@@ -554,158 +570,105 @@
                 winCondition: "Không có, game chỉ để thư giãn.",
                 lossCondition: "Khi tắt game =))"
             },
-
-            // --- CÁC GAME NỔI TIẾNG (GAME 7-12) ---
             { 
-                id: 7, 
-                name: "Elden Ring", 
-                desc: "Siêu phẩm hành động nhập vai thế giới mở từ FromSoftware.", 
-                intro: "Đứng lên, hỡi Kẻ bị vấy bẩn (Tarnished), và để ân sủng dẫn lối bạn chạm tay vào chiếc nhẫn Elden Ring.", 
-                price: 999000, 
-                bankInfo: "STEAM - STORE", 
-                img: "https://placehold.co/600x400?text=Elden+Ring", 
-                genre: "Action RPG, Open World, Soulslike", 
-                players: "Single, Multiplayer", 
-                developer: "FromSoftware Inc.", 
-                release: "25/02/2022", 
-                videoUrl: "https://www.youtube.com/embed/E3Huy2cdih0", 
-                downloadUrl: "https://store.steampowered.com/app/1245620/ELDEN_RING/", 
+                id: 7, name: "Elden Ring", desc: "Siêu phẩm hành động nhập vai thế giới mở từ FromSoftware.", 
+                intro: "Đứng lên, hỡi Kẻ bị vấy bẩn (Tarnished), và để ân sủng dẫn lối bạn chạm tay vào chiếc nhẫn Elden Ring.", price: 999000, bankInfo: "STEAM - STORE", 
+                img: "https://placehold.co/600x400?text=Elden+Ring", genre: "Action RPG, Open World, Soulslike", players: "Single, Multiplayer", developer: "FromSoftware Inc.", release: "25/02/2022", videoUrl: "https://www.youtube.com/embed/E3Huy2cdih0", downloadUrl: "https://store.steampowered.com/app/1245620/ELDEN_RING/", 
                 story: `Vùng đất Lands Between từng rực rỡ dưới sự cai trị của Nữ hoàng Marika Đấng Vĩnh Hằng. Nhưng chiếc nhẫn Elden Ring đã vỡ vụn... Những đứa con á thần của Marika tranh giành các mảnh vỡ (Great Runes), gây ra cuộc chiến tranh tàn khốc mang tên The Shattering. 
                 
                 Bạn là một Tarnished (Kẻ bị hắt hủi), trở về từ cõi chết để băng qua màn sương mù, thu thập các mảnh vỡ, diện kiến Marika và trở thành Elden Lord mới.`, 
-                gameplay: "Khám phá thế giới mở rộng lớn, chiến đấu với những con trùm khổng lồ, xây dựng nhân vật với hàng trăm loại vũ khí và phép thuật.", 
-                winCondition: "Đánh bại Elden Beast và chọn kết thúc của bạn.", 
-                lossCondition: "You Died (Chết và mất Runes)." 
+                gameplay: "Khám phá thế giới mở rộng lớn, chiến đấu với những con trùm khổng lồ, xây dựng nhân vật với hàng trăm loại vũ khí và phép thuật.", winCondition: "Đánh bại Elden Beast và chọn kết thúc của bạn.", lossCondition: "You Died (Chết và mất Runes)." 
             },
             { 
-                id: 8, 
-                name: "Hollow Knight", 
-                desc: "Kiệt tác Metroidvania vẽ tay đầy nghệ thuật và thử thách.", 
-                intro: "Khám phá vương quốc côn trùng Hallownest bị lãng quên và giải mã những bí ẩn cổ xưa.", 
-                price: 165000, 
-                bankInfo: "STEAM - STORE", 
-                img: "https://placehold.co/600x400?text=Hollow+Knight", 
-                genre: "Metroidvania, Action, Indie", 
-                players: "Single", 
-                developer: "Team Cherry", 
-                release: "24/02/2017", 
-                videoUrl: "https://www.youtube.com/embed/UAO2urG23S4", 
-                downloadUrl: "https://store.steampowered.com/app/367520/Hollow_Knight/", 
+                id: 8, name: "Hollow Knight", desc: "Kiệt tác Metroidvania vẽ tay đầy nghệ thuật và thử thách.", 
+                intro: "Khám phá vương quốc côn trùng Hallownest bị lãng quên và giải mã những bí ẩn cổ xưa.", price: 165000, bankInfo: "STEAM - STORE", 
+                img: "https://placehold.co/600x400?text=Hollow+Knight", genre: "Metroidvania, Action, Indie", players: "Single", developer: "Team Cherry", release: "24/02/2017", videoUrl: "https://www.youtube.com/embed/UAO2urG23S4", downloadUrl: "https://store.steampowered.com/app/367520/Hollow_Knight/", 
                 story: `Bên dưới thị trấn Dirtmouth điêu tàn là vương quốc côn trùng Hallownest cổ đại đã sụp đổ. Một bệnh dịch kỳ lạ (The Infection) đang biến cư dân thành những xác sống điên loạn. 
                 
                 Bạn là một Hiệp sĩ nhỏ bé, vô danh, mang theo thanh Nail cùn, đi sâu vào lòng đất để khám phá bí mật về Vua Nhợt Nhạt (Pale King) và phong ấn nguồn gốc của bệnh dịch trước khi nó nuốt chửng tất cả.`, 
-                gameplay: "Di chuyển khéo léo (nhảy, lướt, bám tường), chiến đấu bằng kiếm (Nail) và sử dụng bùa chú (Charms) để tăng sức mạnh.", 
-                winCondition: "Đánh bại The Radiance hoặc The Hollow Knight.", 
-                lossCondition: "Hết mặt nạ (Máu) và quay lại ghế đá gần nhất (mất Geo)." 
+                gameplay: "Di chuyển khéo léo (nhảy, lướt, bám tường), chiến đấu bằng kiếm (Nail) và sử dụng bùa chú (Charms) để tăng sức mạnh.", winCondition: "Đánh bại The Radiance hoặc The Hollow Knight.", lossCondition: "Hết mặt nạ (Máu) và quay lại ghế đá gần nhất (mất Geo)." 
             },
             { 
-                id: 9, 
-                name: "Hay Day", 
-                desc: "Game nông trại vui vẻ số 1 trên di động. Xây dựng trang trại trong mơ của bạn.", 
-                intro: "Chào mừng đến với nông trại tuyệt vời nhất trên di động! Làm quen với đất đai, chăm sóc mùa màng và trao đổi hàng hóa với bạn bè và hàng xóm.", 
-                price: 0, 
-                bankInfo: "SUPERCELL", 
-                img: "https://placehold.co/600x400?text=Hay+Day", 
-                genre: "Simulation, Farming, Casual", 
-                players: "Single, Multiplayer (Neighborhood)", 
-                developer: "Supercell", 
-                release: "21/06/2012", 
-                videoUrl: "https://www.youtube.com/embed/H5tO9y_5tS4", 
-                downloadUrl: "https://supercell.com/en/games/hayday/", 
+                id: 9, name: "Hay Day", desc: "Game nông trại vui vẻ số 1 trên di động. Xây dựng trang trại trong mơ của bạn.", 
+                intro: "Chào mừng đến với nông trại tuyệt vời nhất trên di động! Làm quen với đất đai, chăm sóc mùa màng và trao đổi hàng hóa với bạn bè và hàng xóm.", price: 0, bankInfo: "SUPERCELL", 
+                img: "https://placehold.co/600x400?text=Hay+Day", genre: "Simulation, Farming, Casual", players: "Single, Multiplayer (Neighborhood)", developer: "Supercell", release: "21/06/2012", videoUrl: "https://www.youtube.com/embed/H5tO9y_5tS4", downloadUrl: "https://supercell.com/en/games/hayday/", 
                 story: `Bạn nhận được một bức thư từ người chú Greg thân thiết. Ông ấy đã lớn tuổi và không thể quán xuyến nổi nông trại cũ của gia đình nữa, vì vậy ông muốn trao lại quyền thừa kế và quản lý cho bạn. 
                 
                 Nông trại hiện tại khá hoang sơ và bừa bộn, nhưng với sự chăm chỉ và óc sáng tạo, bạn hoàn toàn có thể biến nó thành một thiên đường nông nghiệp trù phú nhất thung lũng. 
                 
                 Cốt truyện không chỉ dừng lại ở việc trồng cây, mà là hành trình kết nối cộng đồng: buôn bán với các nhân vật thăm viếng, hoàn thành đơn hàng xe tải, tàu thủy, phục vụ khách du lịch tại Thị Trấn và tham gia các cuộc đua Derby kịch tính cùng hội nông dân (Neighborhood).`, 
-                gameplay: "Thao tác chạm và vuốt đơn giản để gieo hạt, thu hoạch, cho thú ăn. Xây dựng các máy sản xuất (lò nướng, máy ép đường,...) để tạo ra sản phẩm và bán lấy tiền vàng.", 
-                winCondition: "Không có kết thúc. Mục tiêu là mở rộng trang trại, lên cấp và đạt các thành tựu.", 
-                lossCondition: "Không có. Đây là game thư giãn, bạn không thể thua." 
+                gameplay: "Thao tác chạm và vuốt đơn giản để gieo hạt, thu hoạch, cho thú ăn. Xây dựng các máy sản xuất (lò nướng, máy ép đường,...) để tạo ra sản phẩm và bán lấy tiền vàng.", winCondition: "Không có kết thúc. Mục tiêu là mở rộng trang trại, lên cấp và đạt các thành tựu.", lossCondition: "Không có. Đây là game thư giãn, bạn không thể thua." 
             },
             { 
-                id: 10, 
-                name: "God of War Ragnarök", 
-                desc: "Hành trình sử thi của Kratos và Atreus qua 9 cõi Bắc Âu.", 
-                intro: "Fimbulwinter đang đến gần. Kratos và Atreus phải quyết định số phận của họ trước khi Ragnarök xảy ra.", 
-                price: 1200000, 
-                bankInfo: "SONY - STEAM", 
-                img: "https://placehold.co/600x400?text=God+of+War", 
-                genre: "Action-Adventure, Hack and Slash", 
-                players: "Single", 
-                developer: "Santa Monica Studio", 
-                release: "09/11/2022", 
-                videoUrl: "https://www.youtube.com/embed/EE-4GvjKcfs", 
-                downloadUrl: "https://store.steampowered.com/app/2322010/God_of_War_Ragnark/", 
+                id: 10, name: "God of War Ragnarök", desc: "Hành trình sử thi của Kratos và Atreus qua 9 cõi Bắc Âu.", 
+                intro: "Fimbulwinter đang đến gần. Kratos và Atreus phải quyết định số phận của họ trước khi Ragnarök xảy ra.", price: 1200000, bankInfo: "SONY - STEAM", 
+                img: "https://placehold.co/600x400?text=God+of+War", genre: "Action-Adventure, Hack and Slash", players: "Single", developer: "Santa Monica Studio", release: "09/11/2022", videoUrl: "https://www.youtube.com/embed/EE-4GvjKcfs", downloadUrl: "https://store.steampowered.com/app/2322010/God_of_War_Ragnark/", 
                 story: `Fimbulwinter (Mùa đông khắc nghiệt) đã bao trùm 9 cõi, báo hiệu ngày tận thế Ragnarök đang đến gần. Kratos và Atreus phải hành trình qua từng thế giới để tìm kiếm câu trả lời trước khi các vị thần Asgard (Odin, Thor) phát động chiến tranh. 
                 
                 Đây không chỉ là cuộc chiến sinh tồn, mà là câu chuyện về sự trưởng thành, lòng tin và sự buông bỏ giữa hai cha con Chiến Thần.`, 
-                gameplay: "Chiến đấu bạo lực với Rìu Leviathan và Dao Blades of Chaos. Giải đố và khám phá cốt truyện sâu sắc.", 
-                winCondition: "Hoàn thành cốt truyện chính và đánh bại Odin.", 
-                lossCondition: "Hết máu trong combat." 
+                gameplay: "Chiến đấu bạo lực với Rìu Leviathan và Dao Blades of Chaos. Giải đố và khám phá cốt truyện sâu sắc.", winCondition: "Hoàn thành cốt truyện chính và đánh bại Odin.", lossCondition: "Hết máu trong combat." 
             },
             { 
-                id: 11, 
-                name: "League of Legends", 
-                desc: "Đấu trường trận chiến trực tuyến nhiều người chơi (MOBA) số 1 thế giới.", 
-                intro: "Chọn vị tướng của bạn và lập đội để phá hủy nhà chính đối phương (Nexus).", 
-                price: 0, 
-                bankInfo: "RIOT GAMES", 
-                img: "https://placehold.co/600x400?text=League+of+Legends", 
-                genre: "MOBA, Strategy", 
-                players: "Multiplayer (5v5)", 
-                developer: "Riot Games", 
-                release: "27/10/2009", 
-                videoUrl: "https://www.youtube.com/embed/mDYqT0_9VR4", 
-                downloadUrl: "https://signup.leagueoflegends.com/", 
+                id: 11, name: "League of Legends", desc: "Đấu trường trận chiến trực tuyến nhiều người chơi (MOBA) số 1 thế giới.", 
+                intro: "Chọn vị tướng của bạn và lập đội để phá hủy nhà chính đối phương (Nexus).", price: 0, bankInfo: "RIOT GAMES", 
+                img: "https://placehold.co/600x400?text=League+of+Legends", genre: "MOBA, Strategy", players: "Multiplayer (5v5)", developer: "Riot Games", release: "27/10/2009", videoUrl: "https://www.youtube.com/embed/mDYqT0_9VR4", downloadUrl: "https://signup.leagueoflegends.com/", 
                 story: `Trong thế giới Runeterra đầy ma thuật và xung đột, các anh hùng (Champions) từ những vùng đất đối nghịch như Demacia công lý, Noxus tàn bạo, hay Ionia huyền bí... tập hợp lại tại Summoner's Rift. 
                 
                 Mỗi trận chiến là một cuộc đấu trí căng thẳng để phá hủy Nexus đối phương. Cốt truyện được mở rộng qua từng vị tướng với những mối thù truyền kiếp và lý tưởng riêng.`, 
-                gameplay: "Điều khiển tướng, farm lính, mua trang bị và phối hợp đồng đội giao tranh tổng.", 
-                winCondition: "Phá hủy nhà chính (Nexus) của địch.", 
-                lossCondition: "Nhà chính mình bị phá hủy hoặc đầu hàng (FF 15)." 
+                gameplay: "Điều khiển tướng, farm lính, mua trang bị và phối hợp đồng đội giao tranh tổng.", winCondition: "Phá hủy nhà chính (Nexus) của địch.", lossCondition: "Nhà chính mình bị phá hủy hoặc đầu hàng (FF 15)." 
             },
             { 
-                id: 12, 
-                name: "Minecraft", 
-                desc: "Thế giới của những khối vuông kỳ diệu. Giới hạn là trí tưởng tượng của bạn.", 
-                intro: "Xây dựng mọi thứ, từ ngôi nhà đơn sơ đến lâu đài vĩ đại nhất.", 
-                price: 750000, 
-                bankInfo: "MICROSOFT", 
-                img: "https://placehold.co/600x400?text=Minecraft", 
-                genre: "Sandbox, Survival", 
-                players: "Single, Multiplayer", 
-                developer: "Mojang Studios", 
-                release: "18/11/2011", 
-                videoUrl: "https://www.youtube.com/embed/MmB9b5njVbA", 
-                downloadUrl: "https://www.minecraft.net/", 
+                id: 12, name: "Minecraft", desc: "Thế giới của những khối vuông kỳ diệu. Giới hạn là trí tưởng tượng của bạn.", 
+                intro: "Xây dựng mọi thứ, từ ngôi nhà đơn sơ đến lâu đài vĩ đại nhất.", price: 750000, bankInfo: "MICROSOFT", 
+                img: "https://placehold.co/600x400?text=Minecraft", genre: "Sandbox, Survival", players: "Single, Multiplayer", developer: "Mojang Studios", release: "18/11/2011", videoUrl: "https://www.youtube.com/embed/MmB9b5njVbA", downloadUrl: "https://www.minecraft.net/", 
                 story: `Không có kịch bản định sẵn, bạn tỉnh dậy giữa một thế giới hoang sơ rộng lớn. Bạn có thể chọn cuộc sống bình yên: làm ruộng, chăn nuôi, xây nhà. 
                 
                 Hoặc dấn thân vào nguy hiểm: chế tạo vũ khí, xuống địa ngục (Nether), tìm kiếm Stronghold và tiêu diệt Rồng Ender để giải phóng thế giới The End. Cốt truyện chính là hành trình sáng tạo của riêng bạn.`, 
-                gameplay: "Chế độ Sinh tồn (kiếm ăn, đánh quái) hoặc Sáng tạo (bất tử, full nguyên liệu).", 
-                winCondition: "Đánh bại rồng Ender (tuỳ chọn).", 
-                lossCondition: "Hết máu và rơi đồ (Survival)." 
+                gameplay: "Chế độ Sinh tồn (kiếm ăn, đánh quái) hoặc Sáng tạo (bất tử, full nguyên liệu).", winCondition: "Đánh bại rồng Ender (tuỳ chọn).", lossCondition: "Hết máu và rơi đồ (Survival)." 
             }
         ];
 
-        // --- HÀM LẤY DỮ LIỆU TỪ LOCAL STORAGE (LƯU TRỮ VĨNH VIỄN) ---
+        // --- HÀM KHỞI TẠO REVIEW MẪU (Để cộng đồng không bị trống) ---
+        const initialReviews = [
+            { gameId: 1, username: "ProGamer99", rating: 5, comment: "Game khó nhưng cực cuốn, đánh boss phê!", date: "20/12/2025" },
+            { gameId: 1, username: "NoobMaster", rating: 4, comment: "Cần giảm độ khó một chút ở màn 3.", date: "19/12/2025" },
+            { gameId: 7, username: "SoulsFan", rating: 5, comment: "Siêu phẩm 10/10, GOTY không bàn cãi.", date: "15/12/2025" },
+            { gameId: 2, username: "SinhVienNam4", rating: 5, comment: "Game quá chân thực, chơi mà thấy bóng dáng mình trong đó :))", date: "18/12/2025" }
+        ];
+
+        function initSystemReviews() {
+            if (!localStorage.getItem('reviews')) {
+                localStorage.setItem('reviews', JSON.stringify(initialReviews));
+            }
+        }
+
+        function getReviews() {
+            return JSON.parse(localStorage.getItem('reviews') || '[]');
+        }
+
+        function saveReview(reviewObj) {
+            let reviews = getReviews();
+            reviews.unshift(reviewObj); // Thêm vào đầu danh sách
+            localStorage.setItem('reviews', JSON.stringify(reviews));
+        }
+
+        // --- CÁC HÀM XỬ LÝ GAME (LOCAL STORAGE) ---
         function getStoredGames() {
             const stored = localStorage.getItem('myCustomGames');
             return stored ? JSON.parse(stored) : [];
         }
 
-        // --- HÀM LƯU GAME MỚI VÀO LOCAL STORAGE ---
         function saveCustomGame(newGame) {
             const currentStored = getStoredGames();
             currentStored.push(newGame);
             localStorage.setItem('myCustomGames', JSON.stringify(currentStored));
         }
 
-        // Kết hợp game gốc + game đã lưu từ bộ nhớ
         let currentGames = [...initialGames, ...getStoredGames()];
-        
         const appContainer = document.getElementById('app-container');
         const formatter = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' });
 
-        // --- 2. HỆ THỐNG QUẢN LÝ GIỎ HÀNG (STORAGE) ---
+        // --- HỆ THỐNG GIỎ HÀNG ---
         function getCart() { return JSON.parse(localStorage.getItem('cart') || '[]'); }
         function saveCart(cart) { localStorage.setItem('cart', JSON.stringify(cart)); updateCartBadge(); }
         
@@ -736,13 +699,12 @@
         function getLibrary() { return JSON.parse(localStorage.getItem('library') || '[]'); }
         function saveLibrary(library) { localStorage.setItem('library', JSON.stringify(library)); }
 
-        // --- HÀM RESET DỮ LIỆU ---
         function resetLibrary() {
-            if(confirm("Bạn có chắc muốn XÓA TOÀN BỘ dữ liệu (Game đã mua + Game đã đăng)?")) {
+            if(confirm("Bạn có chắc muốn XÓA TOÀN BỘ dữ liệu (Game đã mua + Game đã đăng + Đánh giá)?")) {
                 localStorage.removeItem('library');
                 localStorage.removeItem('cart');
-                localStorage.removeItem('myCustomGames'); // Xóa cả game đã đăng
-                localStorage.removeItem('userRatings');   // Xóa đánh giá
+                localStorage.removeItem('myCustomGames');
+                localStorage.removeItem('reviews'); // Reset reviews
                 alert("Đã reset dữ liệu! Về trang chủ...");
                 window.location.href = window.location.pathname; 
             }
@@ -757,58 +719,33 @@
             }
         }
 
-        // --- HÀM THANH TOÁN ---
         function processCheckout() {
             const cart = getCart();
             if (cart.length === 0) {
                 alert("Giỏ hàng đang trống! Hãy thêm game vào trước khi thanh toán.");
                 return;
             }
-
-            // Tính tổng tiền để hiển thị trong confirm
             const allGames = [...initialGames, ...getStoredGames()];
             const cartItemsFull = allGames.filter(g => cart.includes(g.id));
             const total = cartItemsFull.reduce((sum, item) => sum + item.price, 0);
-            const totalFormatted = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(total);
+            const totalFormatted = formatter.format(total);
 
             if (confirm(`Xác nhận thanh toán ${cart.length} game?\nTổng cộng: ${totalFormatted}`)) {
                 let library = getLibrary();
-                
-                // Thêm game vào thư viện
                 cart.forEach(id => {
                     if (!library.includes(id)) library.push(id);
                 });
-                
-                saveLibrary(library); // Lưu thư viện mới
-                saveCart([]);         // Xóa sạch giỏ hàng
-                
+                saveLibrary(library);
+                saveCart([]);
                 alert("Thanh toán thành công! Cảm ơn bạn đã ủng hộ TBN Studio.");
-                renderCartPage();     // Load lại trang để thấy game đã mua
-                updateCartBadge();    // Reset số trên icon giỏ hàng
+                renderCartPage();
+                updateCartBadge();
             }
         }
 
-        // --- HÀM ĐÁNH GIÁ (RATING) ---
-        function submitRating(gameId, rating) {
-            let ratings = JSON.parse(localStorage.getItem('userRatings') || '{}');
-            ratings[gameId] = rating;
-            localStorage.setItem('userRatings', JSON.stringify(ratings));
-            
-            // Vẽ lại UI đánh giá
-            alert(`Cảm ơn bạn đã đánh giá ${rating} sao!`);
-            const selectedGame = currentGames.find(g => g.id == gameId);
-            if (selectedGame) renderDetailPage(selectedGame);
-        }
-
-        function getGameRating(gameId) {
-            const ratings = JSON.parse(localStorage.getItem('userRatings') || '{}');
-            return ratings[gameId] || 0;
-        }
-
-        // --- 3. HELPER FUNCTIONS (FORMAT TEXT) ---
+        // --- HELPER FORMAT TEXT ---
         function formatGameText(text) {
             if (!text) return "";
-
             let formatted = text
                 .replace(/Ý tưởng cốt lõi/g, "<strong>Ý tưởng cốt lõi</strong>")
                 .replace(/Ý tưởng trung tâm/g, "<strong>Ý tưởng trung tâm</strong>")
@@ -823,7 +760,6 @@
                 if (para.trim().includes('+')) {
                     const lines = para.split('\n');
                     let inList = false;
-                    
                     lines.forEach(line => {
                         let cleanLine = line.trim();
                         if (cleanLine.startsWith('+')) {
@@ -844,10 +780,10 @@
             return html;
         }
 
-        // --- 4. CÁC HÀM XỬ LÝ MENU DROPDOWN & LỌC GENRE ---
+        // --- DROPDOWN & FILTER ---
         function getAllGenres() {
             let allGenres = [];
-            currentGames.forEach(game => { // Dùng currentGames để lấy cả genre của game mới
+            currentGames.forEach(game => {
                 let genres = game.genre.split(/[,\/]/).map(g => g.trim());
                 allGenres.push(...genres);
             });
@@ -874,7 +810,7 @@
             }
         }
 
-        // --- AUTHENTICATION (ĐĂNG NHẬP / ĐĂNG KÝ) ---
+        // --- AUTHENTICATION ---
         function getUsers() { return JSON.parse(localStorage.getItem('users') || '[]'); }
         function saveUsers(users) { localStorage.setItem('users', JSON.stringify(users)); }
         function getCurrentUser() { return JSON.parse(localStorage.getItem('currentUser')); }
@@ -930,7 +866,7 @@
                             <a href="#">Thể loại <i class="fa-solid fa-caret-down" style="font-size: 0.8rem;"></i></a>
                             <div class="dropdown-content" id="genreDropdown"></div>
                         </div>
-                        <a href="#">Cộng đồng</a>
+                        <a href="#" onclick="goToCommunityPage()">Cộng đồng</a>
                         <a href="#" onclick="goToUploadPage()" style="color:var(--primary-color);font-weight:bold;">
                             <i class="fa-solid fa-upload"></i> Đăng tải game
                         </a>
@@ -950,15 +886,17 @@
             `;
         }
 
-        // --- 5. RENDER CÁC TRANG ---
-        
+        // --- NAVIGATION FUNCTIONS ---
         function openCartInNewTab() { window.open(`${window.location.pathname}?view=cart`, '_blank'); }
         function goToCartView() { window.location.href = `${window.location.pathname}?view=cart`; }
         function openGameDetail(gameId) { window.open(`${window.location.pathname}?game=${gameId}`, '_blank'); }
         function goToUploadPage() { window.location.href = `${window.location.pathname}?view=upload`; }
+        function goToCommunityPage() { window.location.href = `${window.location.pathname}?view=community`; }
         function getQueryParam(param) { const urlParams = new URLSearchParams(window.location.search); return urlParams.get(param); }
 
-        // === 5.0 TRANG ĐĂNG NHẬP / ĐĂNG KÝ ===
+        // --- RENDER PAGES ---
+        
+        // LOGIN PAGE
         function renderLoginPage() {
             appContainer.innerHTML = `
                 ${getNavbar()}
@@ -999,7 +937,7 @@
             renderGenreDropdown(); 
         }
 
-        // === 5.1 TRANG CHỦ ===
+        // HOME PAGE
         function renderHomePage() {
             appContainer.innerHTML = `
                 ${getNavbar()}
@@ -1032,7 +970,66 @@
             }
         }
 
-        // === 5.2 TRANG ĐĂNG TẢI GAME ===
+        // COMMUNITY PAGE (NEW)
+        function renderCommunityPage() {
+            const allReviews = getReviews();
+            let communityHtml = '';
+            
+            if (allReviews.length === 0) {
+                communityHtml = '<p style="text-align:center; font-size:1.2rem; color:#666;">Chưa có bài thảo luận nào. Hãy là người đầu tiên đánh giá game!</p>';
+            } else {
+                communityHtml = `<div class="community-feed">`;
+                allReviews.forEach(r => {
+                    const game = currentGames.find(g => g.id == r.gameId);
+                    const gameName = game ? game.name : "Game không xác định";
+                    
+                    // Tạo số sao
+                    let stars = '';
+                    for(let i=1; i<=5; i++) {
+                        stars += `<i class="fa-solid fa-star" style="color:${i<=r.rating ? '#f1c40f' : '#ccc'}"></i>`;
+                    }
+                    const avatarChar = r.username.charAt(0).toUpperCase();
+
+                    communityHtml += `
+                        <div class="comm-card">
+                            <div class="comm-header">
+                                <div class="comm-user">
+                                    <div class="comm-avatar">${avatarChar}</div>
+                                    <div>
+                                        <span>${r.username}</span>
+                                        <a href="${window.location.pathname}?game=${r.gameId}" class="comm-game-name">đã đánh giá <strong>${gameName}</strong></a>
+                                    </div>
+                                </div>
+                                <div style="font-size:0.9rem;">${stars}</div>
+                            </div>
+                            <div class="comm-content">
+                                "${r.comment}"
+                            </div>
+                            <div class="comm-footer">
+                                <span><i class="fa-regular fa-clock"></i> ${r.date}</span>
+                                <span style="color:var(--primary-color); cursor:pointer;">Thích <i class="fa-regular fa-thumbs-up"></i></span>
+                            </div>
+                        </div>
+                    `;
+                });
+                communityHtml += `</div>`;
+            }
+
+            appContainer.innerHTML = `
+                ${getNavbar()}
+                <div class="container">
+                    <div class="hero" style="padding: 20px;">
+                        <h1 style="font-size:2.5rem;">CỘNG ĐỒNG GAME THỦ</h1>
+                        <p>Chia sẻ, đánh giá và thảo luận về những tựa game bạn yêu thích</p>
+                    </div>
+                    ${communityHtml}
+                </div>
+            `;
+            updateCartBadge();
+            renderGenreDropdown();
+        }
+
+        // UPLOAD PAGE
         function renderUploadPage() {
             appContainer.innerHTML = `
                 ${getNavbar()}
@@ -1154,7 +1151,6 @@
             }
         }
 
-        // ... [CÁC HÀM RENDER GAME, CART, DETAIL CŨ] ...
         function renderGames(games, gridElement) {
             gridElement.innerHTML = "";
             const cart = getCart();
@@ -1212,7 +1208,7 @@
             });
         }
 
-        // === 5.2 TRANG GIỎ HÀNG (CART PAGE) ===
+        // CART PAGE
         function renderCartPage() {
             const cartIds = getCart();
             const libraryIds = getLibrary();
@@ -1283,7 +1279,56 @@
             renderGenreDropdown();
         }
 
-        // === 5.3 TRANG CHI TIẾT ===
+        // --- HÀM XỬ LÝ ĐÁNH GIÁ (LOGIC MỚI) ---
+        let currentSelectedRating = 0; // Lưu tạm số sao người dùng đang chọn
+
+        function selectRating(stars) {
+            const user = getCurrentUser();
+            if (!user) {
+                alert("Vui lòng đăng nhập để đánh giá!");
+                window.location.href = `${window.location.pathname}?view=login`;
+                return;
+            }
+            currentSelectedRating = stars;
+            
+            // Highlight các ngôi sao
+            const allStars = document.querySelectorAll('.star-icon-input');
+            allStars.forEach((s, index) => {
+                if (index < stars) s.classList.add('active');
+                else s.classList.remove('active');
+            });
+
+            // Hiện ô nhập comment
+            document.getElementById('reviewInputArea').style.display = 'block';
+        }
+
+        function submitReview(gameId) {
+            const user = getCurrentUser();
+            if (!user) return;
+            
+            const comment = document.getElementById('reviewComment').value;
+            if (comment.trim() === "") {
+                alert("Hãy nhập một vài dòng nhận xét về game nhé!");
+                return;
+            }
+
+            const newReview = {
+                gameId: gameId,
+                username: user.username,
+                rating: currentSelectedRating,
+                comment: comment,
+                date: new Date().toLocaleDateString('vi-VN') + " " + new Date().toLocaleTimeString('vi-VN')
+            };
+
+            saveReview(newReview);
+            alert("Cảm ơn bạn đã đánh giá!");
+            
+            // Reload lại trang chi tiết để hiện review mới
+            const selectedGame = currentGames.find(g => g.id == gameId);
+            renderDetailPage(selectedGame);
+        }
+
+        // DETAIL PAGE
         function renderDetailPage(game) {
             const library = getLibrary();
             const isOwned = library.includes(game.id);
@@ -1298,11 +1343,42 @@
             
             const downloadLink = game.downloadUrl || "#";
             const downloadAction = `window.open('${downloadLink}', '_blank')`;
-            const currentRating = getGameRating(game.id);
-            let ratingHtml = '';
+            const user = getCurrentUser();
+
+            // Lấy 3 review tốt nhất/mới nhất của game này
+            const allReviews = getReviews();
+            const gameReviews = allReviews.filter(r => r.gameId == game.id);
+            // Sắp xếp: Ưu tiên nội dung dài (chi tiết) và rating cao
+            gameReviews.sort((a, b) => (b.comment.length + b.rating*10) - (a.comment.length + a.rating*10));
+            const top3Reviews = gameReviews.slice(0, 3);
+
+            // Tạo HTML cho phần Input đánh giá
+            let ratingInputHtml = '';
             for(let i=1; i<=5; i++) {
-                const activeClass = i <= currentRating ? 'active' : '';
-                ratingHtml += `<i class="fa-solid fa-star star-icon ${activeClass}" onclick="submitRating(${game.id}, ${i})"></i>`;
+                ratingInputHtml += `<i class="fa-solid fa-star star-icon star-icon-input" onclick="selectRating(${i})"></i>`;
+            }
+
+            // Tạo HTML cho danh sách 3 Review
+            let topReviewsHtml = '';
+            if (top3Reviews.length > 0) {
+                top3Reviews.forEach(r => {
+                    let stars = '';
+                    for(let i=1; i<=5; i++) {
+                        stars += `<i class="fa-solid fa-star" style="font-size:0.8rem; color:${i<=r.rating ? '#f1c40f' : '#ccc'}"></i>`;
+                    }
+                    topReviewsHtml += `
+                        <div class="review-item">
+                            <div class="review-header">
+                                <span class="review-user">${r.username}</span>
+                                <span class="review-stars">${stars}</span>
+                            </div>
+                            <div class="review-content">"${r.comment}"</div>
+                            <div style="font-size:0.75rem; color:#aaa; margin-top:5px; text-align:right;">${r.date}</div>
+                        </div>
+                    `;
+                });
+            } else {
+                topReviewsHtml = `<p style="font-style:italic; color:#888;">Chưa có đánh giá nào. Hãy là người đầu tiên!</p>`;
             }
 
             let mainButtonHtml = '';
@@ -1314,7 +1390,7 @@
                     </button>`;
             } else {
                 mainButtonHtml = `
-                    <button onclick="buyNowFromDetail(${game.id})" 
+                    <button onclick="addToCart(${game.id}); goToCartView();" 
                             class="btn-play" style="width: 250px; margin-top: 20px; background: var(--accent-pink); color: white; box-shadow: 0 4px 0 #d63031;">
                         <i class="fa-solid fa-cart-plus"></i> MUA VÀ TẢI (${priceDisplay})
                     </button>
@@ -1359,11 +1435,29 @@
                             <div class="spec-item"><strong>Phát triển bởi:</strong> <span>${game.developer}</span></div>
                             <div class="spec-item"><strong>Ngày đăng tải:</strong> <span>${game.release}</span></div>
                             <div class="spec-item"><strong>Giá tiền:</strong> <span style="color: var(--accent-pink); font-weight:bold;">${priceDisplay}</span></div>
+                            
                             <div class="rating-box">
-                                <div class="rating-title">Đánh giá game này:</div>
-                                <div class="stars-container">${ratingHtml}</div>
-                                ${currentRating > 0 ? `<div class="user-rated-msg">Bạn đã chấm ${currentRating}/5 sao</div>` : ''}
+                                <div class="rating-title">Đánh giá & Nhận xét:</div>
+                                <div class="stars-container">${ratingInputHtml}</div>
+                                
+                                ${user ? `
+                                    <div id="reviewInputArea" class="review-input-area">
+                                        <textarea id="reviewComment" placeholder="Chia sẻ cảm nghĩ của bạn về game này..."></textarea>
+                                        <button class="btn-submit-review" onclick="submitReview(${game.id})">Gửi nhận xét</button>
+                                    </div>
+                                ` : `
+                                    <p class="login-to-rate"><a href="${window.location.pathname}?view=login">Đăng nhập</a> để viết nhận xét.</p>
+                                `}
                             </div>
+
+                            <div class="top-reviews-section">
+                                <div class="top-reviews-title">🏆 Top Đánh giá nổi bật</div>
+                                ${topReviewsHtml}
+                                <div style="text-align:center; margin-top:10px;">
+                                    <a href="#" onclick="goToCommunityPage()" style="font-size:0.85rem; color:var(--primary-color);">Xem tất cả tại Cộng đồng &rarr;</a>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -1372,7 +1466,6 @@
             updateCartBadge();
         }
 
-        // --- AUTH & LOGIN LOGIC ---
         function switchTab(tab) {
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'));
@@ -1399,9 +1492,10 @@
             else alert("Vui lòng nhập đầy đủ thông tin!");
         }
 
-        // === 6. MAIN INIT ===
+        // === MAIN INIT ===
         document.addEventListener('DOMContentLoaded', function() {
-            initSystemAccounts(); // <--- KHỞI TẠO TÀI KHOẢN MẪU KHI CHẠY TRANG
+            initSystemAccounts(); 
+            initSystemReviews(); // Khởi tạo review mẫu
             
             const gameId = getQueryParam('game');
             const view = getQueryParam('view');
@@ -1412,6 +1506,8 @@
                 renderUploadPage();
             } else if (view === 'login') {
                 renderLoginPage();
+            } else if (view === 'community') {
+                renderCommunityPage(); // Render trang cộng đồng
             } else if (gameId) {
                 const selectedGame = currentGames.find(g => g.id == gameId);
                 selectedGame ? renderDetailPage(selectedGame) : (alert("Game không tồn tại!"), renderHomePage());
@@ -2281,7 +2377,7 @@
 
             return `
                 <nav class="navbar">
-                    <a class="logo" href="${window.location.pathname}">
+                    <a class="logo" href="about.html">
                         <i class="fa-solid fa-gamepad"></i> TBN STUDIO
                     </a>
                     <div class="nav-links">
